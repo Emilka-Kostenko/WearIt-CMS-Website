@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WearIt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500&family=Barlow+Condensed:wght@900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -19,7 +22,7 @@
         <ul class="navbar__menu">
           <li><a href="#" class="navbar__link">Shop</a></li>
           <li><a href="#" class="navbar__link">Categories</a></li>
-          <li><a href="#" class="navbar__link">Blog</a></li>
+          <li><a href="#" class="navbar__link">Blog </a></li>
           <li><a href="#" class="navbar__link">About</a></li>
         </ul>
       </nav>
@@ -63,8 +66,48 @@
     </div>
   </header>
 
-  <!-- Placeholder body content so sticky nav is visible -->
-  <main style="height: 200vh; background: #0d0d0d;"></main>
+  <main>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="hero">
+      <div class="hero__container">
+
+        <!-- Left: text content -->
+        <div class="hero__content">
+          <!-- eyebrow — editable via ACF: hero_eyebrow -->
+          <p class="hero__eyebrow">New Collection SS26</p>
+
+          <!-- headline — editable via ACF: hero_headline_line1 / hero_headline_line2 -->
+          <h1 class="hero__heading">
+            <span class="hero__heading-line1">Wear It.</span>
+            <span class="hero__heading-line2">Own It.</span>
+          </h1>
+
+          <!-- body copy — editable via ACF: hero_body -->
+          <p class="hero__body">We don't follow trends. Every piece is cut with purpose — heavy fabrics, sharp silhouettes, zero compromises. Made to last. Made to be seen.</p>
+
+          <!-- CTAs — editable via ACF: hero_cta_primary_label/url, hero_cta_secondary_label/url -->
+          <div class="hero__ctas">
+            <a href="#" class="hero__cta hero__cta--primary">Shop Products</a>
+            <a href="#" class="hero__cta hero__cta--secondary">Read the Blog</a>
+          </div>
+        </div>
+
+        <!-- Right: image — editable via ACF: hero_image -->
+        <div class="hero__image-wrap">
+          <img
+            class="hero__image"
+            src="http://localhost:3845/assets/e1961841611db896fba7ef645e196409f9add5e3.png"
+            alt="Model in dark streetwear editorial"
+          />
+          <div class="hero__image-fade" aria-hidden="true"></div>
+        </div>
+
+      </div>
+    </section>
+    <!-- =================== END HERO =================== -->
+
+  </main>
 
   <script>
     const hamburger = document.getElementById('hamburger');

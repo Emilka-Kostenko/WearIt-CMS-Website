@@ -12,6 +12,8 @@
 
   /* Typography */
   --font-primary:    'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-barlow:     'Barlow', sans-serif;
+  --font-condensed:  'Barlow Condensed', sans-serif;
   --font-size-sm:    0.813rem;   /* 13px */
   --font-size-base:  1rem;       /* 16px */
   --font-weight-regular: 400;
@@ -285,3 +287,178 @@ button {
     --navbar-logo-size: 1.1rem;
   }
 }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  background-color: var(--color-bg);
+  padding-top: var(--navbar-height);
+  min-height: 100svh;
+  display: flex;
+  align-items: stretch;
+}
+
+.hero__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: calc(100svh - var(--navbar-height));
+}
+
+/* ---- Left: content ---- */
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(3rem, 6vw, 6rem) clamp(1.5rem, 4vw, 3rem);
+  padding-left: clamp(1.5rem, 4vw, 3rem);
+}
+
+.hero__eyebrow {
+  font-family: var(--font-barlow);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 1.5rem;
+}
+
+.hero__heading {
+  font-family: var(--font-condensed);
+  font-weight: 900;
+  font-size: clamp(4rem, 8vw, 6.2rem);
+  line-height: 0.92;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.hero__heading-line1 {
+  display: block;
+  color: var(--color-text);
+}
+
+.hero__heading-line2 {
+  display: block;
+  color: var(--color-accent);
+}
+
+.hero__body {
+  font-family: var(--font-barlow);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.625;
+  color: #888888;
+  max-width: 28rem;
+  margin-bottom: 2.5rem;
+}
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.75rem;
+  font-family: var(--font-barlow);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.hero__cta--primary {
+  background-color: var(--color-accent);
+  color: #0d0d0d;
+}
+
+.hero__cta--primary:hover {
+  background-color: #b8e800;
+}
+
+.hero__cta--secondary {
+  background-color: transparent;
+  color: var(--color-text);
+  border: 1px solid #2a2a2a;
+}
+
+.hero__cta--secondary:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--color-surface);
+}
+
+/* ---- Right: image ---- */
+.hero__image-wrap {
+  position: relative;
+  overflow: hidden;
+  min-height: 480px;
+}
+
+.hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  pointer-events: none;
+}
+
+/* Left-to-right gradient fade matching Figma */
+.hero__image-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, #0d0d0d 0%, rgba(13, 13, 13, 0) 30%);
+}
+
+/* ============================================================
+   HERO — TABLET  (≤ 900px)
+   ============================================================ */
+@media (max-width: 900px) {
+  .hero__container {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__content {
+    padding: 3rem clamp(1.25rem, 5vw, 2.5rem) 2rem;
+  }
+
+  .hero__body {
+    max-width: 100%;
+  }
+
+  .hero__image-wrap {
+    display: none;
+  }
+}
+
+/* ============================================================
+   HERO — MOBILE  (≤ 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .hero__heading {
+    font-size: clamp(3rem, 14vw, 4rem);
+  }
+
+  .hero__ctas {
+    flex-direction: column;
+  }
+
+  .hero__cta {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero__container {
+    grid-template-columns: 1fr;
+  }
+}
+
