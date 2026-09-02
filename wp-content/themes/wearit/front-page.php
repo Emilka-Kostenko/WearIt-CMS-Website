@@ -1,0 +1,108 @@
+<?php get_header(); ?>
+
+<main>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO SECTION
+       SCF fields: hero_eyebrow, hero_heading_line1,
+                   hero_heading_line2, hero_body,
+                   hero_cta_primary_label, hero_cta_primary_url,
+                   hero_cta_secondary_label, hero_cta_secondary_url,
+                   hero_image
+  ═══════════════════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero__container">
+
+      <div class="hero__content">
+
+        <p class="hero__eyebrow">
+          <?php
+          $eyebrow = get_field( 'hero_eyebrow' );
+          echo $eyebrow ? esc_html( $eyebrow ) : 'New Collection SS26';
+          ?>
+        </p>
+
+        <h1 class="hero__heading">
+          <span class="hero__heading-line1">
+            <?php
+            $line1 = get_field( 'hero_heading_line1' );
+            echo $line1 ? esc_html( $line1 ) : 'Wear It.';
+            ?>
+          </span>
+          <span class="hero__heading-line2">
+            <?php
+            $line2 = get_field( 'hero_heading_line2' );
+            echo $line2 ? esc_html( $line2 ) : 'Own It.';
+            ?>
+          </span>
+        </h1>
+
+        <p class="hero__body">
+          <?php
+          $body = get_field( 'hero_body' );
+          echo $body ? esc_html( $body ) : 'We don\'t follow trends. Every piece is cut with purpose — heavy fabrics, sharp silhouettes, zero compromises. Made to last. Made to be seen.';
+          ?>
+        </p>
+
+        <div class="hero__ctas">
+          <a href="<?php echo esc_url( get_field( 'hero_cta_primary_url' ) ?: '#' ); ?>" class="hero__cta hero__cta--primary">
+            <?php echo esc_html( get_field( 'hero_cta_primary_label' ) ?: 'Shop Products' ); ?>
+          </a>
+          <a href="<?php echo esc_url( get_field( 'hero_cta_secondary_url' ) ?: '#' ); ?>" class="hero__cta hero__cta--secondary">
+            <?php echo esc_html( get_field( 'hero_cta_secondary_label' ) ?: 'Read the Blog' ); ?>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="hero__image-wrap">
+        <?php
+        $hero_image = get_field( 'hero_image' );
+        if ( $hero_image ) :
+        ?>
+          <img
+            class="hero__image"
+            src="<?php echo esc_url( $hero_image['url'] ); ?>"
+            alt="<?php echo esc_attr( $hero_image['alt'] ); ?>"
+          />
+        <?php else : ?>
+          <img
+            class="hero__image"
+            src="<?php echo esc_url( get_template_directory_uri() . '/assets/hero-placeholder.jpg' ); ?>"
+            alt="Model in dark streetwear editorial"
+          />
+        <?php endif; ?>
+        <div class="hero__image-fade" aria-hidden="true"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       BRAND MESSAGE SECTION
+       SCF fields: brand_headline, brand_headline_accent_word,
+                   brand_body
+  ═══════════════════════════════════════════════════════ -->
+  <section class="brand-message">
+    <div class="brand-message__container">
+
+      <h2 class="brand-message__heading">
+        <?php
+        $headline = get_field( 'brand_headline' );
+        echo $headline ? wp_kses_post( $headline ) : '"Wear What You <span class="brand-message__accent">Stand</span> For."';
+        ?>
+      </h2>
+
+      <p class="brand-message__body">
+        <?php
+        $brand_body = get_field( 'brand_body' );
+        echo $brand_body ? wp_kses_post( $brand_body ) : 'Born from the streets — not boardrooms. <span class="brand-message__accent brand-message__accent--bold">No investors. No shortcuts.</span> Just a refusal to accept how soft modern fashion has become.';
+        ?>
+      </p>
+
+    </div>
+  </section>
+
+</main>
+
+<?php get_footer(); ?>
