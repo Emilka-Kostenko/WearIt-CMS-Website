@@ -1,52 +1,149 @@
 <?php get_header(); ?>
 
-<main class="single-post">
-  <div class="single-post__container">
+<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
-    <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+  <!-- Breadcrumbs -->
+  <nav class="post-breadcrumbs" aria-label="Breadcrumb">
+    <div class="site-container">
+      <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a>
+      <span class="separator">/</span>
+      <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>">Blog</a>
+      <span class="separator">/</span>
+      <span class="current"><?php the_title(); ?></span>
+    </div>
+  </nav>
 
-      <article id="post-<?php the_ID(); ?>" <?php post_class( 'single-post__article' ); ?>>
+  <!-- Hero Section (70vh) -->
+  <?php 
+    $thumb_url = has_post_thumbnail() 
+      ? get_the_post_thumbnail_url( get_the_ID(), 'full' ) 
+      : ''; 
+    $categories = get_the_category();
+  ?>
+  <section class="post-hero" style="<?php echo $thumb_url ? 'background-image: url(' . esc_url( $thumb_url ) . ');' : ''; ?>">
+    <div class="hero-overlay"></div>
+    <div class="site-container hero-content">
+      <?php if ( ! empty( $categories ) ) : ?>
+        <span class="topic-badge"><?php echo esc_html( $categories[0]->name ); ?></span>
+      <?php endif; ?>
+      <h1 class="post-hero-title"><?php the_title(); ?></h1>
+    </div>
+  </section>
 
-        <!-- Post header -->
-        <header class="single-post__header">
-          <p class="single-post__meta">
-            <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
-              <?php echo esc_html( get_the_date() ); ?>
-            </time>
-          </p>
-          <h1 class="single-post__title"><?php the_title(); ?></h1>
-        </header>
+  <!-- Post Body & Collapsible Area -->
+  <article class="post-body-wrap">
+    <div class="site-container post-container-narrow">
+      <div class="entry-content-collapsible" id="post-content-area">
+        <?php the_content(); ?>
+      </div>
 
-        <!-- Featured image -->
-        <?php if ( has_post_thumbnail() ) : ?>
-          <div class="single-post__thumbnail">
-            <?php the_post_thumbnail( 'full', [ 'class' => 'single-post__image' ] ); ?>
+      <button id="toggle-read-more" class="btn-read-more" aria-expanded="false">
+        Read More &darr;
+      </button>
+    </div>
+  </article>
+
+  <!-- Discussion Section -->
+  <section class="discussion-section">
+    <div class="site-container post-container-narrow">
+      <h2 class="section-title">Discussion</h2>
+
+      <!-- Success alert bar on submission -->
+      <?php if ( isset( $_GET['comment_status'] ) && $_GET['comment_status'] === 'submitted' ) : ?>
+        <div class="comment-alert-bar">
+          Comment posted successfully!
+        </div>
+      <?php endif; ?>
+
+      <!-- Real WordPress Comments Thread -->
+      <div class="comments-thread" id="comments-thread">
+        <?php
+        $comments = get_comments( array(
+            'post_id' => get_the_ID(),
+            'status'  => 'approve',
+            'order'   => 'ASC',
+        ) );
+
+        if ( ! empty( $comments ) ) :
+            foreach ( $comments as $comment ) :
+                $author_name = $comment->comment_author;
+                $words = explode( ' ', trim( $author_name ) );
+                $initials = '';
+                foreach ( array_slice( $words, 0, 2 ) as $w ) {
+                    $initials .= strtoupper( substr( $w, 0, 1 ) );
+                }
+                ?>
+                <div class="comment-item" id="comment-<?php echo esc_attr( $comment->comment_ID ); ?>">
+                  <div class="comment-avatar"><?php echo esc_html( $initials ? $initials : '?' ); ?></div>
+                  <div class="comment-body">
+                    <div class="comment-meta">
+                      <strong class="comment-author"><?php echo esc_html( $author_name ); ?></strong>
+                      <span class="comment-date"><?php echo esc_html( human_time_diff( strtotime( $comment->comment_date ), current_time( 'timestamp' ) ) . ' ago' ); ?></span>
+                    </div>
+                    <p class="comment-text"><?php echo nl2br( esc_html( $comment->comment_content ) ); ?></p>
+                  </div>
+                </div>
+            <?php endforeach;
+        else : ?>
+            <p class="no-comments">No comments yet. Be the first to join the conversation.</p>
+        <?php endif; ?>
+      </div>
+
+      <!-- Real WordPress Comment Form -->
+      <form action="<?php echo esc_url( site_url( '/wp-comments-post.php' ) ); ?>" method="post" id="discussion-form" class="discussion-form">
+        <h3>Join the Conversation</h3>
+
+        <?php if ( ! is_user_logged_in() ) : ?>
+          <div class="form-group">
+            <label for="author">Name</label>
+            <input type="text" name="author" id="author" required placeholder="Your name">
           </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required placeholder="Your email (kept private)">
+          </div>
+        <?php else : ?>
+          <p class="logged-in-meta">
+            Logged in as <strong><?php echo esc_html( wp_get_current_user()->display_name ); ?></strong>.
+          </p>
         <?php endif; ?>
 
-        <!-- Post content -->
-        <div class="single-post__content">
-          <?php the_content(); ?>
+        <div class="form-group">
+          <label for="comment">Comment</label>
+          <textarea name="comment" id="comment" rows="4" required placeholder="Add your take..."></textarea>
         </div>
 
-        <!-- Navigation to prev/next post -->
-        <nav class="single-post__nav" aria-label="Post navigation">
-          <?php
-          the_post_navigation( [
-            'prev_text' => '&larr; %title',
-            'next_text' => '%title &rarr;',
-          ] );
-          ?>
-        </nav>
+        <input type="hidden" name="comment_post_ID" value="<?php echo esc_attr( get_the_ID() ); ?>" id="comment_post_ID">
+        <input type="hidden" name="comment_parent" id="comment_parent" value="0">
 
-      </article>
+        <button type="submit" class="btn-submit-comment">Post Comment</button>
+      </form>
 
-      <!-- Comments — WordPress handles all logic automatically -->
-      <?php comments_template(); ?>
+      <!-- Bottom Nav Link -->
+      <div class="bottom-nav">
+        <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>" class="back-link">
+          &larr; Back to All Articles
+        </a>
+      </div>
+    </div>
+  </section>
 
-    <?php endwhile; endif; ?>
+  <!-- Collapsible Toggle Script -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const readMoreBtn = document.getElementById('toggle-read-more');
+    const postContent = document.getElementById('post-content-area');
 
-  </div>
-</main>
+    if (readMoreBtn && postContent) {
+      readMoreBtn.addEventListener('click', function () {
+        const isExpanded = postContent.classList.toggle('expanded');
+        readMoreBtn.setAttribute('aria-expanded', isExpanded);
+        readMoreBtn.innerHTML = isExpanded ? 'Show Less &uarr;' : 'Read More &darr;';
+      });
+    }
+  });
+  </script>
+
+<?php endwhile; endif; ?>
 
 <?php get_footer(); ?>
