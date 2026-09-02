@@ -4,8 +4,8 @@
 
   <!-- ═══════════════════════════════════════════════════════
        HERO SECTION
-       SCF fields: hero_eyebrow, hero_heading_line1,
-                   hero_heading_line2, hero_body,
+       SCF fields: sub_text, hero_text_top,
+                   hero_text_bottom, hero_body,
                    hero_cta_primary_label, hero_cta_primary_url,
                    hero_cta_secondary_label, hero_cta_secondary_url,
                    hero_image
@@ -17,7 +17,7 @@
 
         <p class="hero__eyebrow">
           <?php
-          $eyebrow = get_field( 'hero_eyebrow' );
+          $eyebrow = get_field( 'sub_text' );
           echo $eyebrow ? esc_html( $eyebrow ) : 'New Collection SS26';
           ?>
         </p>
@@ -25,13 +25,13 @@
         <h1 class="hero__heading">
           <span class="hero__heading-line1">
             <?php
-            $line1 = get_field( 'hero_heading_line1' );
+            $line1 = get_field( 'hero_text_top' );
             echo $line1 ? esc_html( $line1 ) : 'Wear It.';
             ?>
           </span>
           <span class="hero__heading-line2">
             <?php
-            $line2 = get_field( 'hero_heading_line2' );
+            $line2 = get_field( 'hero_text_bottom' );
             echo $line2 ? esc_html( $line2 ) : 'Own It.';
             ?>
           </span>
@@ -39,17 +39,17 @@
 
         <p class="hero__body">
           <?php
-          $body = get_field( 'hero_body' );
+          $body = get_field( 'hero_description' );
           echo $body ? esc_html( $body ) : 'We don\'t follow trends. Every piece is cut with purpose — heavy fabrics, sharp silhouettes, zero compromises. Made to last. Made to be seen.';
           ?>
         </p>
 
         <div class="hero__ctas">
-          <a href="<?php echo esc_url( get_field( 'hero_cta_primary_url' ) ?: '#' ); ?>" class="hero__cta hero__cta--primary">
-            <?php echo esc_html( get_field( 'hero_cta_primary_label' ) ?: 'Shop Products' ); ?>
+          <a href="<?php echo esc_url( get_field( 'button_products_url' ) ?: '#' ); ?>" class="hero__cta hero__cta--primary">
+            <?php echo esc_html( get_field( 'button_products_label' ) ?: 'Shop Products' ); ?>
           </a>
-          <a href="<?php echo esc_url( get_field( 'hero_cta_secondary_url' ) ?: '#' ); ?>" class="hero__cta hero__cta--secondary">
-            <?php echo esc_html( get_field( 'hero_cta_secondary_label' ) ?: 'Read the Blog' ); ?>
+          <a href="<?php echo esc_url( get_field( 'button_blog_url' ) ?: '#' ); ?>" class="hero__cta hero__cta--secondary">
+            <?php echo esc_html( get_field( 'button_blog_label' ) ?: 'Read the Blog' ); ?>
           </a>
         </div>
 
@@ -88,14 +88,14 @@
 
       <h2 class="brand-message__heading">
         <?php
-        $headline = get_field( 'brand_headline' );
+        $headline = get_field( 'slogan_text' );
         echo $headline ? wp_kses_post( $headline ) : '"Wear What You <span class="brand-message__accent">Stand</span> For."';
         ?>
       </h2>
 
       <p class="brand-message__body">
         <?php
-        $brand_body = get_field( 'brand_body' );
+        $brand_body = get_field( 'slogan_subtext' );
         echo $brand_body ? wp_kses_post( $brand_body ) : 'Born from the streets — not boardrooms. <span class="brand-message__accent brand-message__accent--bold">No investors. No shortcuts.</span> Just a refusal to accept how soft modern fashion has become.';
         ?>
       </p>
