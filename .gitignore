@@ -14,6 +14,9 @@ wp-content/themes/twenty*/**
 wp-content/themes/index.php
 wp-content/plugins/index.php
 
+# WordPress uploads — stored on server, not in Git
+wp-content/uploads/
+
 # macOS metadata
 .DS_Store
 **/.DS_Store

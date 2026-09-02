@@ -46,13 +46,16 @@
                 <?php
                 $categories = get_the_category();
                 if ( $categories ) :
-                  $cat = $categories[0];
+                  foreach ( $categories as $cat ) :
                 ?>
                   <a href="<?php echo esc_url( get_category_link( $cat->term_id ) ); ?>"
                      class="post-card__category">
                     <?php echo esc_html( $cat->name ); ?>
                   </a>
-                <?php endif; ?>
+                <?php
+                  endforeach;
+                endif;
+                ?>
 
                 <?php
                 $author_name = get_field( 'post_author_name' );
