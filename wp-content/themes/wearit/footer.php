@@ -32,7 +32,7 @@
           <p class="footer__col-title">Information</p>
           <ul class="footer__col-links">
             <li><a href="#" class="footer__link">About</a></li>
-            <li><a href="#" class="footer__link">Contact</a></li>
+            <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'contact' ) ) ); ?>" class="footer__link">Contact</a></li>
           </ul>
         </div>
 

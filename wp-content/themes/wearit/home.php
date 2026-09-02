@@ -1,5 +1,48 @@
 <?php get_header(); ?>
-<main class="blog-archive">
+
+<main>
+
+  <!-- ── BLOG HERO ──────────────────────────────────────────
+       SCF fields (Group: "Blog Page Hero", Location: Page = Blog):
+         blog_hero_image    → Image (return format: Image Array)
+         blog_hero_eyebrow  → Text
+         blog_hero_heading  → Text
+         blog_hero_subtitle → Textarea
+  ──────────────────────────────────────────────────────── -->
+  <?php
+  $hero_image = get_field( 'blog_hero_image', get_option( 'page_for_posts' ) );
+  $hero_bg    = $hero_image ? 'background-image: url(' . esc_url( $hero_image['url'] ) . ');' : '';
+  ?>
+  <section class="blog-hero" style="<?php echo $hero_bg; ?>">
+    <div class="blog-hero__overlay" aria-hidden="true"></div>
+    <div class="blog-hero__content">
+
+      <p class="blog-hero__eyebrow">
+        <?php
+        $eyebrow = get_field( 'blog_hero_eyebrow', get_option( 'page_for_posts' ) );
+        echo $eyebrow ? esc_html( $eyebrow ) : 'WearIt Editorialks';
+        ?>
+      </p>
+
+      <h1 class="blog-hero__heading">
+        <?php
+        $heading = get_field( 'blog_hero_heading', get_option( 'page_for_posts' ) );
+        echo $heading ? esc_html( $heading ) : 'The Blog';
+        ?>
+      </h1>
+
+      <p class="blog-hero__subtitle">
+        <?php
+        $subtitle = get_field( 'blog_hero_subtitle', get_option( 'page_for_posts' ) );
+        echo $subtitle ? esc_html( $subtitle ) : 'Stories about fabric, form, and everything in between.';
+        ?>
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ── BLOG ARCHIVE ── -->
+  <div class="blog-archive">
   <div class="blog-archive__container">
 
     <!-- ── LATEST heading + post count ── -->
@@ -99,6 +142,8 @@
     <?php endif; ?>
 
   </div>
+  </div><!-- /.blog-archive -->
+
 </main>
 
 <?php get_footer(); ?>

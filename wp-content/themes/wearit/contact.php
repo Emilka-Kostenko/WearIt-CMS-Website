@@ -1,4 +1,6 @@
+<?php get_header(); ?>
 <main>
+    <p style="padding-top: 100px;">Contact page template</p>
     <section class="contact" id="contact">
         <div class="contact-container">
             <div>
@@ -75,3 +77,4 @@
 
 
 </main>
+<?php get_footer(); ?>
