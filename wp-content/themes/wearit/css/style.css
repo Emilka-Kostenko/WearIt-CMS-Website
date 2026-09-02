@@ -968,3 +968,385 @@ button {
     margin-left: 0;
   }
 }
+
+/* ============================================================
+   SINGLE BLOG POST (single.php)
+   ============================================================ */
+
+/* ── Container Overrides / Defaults ── */
+.site-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--navbar-padding-x);
+}
+
+.post-container-narrow {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+/* ── Breadcrumb Navigation ── */
+.post-breadcrumbs {
+  background-color: var(--color-bg);
+  padding-top: calc(var(--navbar-height) + 1.5rem);
+  padding-bottom: 1.25rem;
+  font-family: var(--font-barlow);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.post-breadcrumbs a {
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.post-breadcrumbs a:hover {
+  color: var(--color-accent);
+}
+
+.post-breadcrumbs .separator {
+  margin: 0 0.5rem;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.post-breadcrumbs .current {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ── Hero: 70vh Viewport Height ── */
+.post-hero {
+  position: relative;
+  height: 70vh;
+  min-height: 480px;
+  background-color: var(--color-surface);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 13, 13, 0.1) 0%,
+    rgba(13, 13, 13, 0.7) 60%,
+    var(--color-bg) 100%
+  );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 3.5rem;
+  width: 100%;
+}
+
+.topic-badge {
+  display: inline-block;
+  background-color: var(--color-accent);
+  color: #0d0d0d;
+  font-family: var(--font-barlow);
+  font-size: 0.688rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.post-hero-title {
+  font-family: var(--font-condensed);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--color-text);
+  max-width: 900px;
+}
+
+/* ── Post Body & Collapsible Area ── */
+.post-body-wrap {
+  padding: 4rem 0 3rem;
+  background-color: var(--color-bg);
+  font-family: var(--font-barlow);
+  color: #c4c4c4;
+  line-height: 1.75;
+  font-size: 1.063rem;
+}
+
+.entry-content-collapsible {
+  max-height: 420px;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  position: relative;
+}
+
+.entry-content-collapsible.expanded {
+  max-height: none;
+}
+
+.entry-content-collapsible p {
+  margin-bottom: 1.75rem;
+}
+
+.entry-content-collapsible h2,
+.entry-content-collapsible h3,
+.entry-content-collapsible h4 {
+  font-family: var(--font-condensed);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin: 2.5rem 0 1rem;
+  line-height: 1.1;
+}
+
+.entry-content-collapsible blockquote {
+  border-left: 3px solid var(--color-accent);
+  background-color: var(--color-surface);
+  margin: 2.5rem 0;
+  padding: 1.5rem 2rem;
+  color: var(--color-text);
+  font-style: italic;
+  font-size: 1.15rem;
+}
+
+.entry-content-collapsible img {
+  max-width: 100%;
+  height: auto;
+  margin: 2rem 0 0.5rem;
+  display: block;
+}
+
+.entry-content-collapsible figcaption {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: 2rem;
+}
+
+/* ── Read More Button ── */
+.btn-read-more {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 2rem;
+  background-color: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: 0.75rem 1.75rem;
+  font-family: var(--font-barlow);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.btn-read-more:hover {
+  background-color: var(--color-accent);
+  color: #0d0d0d;
+}
+
+/* ── Discussion Section ── */
+.discussion-section {
+  padding: 4rem 0 6rem;
+  background-color: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+}
+
+.discussion-section .section-title {
+  font-family: var(--font-condensed);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: 2.5rem;
+}
+
+/* Yellow Flash Message */
+.comment-alert-bar {
+  background-color: var(--color-accent);
+  color: #0d0d0d;
+  font-family: var(--font-barlow);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.875rem 1.25rem;
+  margin-bottom: 2rem;
+}
+
+/* Pre-seeded Comments Thread */
+.comments-thread {
+  margin-bottom: 3.5rem;
+}
+
+.comment-item {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.comment-avatar {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-accent);
+  font-family: var(--font-barlow);
+  font-weight: 700;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.comment-body {
+  flex-grow: 1;
+}
+
+.comment-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.comment-author {
+  font-family: var(--font-barlow);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.comment-date {
+  font-family: var(--font-barlow);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.comment-text {
+  font-family: var(--font-barlow);
+  font-size: var(--font-size-sm);
+  color: #c4c4c4;
+  line-height: 1.6;
+}
+
+/* ── Join the Conversation Form ── */
+.discussion-form {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  margin-bottom: 3rem;
+}
+
+.discussion-form h3 {
+  font-family: var(--font-condensed);
+  font-weight: 900;
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-family: var(--font-barlow);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background-color: var(--color-bg);
+  border: 1px solid #2a2a2a;
+  color: var(--color-text);
+  font-family: var(--font-barlow);
+  font-size: var(--font-size-base);
+  border-radius: 0;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Acid yellow highlight on focus */
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+.btn-submit-comment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-accent);
+  color: #0d0d0d;
+  font-family: var(--font-barlow);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.75rem 2rem;
+  transition: background-color var(--transition-fast);
+}
+
+.btn-submit-comment:hover {
+  background-color: #b8e800;
+}
+
+/* ── Bottom Link ── */
+.bottom-nav {
+  border-top: 1px solid var(--color-border);
+  padding-top: 2rem;
+}
+
+.back-link {
+  font-family: var(--font-barlow);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text);
+  transition: color var(--transition-fast);
+}
+
+.back-link:hover {
+  color: var(--color-accent);
+}
+
+/* ── Responsive adjustments (Mobile / Tablet) ── */
+@media (max-width: 768px) {
+  .post-hero {
+    height: 55vh;
+    min-height: 380px;
+  }
+
+  .post-body-wrap {
+    padding: 2.5rem 0 2rem;
+  }
+
+  .discussion-section {
+    padding: 3rem 0 5rem;
+  }
+}
