@@ -103,6 +103,43 @@
     </div>
   </section>
 
+<section class="drops" id="drops">
+  <div class="drops__container">
+    <div class="drops__top">
+      <div class="drops__text">
+        <p class="drops__eyebrow">
+          <?php
+          $eyebrow = get_field('drops_eyebrow');
+          echo $eyebrow ? esc_html($eyebrow) : 'Latest';
+          ?>
+        </p>
+        <h2 class="drops__heading">
+          <span class="drops__heading-top">
+            <?php
+            $heading = get_field('drops_heading');
+            echo $heading ? esc_html($heading) : 'current';
+            ?>
+          </span>
+          <span class="drops__heading-bottom">
+            <?php
+            $heading_bottom = get_field('drops_heading_bottom');
+            echo $heading_bottom ? esc_html($heading_bottom) : 'drops';
+            ?>
+          </span>
+        </h2>
+      </div>
+      <div class="drops__view-all">
+        <a href="/shop">
+          <?php
+          $view_all_lable = get_field('drops_view_all_label');
+          echo $view_all_lable ? esc_html($view_all_lable) : 'View All';
+          ?>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <?php get_footer(); ?>

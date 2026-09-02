@@ -516,6 +516,94 @@ button {
 }
 
 /* ============================================================
+   DROPS
+   ============================================================ */
+.drops {
+  background-color: var(--color-bg);
+  padding: clamp(4rem, 8vw, 6rem) clamp(1.25rem, 4vw, 3rem);
+}
+
+.drops__container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.drops__eyebrow {
+  font-family: var(--font-barlow);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+.drops__heading {
+  font-family: var(--font-condensed);
+  font-weight: 900;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  line-height: 0.92;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.drops__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.drops__text {
+  min-width: 0;
+}
+
+.drops__eyebrow {
+  font-family: var(--font-barlow);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+.drops__heading {
+  font-family: var(--font-condensed);
+  font-weight: 900;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  line-height: 0.92;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+.drops__heading-top {
+  display: block;
+  color: var(--color-text);
+}
+
+.drops__heading-bottom {
+  display: block;
+  color: var(--color-accent);
+}
+
+.drops__view-all {
+  font-family: var(--font-barlow);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  transition: color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.drops a {
+  text-decoration: underline;
+}
+/* ============================================================
    FOOTER
    ============================================================ */
 .footer {
