@@ -839,6 +839,98 @@ button {
 }
 
 /* ============================================================
+   CATEGORIES DROPDOWN (home.php)
+   ============================================================ */
+.cat-filter {
+  background-color: var(--color-bg);
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cat-filter__container {
+  max-width: 1101px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+}
+
+.cat-filter__dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.cat-filter__toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: var(--color-accent);
+  color: #0d0d0d;
+  font-family: var(--font-condensed);
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.65rem 1.25rem;
+  cursor: pointer;
+  border: none;
+  transition: opacity var(--transition-fast);
+}
+
+.cat-filter__toggle:hover {
+  opacity: 0.85;
+}
+
+.cat-filter__arrow {
+  font-size: 0.75rem;
+  transition: transform var(--transition-fast);
+  display: inline-block;
+}
+
+.cat-filter__dropdown.is-open .cat-filter__arrow {
+  transform: rotate(180deg);
+}
+
+.cat-filter__menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  z-index: 100;
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cat-filter__dropdown.is-open .cat-filter__menu {
+  display: block;
+}
+
+.cat-filter__option {
+  display: block;
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-condensed);
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.cat-filter__option:last-child {
+  border-bottom: none;
+}
+
+.cat-filter__option:hover,
+.cat-filter__option.is-active {
+  color: var(--color-accent);
+  background-color: rgba(202, 255, 51, 0.05);
+}
+
+/* ============================================================
    BLOG HERO (home.php)
    ============================================================ */
 .blog-hero {
