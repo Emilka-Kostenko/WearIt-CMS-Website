@@ -13,3 +13,7 @@
 wp-content/themes/twenty*/**
 wp-content/themes/index.php
 wp-content/plugins/index.php
+
+# macOS metadata
+.DS_Store
+**/.DS_Store
