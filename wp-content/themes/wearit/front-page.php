@@ -134,10 +134,59 @@
           $view_all_lable = get_field('drops_view_all_label');
           echo $view_all_lable ? esc_html($view_all_lable) : 'View All';
           ?>
+          <span aria-hidden="true">→</span>
         </a>
       </div>
     </div>
+<div class="drops__cards">
+  <div class="drops__card_grid">
+    <?php
+    $cards = [1, 2, 3];
+    foreach ( $cards as $i ) :
+    ?>
+    <div class="drops__card">
+      <?php $drops_image = get_field( 'drops_image' ); ?>
+      <?php if ( $drops_image ) : ?>
+        <img
+          class="drops__image"
+          src="<?php echo esc_url( $drops_image['url'] ); ?>"
+          alt="<?php echo esc_attr( $drops_image['alt'] ); ?>"
+        />
+      <?php else : ?>
+        <img
+          class="drops__image"
+          src="<?php echo esc_url( get_template_directory_uri() . '/assets/drops-placeholder.jpg' ); ?>"
+          alt="Shadow Hoodie"
+        />
+      <?php endif; ?>
+
+      <div class="card_content">
+        <div class="card_top">
+          <h3 class="card_title">
+            <?php
+            $drops_title = get_field( 'drops_title' );
+            echo $drops_title ? esc_html( $drops_title ) : 'Shadow Hoodie';
+            ?>
+          </h3>
+          <p class="card_price">
+            <?php
+            $drops_price = get_field( 'drops_price' );
+            echo $drops_price ? esc_html( $drops_price ) : '$49.99';
+            ?>
+          </p>
+        </div>
+        <p class="card_description">
+          <?php
+          $drops_description = get_field( 'drops_description' );
+          echo $drops_description ? esc_html( $drops_description ) : 'Heavy fleece · 4 colorways';
+          ?>
+        </p>
+        <button class="card_add_to_cart">Add to Cart</button>
+      </div>
+    </div>
+    <?php endforeach; ?>
   </div>
+</div>
 </section>
 
 </main>
