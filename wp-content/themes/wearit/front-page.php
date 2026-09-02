@@ -190,6 +190,93 @@
 </div>
 </section>
 
+<section class="user__testimonials">
+  <div class="testimonial__container">
+    <div class="testimonial__top">
+      <p class="testimonial__eyebrow">
+      <?php
+        $testimonial_eyebrow = get_field('testimonial_eyebrow');
+        echo $testimonial_eyebrow ? esc_html($testimonial_eyebrow) : 'From the Community'; 
+      ?>    
+    </p>
+      <h2 class="testimonial__heading">
+        <?php
+          $testimonial_heading = get_field('testimonial_heading');
+          echo $testimonial_heading ? esc_html($testimonial_heading) : 'What They\'re Saying'; 
+        ?>
+      </h2>
+
+    </div>
+<div class="testimonial__cards">
+  <div class="testimonial__card_grid">
+    <?php if ( have_rows( 'testimonial__card' ) ) : ?>
+      <?php while ( have_rows( 'testimonial__card' ) ) : the_row(); ?>
+
+        <div class="testimonial__card">
+
+          <div class="card_rating">
+            <?php
+            $rating = (int) get_sub_field( 'testimonial_rating' );
+            $rating = $rating ? $rating : 5;
+            for ( $i = 1; $i <= 5; $i++ ) :
+              $filled = $i <= $rating ? 'is-filled' : '';
+              ?>
+              <span class="star <?php echo esc_attr( $filled ); ?>">★</span>
+            <?php endfor; ?>
+          </div>
+
+          <p class="card_quote">
+            <?php
+            $quote = get_sub_field( 'testimonial_quote' );
+            echo $quote
+              ? '&ldquo;' . esc_html( $quote ) . '&rdquo;'
+              : '&ldquo;Picked this up on the last drop and haven&rsquo;t taken it off.&rdquo;';
+            ?>
+          </p>
+
+          <div class="card_author">
+            <?php $testimonial_image = get_sub_field( 'testimonial_image' ); ?>
+            <?php if ( $testimonial_image ) : ?>
+              <img
+                class="testimonial__image"
+                src="<?php echo esc_url( $testimonial_image['url'] ); ?>"
+                alt="<?php echo esc_attr( $testimonial_image['alt'] ); ?>"
+              />
+            <?php else : ?>
+              <img
+                class="testimonial__image"
+                src="<?php echo esc_url( get_template_directory_uri() . '/assets/testimonial-placeholder.jpg' ); ?>"
+                alt="Testimonial Image"
+              />
+            <?php endif; ?>
+
+            <div class="author_info">
+              <p class="author_name">
+                <?php
+                $name = get_sub_field( 'testimonial_name' );
+                echo $name ? esc_html( $name ) : 'Jordan M.';
+                ?>
+              </p>
+              <p class="author_bought">
+                Bought:
+                <?php
+                $product = get_sub_field( 'testimonial_product' );
+                echo $product ? esc_html( $product ) : 'Shadow Hoodie';
+                ?>
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      <?php endwhile; ?>
+    <?php endif; ?>
+  </div>
+</div>
+</div>
+
+</section>
+
 </main>
 
 <?php get_footer(); ?>
