@@ -209,14 +209,18 @@
     </div>
 <div class="testimonial__cards">
   <div class="testimonial__card_grid">
-    <?php if ( have_rows( 'testimonial__card' ) ) : ?>
-      <?php while ( have_rows( 'testimonial__card' ) ) : the_row(); ?>
+    <?php
+    $testimonials = get_field( 'testimonial__cards' );
+    if ( $testimonials ) :
+      foreach ( $testimonials as $post ) :
+        setup_postdata( $post );
+        ?>
 
         <div class="testimonial__card">
 
           <div class="card_rating">
             <?php
-            $rating = (int) get_sub_field( 'testimonial_rating' );
+            $rating = (int) get_field( 'testimonial_rating' );
             $rating = $rating ? $rating : 5;
             for ( $i = 1; $i <= 5; $i++ ) :
               $filled = $i <= $rating ? 'is-filled' : '';
@@ -227,7 +231,7 @@
 
           <p class="card_quote">
             <?php
-            $quote = get_sub_field( 'testimonial_quote' );
+            $quote = get_field( 'testimonial_quote' );
             echo $quote
               ? '&ldquo;' . esc_html( $quote ) . '&rdquo;'
               : '&ldquo;Picked this up on the last drop and haven&rsquo;t taken it off.&rdquo;';
@@ -235,7 +239,7 @@
           </p>
 
           <div class="card_author">
-            <?php $testimonial_image = get_sub_field( 'testimonial_image' ); ?>
+            <?php $testimonial_image = get_field( 'testimonial_image' ); ?>
             <?php if ( $testimonial_image ) : ?>
               <img
                 class="testimonial__image"
@@ -253,14 +257,14 @@
             <div class="author_info">
               <p class="author_name">
                 <?php
-                $name = get_sub_field( 'testimonial_name' );
+                $name = get_field( 'testimonial_name' );
                 echo $name ? esc_html( $name ) : 'Jordan M.';
                 ?>
               </p>
               <p class="author_bought">
                 Bought:
                 <?php
-                $product = get_sub_field( 'testimonial_product' );
+                $product = get_field( 'testimonial_product' );
                 echo $product ? esc_html( $product ) : 'Shadow Hoodie';
                 ?>
               </p>
@@ -269,8 +273,11 @@
 
         </div>
 
-      <?php endwhile; ?>
-    <?php endif; ?>
+        <?php
+      endforeach;
+      wp_reset_postdata();
+    endif;
+    ?>
   </div>
 </div>
 </div>
