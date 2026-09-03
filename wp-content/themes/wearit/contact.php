@@ -1,7 +1,7 @@
 <?php
-/*
-Template Name : Contact Page
-*/
+/**
+ * Template Name: Contact Page
+ */
 ?>
 <?php get_header(); ?>
 <main>
@@ -61,12 +61,12 @@ Template Name : Contact Page
                         ?>
                     </span>
                 </h2>
-                <P2 class="contact__info-description">
+                <p class="contact__info-description">
                     <?php
                     $description = get_field( 'contact__info-description' );
                     echo $description ? esc_html( $description ) : 'Questions about sizing, a drop you missed, a wholesale inquiry, or just something you want to say — send it through. We respond to every message within 48 hours, usually faster.';
                     ?>
-                </P2>
+                </p>
             </div>
             <div class="contact__info-middle">
                 <div>
@@ -182,6 +182,7 @@ Template Name : Contact Page
                     echo $bottom_text ? esc_html( $bottom_text ) : 'We read everything, and we respond to every message within 48 hours.';
                     ?>
                 </p>
+            </div>
         </section>
         <section class="contact__fillin">
             
