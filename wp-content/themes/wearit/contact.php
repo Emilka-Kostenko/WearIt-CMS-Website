@@ -5,14 +5,13 @@
 ?>
 <?php get_header(); ?>
 <main>
-    <p style="padding-top: 100px;">Contact page template</p>
     <section class="contact" id="contact">
         <div class="contact-container">
-            <div>
+            <div class="contact-header">
                 <p class="contact__eyebrow">
                     <?php
                     $eyebrow = get_field( 'contact_eyebrow' );
-                    echo $eyebrow ? esc_html( $eyebrow ) : 'Wear It.';
+                    echo $eyebrow ? esc_html( $eyebrow ) : 'WearIt';
                     ?>
                 </p>
                 <h1 class="contact__heading">
@@ -169,7 +168,7 @@
                         <p class="contact__info-location-text2">
                             <?php
                             $location_text2 = get_field( 'contact__info-location-text2' );
-                            echo $location_text2 ? esc_html( $location_text2 ) : 'hello@wearit.com';
+                            echo $location_text2 ? esc_html( $location_text2 ) : 'East London, UK';
                             ?>
                         </p>
                     </div>
@@ -179,12 +178,63 @@
                 <p class="contact__info-bottom-text">
                     <?php
                     $bottom_text = get_field( 'contact__info-bottom-text' );
-                    echo $bottom_text ? esc_html( $bottom_text ) : 'We read everything, and we respond to every message within 48 hours.';
+                    echo $bottom_text ? esc_html( $bottom_text ) : 'For returns and order issues, include your order number in the subject line. For press and wholesale, mark your subject accordingly — those go to a separate inbox.';
                     ?>
                 </p>
             </div>
         </section>
-        <section class="contact__fillin">
+        <section class="contact__filler">
+            <div >
+                <div class="contact__name">
+                    <label for="name_input" class="contact__name-label">
+                        <?php
+                        $name_label = get_field( 'contact__name-label' );
+                        echo $name_label ? esc_html( $name_label ) : 'Name';
+                        ?>
+                    </label>
+                    <input type="text" id="name_input" class="contact__name-input" placeholder="
+                    <?php 
+                    $name_input_placeholder = get_field('contact__name-input');
+                    echo $name_input_placeholder ? esc_html( $name_input_placeholder ) :'Name';
+                    ?>
+                    " required />
+                </div>
+                <div>
+                    <label for="email_input">
+                        <?php
+                        $email_label = get_field( 'contact__email-label' );
+                        echo $email_label ? esc_html( $email_label ) : 'Email';
+                        ?>
+                    </label>
+                    <input type="email" id="email_input" placeholder="Your email:" pattern=".+@example\.com"  required />
+                </div>
+                <div>
+                    <label for="subject_input">
+                        <?php
+                        $subject_label = get_field( 'contact__subject-label' );
+                        echo $subject_label ? esc_html( $subject_label ) : 'Subject';
+                        ?>
+                    </label>
+                    <input type="text" id="subject_input" placeholder="Subject:" required />
+                </div>
+                <div>
+                    <label for="message_input">
+                        <?php
+                        $message_label = get_field( 'contact__message-label' );
+                        echo $message_label ? esc_html( $message_label ) : 'Message';
+                        ?>
+                    </label>
+                    <textarea id="message_input" placeholder="
+                    <?php 
+                    ?>
+                    " required></textarea>
+                </div>
+                <div>
+                    <p>
+                        <?php ?>
+                    </p>
+                </div>
+            </div>
             
         </section>
     </section>
