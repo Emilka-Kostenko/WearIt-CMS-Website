@@ -25,7 +25,7 @@
         <li><a href="#" class="navbar__link">Shop</a></li>
         <li><a href="#" class="navbar__link">Categories</a></li>
         <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'blog' ) ) ); ?>" class="navbar__link">Blog</a></li>
-        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'contact' ) ) ); ?>" class="navbar__link">Contact</a></li>
+    
         <li><a href="#" class="navbar__link">About</a></li>
       </ul>
     </nav>
