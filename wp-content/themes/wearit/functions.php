@@ -28,25 +28,35 @@ add_action( 'admin_post_wearit_contact', 'wearit_handle_contact_form' );
 add_action( 'admin_post_nopriv_wearit_contact', 'wearit_handle_contact_form' );
 
 function wearit_handle_contact_form() {
+    error_log( 'wearit_contact: handler fired' );
+
     if ( ! isset( $_POST['wearit_contact_nonce'] ) || ! wp_verify_nonce( $_POST['wearit_contact_nonce'], 'wearit_contact_nonce' ) ) {
         wp_die( 'Security check failed.' );
     }
 
-    $name  = isset( $_POST['contact_name'] ) ? sanitize_text_field( wp_unslash( $_POST['contact_name'] ) ) : '';
-    $email = isset( $_POST['contact_email'] ) ? sanitize_email( wp_unslash( $_POST['contact_email'] ) ) : '';
+    $name    = sanitize_text_field( wp_unslash( $_POST['contact_name'] ?? '' ) );
+    $email   = sanitize_email( wp_unslash( $_POST['contact_email'] ?? '' ) );
+    $subject = sanitize_text_field( wp_unslash( $_POST['contact_subject'] ?? '' ) );
+    $message = sanitize_textarea_field( wp_unslash( $_POST['contact_message'] ?? '' ) );
 
-    if ( empty( $name ) || empty( $email ) || ! is_email( $email ) ) {
-        wp_safe_redirect( add_query_arg( 'contact', 'error', wp_get_referer() ) );
+    $redirect = wp_get_referer() ? wp_get_referer() : home_url( '/' );
+
+    if ( empty( $name ) || ! is_email( $email ) || empty( $subject ) || empty( $message ) ) {
+        error_log( 'wearit_contact: validation failed' );
+        wp_safe_redirect( add_query_arg( 'contact', 'invalid', $redirect ) );
         exit;
     }
 
-    $to      = 'gergopinter77@gmail.com';
-    $subject = sprintf( 'New contact form submission from %s', $name );
-    $message = sprintf( "Name: %s\nEmail: %s", $name, $email );
-    $headers = array( 'Content-Type: text/plain; charset=UTF-8', 'Reply-To: ' . $email );
+    $to      = get_option( 'admin_email' );
+    $body    = "Name: {$name}\nEmail: {$email}\nSubject: {$subject}\n\nMessage:\n{$message}";
+    $headers = array(
+        'Content-Type: text/plain; charset=UTF-8',
+        'Reply-To: ' . $name . ' <' . $email . '>',
+    );
 
-    $sent = wp_mail( $to, $subject, $message, $headers );
+    $sent = wp_mail( $to, '[WearIt Contact] ' . $subject, $body, $headers );
+    error_log( 'wearit_contact: wp_mail returned ' . var_export( $sent, true ) );
 
-    wp_safe_redirect( add_query_arg( 'contact', $sent ? 'success' : 'error', wp_get_referer() ) );
+    wp_safe_redirect( add_query_arg( 'contact', $sent ? 'success' : 'error', $redirect ) );
     exit;
 }
