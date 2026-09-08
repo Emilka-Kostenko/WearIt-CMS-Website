@@ -22,6 +22,25 @@ add_action( 'wp_enqueue_scripts', function () {
     );
 } );
 
+// ── Register Initiative custom post type ──────────────────────
+add_action( 'init', function () {
+    register_post_type( 'initiative', [
+        'labels' => [
+            'name'          => 'Initiatives',
+            'singular_name' => 'Initiative',
+            'add_new_item'  => 'Add New Initiative',
+            'edit_item'     => 'Edit Initiative',
+            'all_items'     => 'All Initiatives',
+        ],
+        'public'       => true,
+        'has_archive'  => true,
+        'rewrite'      => [ 'slug' => 'sustainability' ],
+        'supports'     => [ 'title', 'editor', 'thumbnail', 'excerpt' ],
+        'show_in_rest' => false,
+        'menu_icon'    => 'dashicons-leaf',
+    ] );
+} );
+
 // ── Handle contact form submission ─────────────────────────────
 
 add_action( 'admin_post_wearit_contact', 'wearit_handle_contact_form' );

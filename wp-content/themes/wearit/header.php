@@ -26,6 +26,7 @@
         <li><a href="#" class="navbar__link">Categories</a></li>
         <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'blog' ) ) ); ?>" class="navbar__link">Blog</a></li>
     
+        <li><a href="<?php echo esc_url( get_post_type_archive_link( 'initiative' ) ); ?>" class="navbar__link">Sustainability</a></li>
         <li><a href="#" class="navbar__link">About</a></li>
       </ul>
     </nav>
