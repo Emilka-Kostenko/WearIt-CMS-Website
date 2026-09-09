@@ -102,6 +102,7 @@ button {
 /* Logo */
 .navbar__logo {
   font-size: var(--navbar-logo-size);
+  font: var(--font-condensed);
   font-weight: var(--font-weight-bold);
   color: var(--color-text);
   letter-spacing: 0.04em;
