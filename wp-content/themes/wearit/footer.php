@@ -55,7 +55,7 @@
         echo $copy ? esc_html( $copy ) : '&copy; ' . date( 'Y' ) . ' WearIt. All rights reserved.';
         ?>
       </p>
-      <p class="footer__legal">Move for the streets.</p>
+    
     </div>
 
   </div>
