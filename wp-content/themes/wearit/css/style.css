@@ -110,6 +110,8 @@ button {
   white-space: nowrap;
   flex-shrink: 0;
   transition: color var(--transition-fast);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .navbar__logo:hover {

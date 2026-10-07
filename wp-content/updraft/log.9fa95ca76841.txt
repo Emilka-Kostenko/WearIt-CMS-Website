@@ -1,0 +1,528 @@
+0000.002 (0) Opened log file at time: Mon, 05 Oct 2026 10:10:24 +0000 on http://clothingwebshopcms-project.local
+0000.029 (0) UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.26.8 WP: 7.1 PHP: 8.2.30 (cgi-fcgi, Windows NT GERGO 10.0 build 26200 (Windows 11) AMD64) MySQL: 8.4.11-11 (max packet size=104857600) WPLANG: en_US Server: nginx/1.26.1 safe_mode: 0 max_execution_time: 900 memory_limit: 256M (used: 4.8M | 6M) multisite: N openssl: OpenSSL 3.0.18 30 Sep 2025 mcrypt: N LANG:  WP Proxy: disabled ZipArchive::addFile: Y
+0000.038 (0) Free space on disk containing Updraft's temporary directory: 47228.8 MB
+0000.072 (0) Tasks: Backup files: 1 (schedule: manual) Backup DB: 1 (schedule: manual)
+0000.136 (0) Requesting semaphore lock (fd) (apparently not via scheduler)
+0000.169 (0) Set semaphore last lock (fd) time to 2026-10-05 10:10:24
+0000.179 (0) Semaphore lock (fd) complete
+0000.232 (0) Backup run: resumption=0, nonce=9fa95ca76841, file_nonce=9fa95ca76841 begun at=1791195024 (0s ago), job type=backup
+0000.252 (0) Scheduling a resumption (1) after 300 seconds (1791195324) in case this run gets aborted
+0000.324 (0) Checking if we have a zip executable available
+0000.342 (0) Creation of backups of directories: beginning
+0000.371 (0) Beginning creation of dump of plugins (split every: 400 MB)
+0001.988 (0) Total entities for the zip file: 352 directories, 2241 files (0 skipped as non-modified), 45.9 MB
+0002.072 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 100 files added (on-disk size: 0 KB)
+0002.147 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 200 files added (on-disk size: 0 KB)
+0002.280 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 300 files added (on-disk size: 0 KB)
+0002.377 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 400 files added (on-disk size: 0 KB)
+0002.461 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 500 files added (on-disk size: 0 KB)
+0002.538 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 600 files added (on-disk size: 0 KB)
+0002.612 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 700 files added (on-disk size: 0 KB)
+0002.695 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 800 files added (on-disk size: 0 KB)
+0002.776 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 900 files added (on-disk size: 0 KB)
+0002.850 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 1000 files added (on-disk size: 0 KB)
+0002.864 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 1000 files added on this batch (24.7 MB, 2241 files batched, 1001 (1001) added so far); re-opening (prior size: 0 KB)
+0005.920 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 1100 files added (on-disk size: 7223.7 KB)
+0005.986 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 1200 files added (on-disk size: 7223.7 KB)
+0006.059 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 1300 files added (on-disk size: 7223.7 KB)
+0006.126 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 1400 files added (on-disk size: 7223.7 KB)
+0006.187 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 1500 files added (on-disk size: 7223.7 KB)
+0006.249 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 1600 files added (on-disk size: 7223.7 KB)
+0006.316 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 1700 files added (on-disk size: 7223.7 KB)
+0006.376 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 1800 files added (on-disk size: 7223.7 KB)
+0006.446 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 1900 files added (on-disk size: 7223.7 KB)
+0006.509 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 2000 files added (on-disk size: 7223.7 KB)
+0006.519 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 1000 files added on this batch (19.3 MB, 2241 files batched, 1001 (2002) added so far); re-opening (prior size: 7223.7 KB)
+0009.148 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 2100 files added (on-disk size: 12540.5 KB)
+0009.213 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.tmp: 2200 files added (on-disk size: 12540.5 KB)
+0009.800 (0) Creating zip file manifest (backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.list-temp.tmp)
+0009.834 (0) Successfully created zip file manifest (size: 199735)
+0010.031 (0) Created plugins zip (0) - 13421.3 KB in 9.6 s (1393.7 KB/s) (sha1: 9ab35820bb48711cb5b1cfd18ff61c72f8773776, sha256: c4da13f77a24fa9eb1b5505b02c8849ae9e12339dcf37613c56ef36f74ba86a0)
+0010.061 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0010.069 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-b6aee9430600d639e6e647ab7d39e40a)
+0013.360 (0) Google Drive: quota usage: used=9610.1 MB, total=5242880 MB, available=5233269.9 MB
+0013.373 (0) Google Drive: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip: Attempting to upload to Google Drive (into folder id: 1cw5uAUj4snT9ofbgk433cFRBwNHb_-CU)
+0015.440 (0) Googledrive chunked upload: 7.6 % uploaded (1048576 - increasing chunk size to 2048 KB - memory usage: 6.2 / 10)
+0016.696 (0) Googledrive chunked upload: 22.9 % uploaded (3145728 - increasing chunk size to 4096 KB - memory usage: 6.2 / 10)
+0018.552 (0) Googledrive chunked upload: 53.4 % uploaded (7340032 - increasing chunk size to 8192 KB - memory usage: 6.2 / 10)
+0022.076 (0) Googledrive chunked upload: 100 % uploaded (7340032)
+0022.108 (0) Google Drive: OK: Archive backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip uploaded in 8.73 seconds
+0022.126 (0) Recording as successfully uploaded: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip
+0022.156 (0) Deleting local file: backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip: OK
+0022.199 (0) Beginning creation of dump of themes (split every: 400 MB)
+0022.481 (0) Total entities for the zip file: 50 directories, 411 files (0 skipped as non-modified), 14.3 MB
+0022.571 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-themes.zip.tmp: 100 files added (on-disk size: 0 KB)
+0022.638 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-themes.zip.tmp: 200 files added (on-disk size: 0 KB)
+0022.707 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-themes.zip.tmp: 300 files added (on-disk size: 0 KB)
+0022.794 (0) Zip: backup_2026-10-05-1010_Wear_It_9fa95ca76841-themes.zip.tmp: 400 files added (on-disk size: 0 KB)
+0023.679 (0) Creating zip file manifest (backup_2026-10-05-1010_Wear_It_9fa95ca76841-themes.zip.list-temp.tmp)
+0023.693 (0) Successfully created zip file manifest (size: 28676)
+0023.892 (0) Created themes zip (0) - 13550.5 KB in 1.7 s (8105.2 KB/s) (sha1: b6f8c69a5eb634078eafc5bd18a6e7afabeb6531, sha256: 44a000edf9fd7862a378a24eaa77de10fe56288b00e025ff43fd2e5eeeffc276)
+0023.920 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0023.927 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-b6aee9430600d639e6e647ab7d39e40a)
+0024.729 (0) Google Drive: quota usage: used=9623.2 MB, total=5242880 MB, available=5233256.8 MB
+0024.740 (0) Google Drive: backup_2026-10-05-1010_Wear_It_9fa95ca76841-themes.zip: Attempting to upload to Google Drive (into folder id: 1cw5uAUj4snT9ofbgk433cFRBwNHb_-CU)
+0026.680 (0) Googledrive chunked upload: 7.6 % uploaded (1048576 - increasing chunk size to 2048 KB - memory usage: 5.9 / 10)
+0027.944 (0) Googledrive chunked upload: 22.7 % uploaded (3145728 - increasing chunk size to 4096 KB - memory usage: 5.9 / 10)
+0029.802 (0) Googledrive chunked upload: 52.9 % uploaded (7340032 - increasing chunk size to 8192 KB - memory usage: 5.9 / 10)
+0033.322 (0) Googledrive chunked upload: 100 % uploaded (7340032)
+0033.349 (0) Google Drive: OK: Archive backup_2026-10-05-1010_Wear_It_9fa95ca76841-themes.zip uploaded in 8.6 seconds
+0033.367 (0) Recording as successfully uploaded: backup_2026-10-05-1010_Wear_It_9fa95ca76841-themes.zip
+0033.388 (0) Deleting local file: backup_2026-10-05-1010_Wear_It_9fa95ca76841-themes.zip: OK
+0033.475 (0) Exclusion option setting (uploads): backup*,*backups,backwpup*,wp-clone,snapshots,wp-staging
+0033.485 (0) Looking for candidates to backup in: C:\Users\gergo\Local Sites\clothingwebshop-cms-project\app\public/wp-content/uploads
+0033.494 (0) finding files: 2026: adding to list (1)
+0033.504 (0) Beginning creation of dump of uploads (split every: 400 MB)
+0033.586 (0) Total entities for the zip file: 4 directories, 49 files (0 skipped as non-modified), 4.4 MB
+0033.724 (0) Creating zip file manifest (backup_2026-10-05-1010_Wear_It_9fa95ca76841-uploads.zip.list-temp.tmp)
+0033.738 (0) Successfully created zip file manifest (size: 3380)
+0033.833 (0) Created uploads zip (0) - 4508.3 KB in 0.3 s (14792.3 KB/s) (sha1: cd7f2fa114183433320aea4b1f2844f77eea875d, sha256: 57fb24d24db5a044ec73babcf49018018b3e864491f9b5893d4805e7a0fabb56)
+0033.865 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0033.875 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-b6aee9430600d639e6e647ab7d39e40a)
+0034.756 (0) Google Drive: quota usage: used=9636.5 MB, total=5242880 MB, available=5233243.5 MB
+0034.765 (0) Google Drive: backup_2026-10-05-1010_Wear_It_9fa95ca76841-uploads.zip: Attempting to upload to Google Drive (into folder id: 1cw5uAUj4snT9ofbgk433cFRBwNHb_-CU)
+0036.891 (0) Googledrive chunked upload: 22.7 % uploaded (1048576 - increasing chunk size to 2048 KB - memory usage: 5.9 / 10)
+0038.133 (0) Googledrive chunked upload: 68.1 % uploaded (3145728 - increasing chunk size to 4096 KB - memory usage: 5.9 / 10)
+0040.193 (0) Googledrive chunked upload: 100 % uploaded (3145728)
+0040.219 (0) Google Drive: OK: Archive backup_2026-10-05-1010_Wear_It_9fa95ca76841-uploads.zip uploaded in 5.45 seconds
+0040.240 (0) Recording as successfully uploaded: backup_2026-10-05-1010_Wear_It_9fa95ca76841-uploads.zip
+0040.263 (0) Deleting local file: backup_2026-10-05-1010_Wear_It_9fa95ca76841-uploads.zip: OK
+0040.286 (0) No backup of mu-plugins: excluded by user's options
+0040.309 (0) Beginning backup of other directories found in the content directory (index: 0)
+0040.326 (0) Exclusion option setting (others): upgrade,cache,updraft,backup*,*backups,mysql.sql,debug.log
+0040.339 (0) Looking for candidates to backup in: C:\Users\gergo\Local Sites\clothingwebshop-cms-project\app\public/wp-content
+0040.347 (0) finding files: index.php: adding to list (1)
+0040.357 (0) finding files: plugins: skipping: this is the plugins directory
+0040.367 (0) finding files: themes: skipping: this is the themes directory
+0040.378 (0) finding files: updraft: skipping: this is the updraft directory
+0040.391 (0) finding files: upgrade: skipping: excluded by options
+0040.402 (0) finding files: uploads: skipping: this is the uploads directory
+0040.432 (0) Total entities for the zip file: 0 directories, 1 files (0 skipped as non-modified), 0 MB
+0040.461 (0) Creating zip file manifest (backup_2026-10-05-1010_Wear_It_9fa95ca76841-others.zip.list-temp.tmp)
+0040.472 (0) Successfully created zip file manifest (size: 43)
+0040.521 (0) Created others zip (0) - 0.1 KB in 0.1 s (1.5 KB/s) (sha1: 37319b8246a49340663aa1885ac19efb00df4a4d, sha256: ae6bf42489cd6fd3282515e75bbea2d4c05c14b58c09a96282e1ffe39b262140)
+0040.556 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0040.568 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-b6aee9430600d639e6e647ab7d39e40a)
+0041.339 (0) Google Drive: quota usage: used=9636.5 MB, total=5242880 MB, available=5233243.5 MB
+0041.347 (0) Google Drive: backup_2026-10-05-1010_Wear_It_9fa95ca76841-others.zip: Attempting to upload to Google Drive (into folder id: 1cw5uAUj4snT9ofbgk433cFRBwNHb_-CU)
+0046.208 (0) Googledrive chunked upload: 100 % uploaded
+0046.237 (0) Google Drive: OK: Archive backup_2026-10-05-1010_Wear_It_9fa95ca76841-others.zip uploaded in 4.88 seconds
+0046.256 (0) Recording as successfully uploaded: backup_2026-10-05-1010_Wear_It_9fa95ca76841-others.zip
+0046.318 (0) Deleting local file: backup_2026-10-05-1010_Wear_It_9fa95ca76841-others.zip: OK
+0046.369 (0) Saving backup status to database (elements: 8)
+0046.409 (0) Beginning creation of database dump (WordPress DB)
+0046.435 (0) SQL compatibility mode is: NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+0046.561 (0) Table witw_options: Total expected rows (via COUNT): 294
+0046.570 (0) Table is relatively small; fetch_rows will thus be: 500 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0046.824 (0) Table witw_options: Rows added in this batch (next record: 1064): 290 (uncompressed bytes in this segment=942593) in 0.31 seconds
+0046.888 (0) Table witw_options: finishing file(s) (2, 202.4 KB)
+0046.965 (0) Table witw_users: Total expected rows (via COUNT): 1
+0046.975 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0047.018 (0) Table witw_users: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=1432) in 0.08 seconds
+0047.060 (0) Table witw_users: finishing file(s) (2, 0.6 KB)
+0047.140 (0) Table witw_usermeta: Total expected rows (via COUNT): 39
+0047.149 (0) Table is relatively small; fetch_rows will thus be: 50 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0047.194 (0) Table witw_usermeta: Rows added in this batch (next record: 39): 39 (uncompressed bytes in this segment=5715) in 0.10 seconds
+0047.251 (0) Table witw_usermeta: finishing file(s) (2, 2 KB)
+0047.334 (0) Table witw_commentmeta: Total expected rows (via COUNT): 0
+0047.367 (0) Table witw_commentmeta: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=706) in 0.08 seconds
+0047.425 (0) Table witw_commentmeta: finishing file(s) (2, 0.4 KB)
+0047.496 (0) Table witw_comments: Total expected rows (via COUNT): 5
+0047.505 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0047.544 (0) Table witw_comments: Rows added in this batch (next record: 5): 5 (uncompressed bytes in this segment=3333) in 0.08 seconds
+0047.588 (0) Table witw_comments: finishing file(s) (2, 1.1 KB)
+0047.647 (0) Table witw_links: Total expected rows (via COUNT): 0
+0047.676 (0) Table witw_links: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1310) in 0.06 seconds
+0047.722 (0) Table witw_links: finishing file(s) (2, 0.5 KB)
+0047.800 (0) Table witw_postmeta: Total expected rows (approximate): 2063
+0047.927 (0) Table witw_postmeta: Rows added in this batch (next record: 4888): 4714 (uncompressed bytes in this segment=332667) in 0.18 seconds
+0047.971 (0) Table witw_postmeta: finishing file(s) (2, 36 KB)
+0048.043 (0) Table witw_posts: Total expected rows (via COUNT): 173
+0048.053 (0) Table is relatively small; fetch_rows will thus be: 250 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0048.109 (0) Table witw_posts: Rows added in this batch (next record: 234): 173 (uncompressed bytes in this segment=110040) in 0.11 seconds
+0048.162 (0) Table witw_posts: finishing file(s) (2, 15 KB)
+0048.212 (0) Table witw_term_relationships: Total expected rows (approximate): 12
+0048.250 (0) Table witw_term_relationships: Rows added in this batch (next record: 100000): 12 (uncompressed bytes in this segment=853) in 0.06 seconds
+0048.283 (0) Table witw_term_relationships: finishing file(s) (2, 0.4 KB)
+0048.362 (0) Table witw_term_taxonomy: Total expected rows (via COUNT): 7
+0048.373 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0048.414 (0) Table witw_term_taxonomy: Rows added in this batch (next record: 8): 7 (uncompressed bytes in this segment=1110) in 0.10 seconds
+0048.457 (0) Table witw_term_taxonomy: finishing file(s) (2, 0.5 KB)
+0048.537 (0) Table witw_termmeta: Total expected rows (via COUNT): 0
+0048.564 (0) Table witw_termmeta: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=662) in 0.08 seconds
+0048.622 (0) Table witw_termmeta: finishing file(s) (2, 0.4 KB)
+0048.681 (0) Table witw_terms: Total expected rows (via COUNT): 7
+0048.691 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0048.726 (0) Table witw_terms: Rows added in this batch (next record: 8): 7 (uncompressed bytes in this segment=924) in 0.08 seconds
+0048.758 (0) Table witw_terms: finishing file(s) (2, 0.5 KB)
+0048.828 (0) Table witw_aiowps_audit_log: Total expected rows (via COUNT): 4
+0048.838 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0048.877 (0) Table witw_aiowps_audit_log: Rows added in this batch (next record: 4): 4 (uncompressed bytes in this segment=29075) in 0.09 seconds
+0048.915 (0) Table witw_aiowps_audit_log: finishing file(s) (2, 1.9 KB)
+0048.982 (0) Table witw_aiowps_debug_log: Total expected rows (via COUNT): 0
+0049.008 (0) Table witw_aiowps_debug_log: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=839) in 0.06 seconds
+0049.043 (0) Table witw_aiowps_debug_log: finishing file(s) (2, 0.4 KB)
+0049.124 (0) Table witw_aiowps_events: Total expected rows (via COUNT): 0
+0049.141 (0) Table witw_aiowps_events: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1062) in 0.07 seconds
+0049.183 (0) Table witw_aiowps_events: finishing file(s) (2, 0.5 KB)
+0049.266 (0) Table witw_aiowps_global_meta: Total expected rows (via COUNT): 0
+0049.292 (0) Table witw_aiowps_global_meta: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1239) in 0.08 seconds
+0049.332 (0) Table witw_aiowps_global_meta: finishing file(s) (2, 0.4 KB)
+0049.402 (0) Table witw_aiowps_logged_in_users: Total expected rows (via COUNT): 0
+0049.430 (0) Table witw_aiowps_logged_in_users: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=936) in 0.07 seconds
+0049.473 (0) Table witw_aiowps_logged_in_users: finishing file(s) (2, 0.4 KB)
+0049.561 (0) Table witw_aiowps_login_lockdown: Total expected rows (via COUNT): 0
+0049.579 (0) Table witw_aiowps_login_lockdown: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1357) in 0.08 seconds
+0049.625 (0) Table witw_aiowps_login_lockdown: finishing file(s) (2, 0.5 KB)
+0049.687 (0) Table witw_aiowps_message_store: Total expected rows (via COUNT): 0
+0049.704 (0) Table witw_aiowps_message_store: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=638) in 0.05 seconds
+0049.738 (0) Table witw_aiowps_message_store: finishing file(s) (2, 0.3 KB)
+0049.801 (0) Table witw_aiowps_permanent_block: Total expected rows (via COUNT): 0
+0049.820 (0) Table witw_aiowps_permanent_block: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=915) in 0.05 seconds
+0049.852 (0) Table witw_aiowps_permanent_block: finishing file(s) (2, 0.4 KB)
+0049.919 (0) Table witw_burst_archived_months: Total expected rows (via COUNT): 0
+0049.935 (0) Table witw_burst_archived_months: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=691) in 0.05 seconds
+0049.976 (0) Table witw_burst_archived_months: finishing file(s) (2, 0.4 KB)
+0050.035 (0) Table witw_burst_browser_versions: Total expected rows (via COUNT): 0
+0050.050 (0) Table witw_burst_browser_versions: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=575) in 0.05 seconds
+0050.082 (0) Table witw_burst_browser_versions: finishing file(s) (2, 0.3 KB)
+0050.146 (0) Table witw_burst_browsers: Total expected rows (via COUNT): 0
+0050.161 (0) Table witw_burst_browsers: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=527) in 0.05 seconds
+0050.195 (0) Table witw_burst_browsers: finishing file(s) (2, 0.3 KB)
+0050.259 (0) Table witw_burst_devices: Total expected rows (via COUNT): 0
+0050.275 (0) Table witw_burst_devices: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=521) in 0.05 seconds
+0050.306 (0) Table witw_burst_devices: finishing file(s) (2, 0.3 KB)
+0050.366 (0) Table witw_burst_goal_statistics: Total expected rows (via COUNT): 0
+0050.382 (0) Table witw_burst_goal_statistics: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=678) in 0.05 seconds
+0050.414 (0) Table witw_burst_goal_statistics: finishing file(s) (2, 0.4 KB)
+0050.476 (0) Table witw_burst_goals: Total expected rows (via COUNT): 1
+0050.484 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0050.517 (0) Table witw_burst_goals: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=1262) in 0.08 seconds
+0050.549 (0) Table witw_burst_goals: finishing file(s) (2, 0.5 KB)
+0050.610 (0) Table witw_burst_imports: Total expected rows (via COUNT): 0
+0050.634 (0) Table witw_burst_imports: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1176) in 0.06 seconds
+0050.673 (0) Table witw_burst_imports: finishing file(s) (2, 0.5 KB)
+0050.736 (0) Table witw_burst_locations: Total expected rows (via COUNT): 253
+0050.744 (0) Table is relatively small; fetch_rows will thus be: 500 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0050.777 (0) Table witw_burst_locations: Rows added in this batch (next record: -1): 253 (uncompressed bytes in this segment=8693) in 0.08 seconds
+0050.816 (0) Table witw_burst_locations: finishing file(s) (2, 1.7 KB)
+0050.867 (0) Table witw_burst_page_urls: Total expected rows (via COUNT): 0
+0050.893 (0) Table witw_burst_page_urls: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=668) in 0.05 seconds
+0050.928 (0) Table witw_burst_page_urls: finishing file(s) (2, 0.4 KB)
+0050.998 (0) Table witw_burst_platforms: Total expected rows (via COUNT): 0
+0051.013 (0) Table witw_burst_platforms: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=533) in 0.05 seconds
+0051.049 (0) Table witw_burst_platforms: finishing file(s) (2, 0.3 KB)
+0051.116 (0) Table witw_burst_query_stats: Total expected rows (via COUNT): 1
+0051.127 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0051.234 (0) Table witw_burst_query_stats: Rows added in this batch (next record: 1): 1 (uncompressed bytes in this segment=1298) in 0.16 seconds
+0051.262 (0) Table witw_burst_query_stats: finishing file(s) (2, 0.6 KB)
+0051.323 (0) Table witw_burst_referrers: Total expected rows (via COUNT): 0
+0051.349 (0) Table witw_burst_referrers: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=533) in 0.06 seconds
+0051.381 (0) Table witw_burst_referrers: finishing file(s) (2, 0.3 KB)
+0051.435 (0) Table witw_burst_report_logs: Total expected rows (via COUNT): 0
+0051.453 (0) Table witw_burst_report_logs: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=974) in 0.04 seconds
+0051.489 (0) Table witw_burst_report_logs: finishing file(s) (2, 0.4 KB)
+0051.563 (0) Table witw_burst_reports: Total expected rows (via COUNT): 0
+0051.580 (0) Table witw_burst_reports: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1502) in 0.06 seconds
+0051.619 (0) Table witw_burst_reports: finishing file(s) (2, 0.5 KB)
+0051.682 (0) Table witw_burst_searches: Total expected rows (via COUNT): 0
+0051.701 (0) Table witw_burst_searches: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=540) in 0.06 seconds
+0051.734 (0) Table witw_burst_searches: finishing file(s) (2, 0.3 KB)
+0051.814 (0) Table witw_burst_sessions: Total expected rows (via COUNT): 0
+0051.830 (0) Table witw_burst_sessions: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1592) in 0.05 seconds
+0051.863 (0) Table witw_burst_sessions: finishing file(s) (2, 0.6 KB)
+0051.929 (0) Table witw_burst_statistics: Total expected rows (via COUNT): 0
+0051.947 (0) Table witw_burst_statistics: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=1452) in 0.06 seconds
+0051.978 (0) Table witw_burst_statistics: finishing file(s) (2, 0.5 KB)
+0052.043 (0) Table witw_burst_statistics_searches: Total expected rows (via COUNT): 0
+0052.060 (0) Table witw_burst_statistics_searches: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=832) in 0.05 seconds
+0052.091 (0) Table witw_burst_statistics_searches: finishing file(s) (2, 0.4 KB)
+0052.142 (0) Table witw_burst_uids: Total expected rows (via COUNT): 0
+0052.161 (0) Table witw_burst_uids: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=508) in 0.04 seconds
+0052.193 (0) Table witw_burst_uids: finishing file(s) (2, 0.3 KB)
+0052.245 (0) Table witw_burst_visitor_bitmaps: Total expected rows (via COUNT): 0
+0052.263 (0) Table witw_burst_visitor_bitmaps: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=803) in 0.04 seconds
+0052.327 (0) Table witw_burst_visitor_bitmaps: finishing file(s) (2, 0.4 KB)
+0052.406 (0) Table witw_tm_taskmeta: Total expected rows (via COUNT): 0
+0052.432 (0) Table witw_tm_taskmeta: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=662) in 0.08 seconds
+0052.474 (0) Table witw_tm_taskmeta: finishing file(s) (2, 0.4 KB)
+0052.537 (0) Table witw_tm_tasks: Total expected rows (via COUNT): 0
+0052.562 (0) Table witw_tm_tasks: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=872) in 0.06 seconds
+0052.594 (0) Table witw_tm_tasks: finishing file(s) (2, 0.4 KB)
+0052.642 (0) Table witw_wfauditevents: Total expected rows (via COUNT): 0
+0052.660 (0) Table witw_wfauditevents: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=712) in 0.04 seconds
+0052.693 (0) Table witw_wfauditevents: finishing file(s) (2, 0.4 KB)
+0052.752 (0) Table witw_wfblockediplog: Total expected rows (approximate): 0
+0052.769 (0) Table witw_wfblockediplog: Rows added in this batch (next record: 0): 0 (uncompressed bytes in this segment=636) in 0.05 seconds
+0052.804 (0) Table witw_wfblockediplog: finishing file(s) (2, 0.4 KB)
+0052.857 (0) Table witw_wfblocks7: Total expected rows (via COUNT): 0
+0052.874 (0) Table witw_wfblocks7: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=802) in 0.04 seconds
+0052.910 (0) Table witw_wfblocks7: finishing file(s) (2, 0.4 KB)
+0052.955 (0) Table witw_wfconfig: Total expected rows (approximate): 228
+0053.005 (0) Table witw_wfconfig: Rows added in this batch (next record: 1000): 245 (uncompressed bytes in this segment=128934) in 0.07 seconds
+0053.046 (0) Table witw_wfconfig: finishing file(s) (2, 25.9 KB)
+0053.089 (0) Table witw_wfcrawlers: Total expected rows (approximate): 0
+0053.107 (0) Table witw_wfcrawlers: Rows added in this batch (next record: 0): 0 (uncompressed bytes in this segment=563) in 0.03 seconds
+0053.138 (0) Table witw_wfcrawlers: finishing file(s) (2, 0.3 KB)
+0053.183 (0) Table witw_wffilechanges: Total expected rows (approximate): 0
+0053.203 (0) Table witw_wffilechanges: Rows added in this batch (next record: 0): 0 (uncompressed bytes in this segment=467) in 0.04 seconds
+0053.234 (0) Table witw_wffilechanges: finishing file(s) (2, 0.3 KB)
+0053.277 (0) Table witw_wffilemods: Total expected rows (approximate): 0
+0053.297 (0) Table witw_wffilemods: Rows added in this batch (next record: 0): 0 (uncompressed bytes in this segment=870) in 0.04 seconds
+0053.332 (0) Table witw_wffilemods: finishing file(s) (2, 0.4 KB)
+0053.388 (0) Table witw_wfhits: Total expected rows (via COUNT): 4
+0053.396 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0053.429 (0) Table witw_wfhits: Rows added in this batch (next record: 4): 4 (uncompressed bytes in this segment=2533) in 0.07 seconds
+0053.463 (0) Table witw_wfhits: finishing file(s) (2, 0.9 KB)
+0053.517 (0) Table witw_wfhoover: Total expected rows (via COUNT): 0
+0053.542 (0) Table witw_wfhoover: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=487) in 0.05 seconds
+0053.573 (0) Table witw_wfhoover: finishing file(s) (2, 0.3 KB)
+0053.630 (0) Table witw_wfissues: Total expected rows (via COUNT): 0
+0053.646 (0) Table witw_wfissues: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=804) in 0.04 seconds
+0053.680 (0) Table witw_wfissues: finishing file(s) (2, 0.4 KB)
+0053.738 (0) Table witw_wfknownfilelist: Total expected rows (via COUNT): 0
+0053.756 (0) Table witw_wfknownfilelist: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=476) in 0.05 seconds
+0053.795 (0) Table witw_wfknownfilelist: finishing file(s) (2, 0.3 KB)
+0053.841 (0) Table witw_wflivetraffichuman: Total expected rows (approximate): 0
+0053.863 (0) Table witw_wflivetraffichuman: Rows added in this batch (next record: 0): 0 (uncompressed bytes in this segment=659) in 0.04 seconds
+0053.896 (0) Table witw_wflivetraffichuman: finishing file(s) (2, 0.3 KB)
+0053.945 (0) Table witw_wflocs: Total expected rows (approximate): 0
+0053.969 (0) Table witw_wflocs: Rows added in this batch (next record: 1000): 1 (uncompressed bytes in this segment=819) in 0.04 seconds
+0054.002 (0) Table witw_wflocs: finishing file(s) (2, 0.4 KB)
+0054.057 (0) Table witw_wflogins: Total expected rows (via COUNT): 4
+0054.067 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0054.103 (0) Table witw_wflogins: Rows added in this batch (next record: 4): 4 (uncompressed bytes in this segment=1599) in 0.07 seconds
+0054.137 (0) Table witw_wflogins: finishing file(s) (2, 0.7 KB)
+0054.191 (0) Table witw_wfls_2fa_secrets: Total expected rows (via COUNT): 1
+0054.199 (0) Table is relatively small; fetch_rows will thus be: 20 (allow_further_reductions=1, is_first_fetch=1, known_bigger_than_table=1)
+0054.224 (0) Table witw_wfls_2fa_secrets: Rows added in this batch (next record: 2): 1 (uncompressed bytes in this segment=918) in 0.06 seconds
+0054.256 (0) Table witw_wfls_2fa_secrets: finishing file(s) (2, 0.5 KB)
+0054.538 (0) Table witw_wfls_passkeys: Total expected rows (via COUNT): 0
+0054.564 (0) Table witw_wfls_passkeys: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=939) in 0.28 seconds
+0054.600 (0) Table witw_wfls_passkeys: finishing file(s) (2, 0.4 KB)
+0054.644 (0) Table witw_wfls_role_counts: Total expected rows (approximate): 0
+0054.660 (0) Table witw_wfls_role_counts: Rows added in this batch (next record: 0): 0 (uncompressed bytes in this segment=647) in 0.03 seconds
+0054.693 (0) Table witw_wfls_role_counts: finishing file(s) (2, 0.4 KB)
+0054.740 (0) Table witw_wfls_settings: Total expected rows (approximate): 42
+0054.824 (0) Table witw_wfls_settings: Rows added in this batch (next record: 1000): 43 (uncompressed bytes in this segment=429733) in 0.10 seconds
+0054.859 (0) Table witw_wfls_settings: finishing file(s) (2, 58.2 KB)
+0054.902 (0) Table witw_wfnotifications: Total expected rows (approximate): 0
+0054.928 (0) Table witw_wfnotifications: Rows added in this batch (next record: 1000): 1 (uncompressed bytes in this segment=855) in 0.04 seconds
+0054.963 (0) Table witw_wfnotifications: finishing file(s) (2, 0.5 KB)
+0055.019 (0) Table witw_wfpendingissues: Total expected rows (via COUNT): 0
+0055.038 (0) Table witw_wfpendingissues: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=846) in 0.05 seconds
+0055.070 (0) Table witw_wfpendingissues: finishing file(s) (2, 0.4 KB)
+0055.131 (0) Table witw_wfreversecache: Total expected rows (approximate): 0
+0055.158 (0) Table witw_wfreversecache: Rows added in this batch (next record: 1000): 1 (uncompressed bytes in this segment=613) in 0.05 seconds
+0055.192 (0) Table witw_wfreversecache: finishing file(s) (2, 0.4 KB)
+0055.250 (0) Table witw_wfsecurityevents: Total expected rows (via COUNT): 0
+0055.269 (0) Table witw_wfsecurityevents: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=689) in 0.05 seconds
+0055.301 (0) Table witw_wfsecurityevents: finishing file(s) (2, 0.4 KB)
+0055.355 (0) Table witw_wfsnipcache: Total expected rows (via COUNT): 0
+0055.374 (0) Table witw_wfsnipcache: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=704) in 0.05 seconds
+0055.412 (0) Table witw_wfsnipcache: finishing file(s) (2, 0.4 KB)
+0055.467 (0) Table witw_wfstatus: Total expected rows (via COUNT): 0
+0055.486 (0) Table witw_wfstatus: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=560) in 0.05 seconds
+0055.519 (0) Table witw_wfstatus: finishing file(s) (2, 0.4 KB)
+0055.564 (0) Table witw_wftrafficrates: Total expected rows (approximate): 0
+0055.581 (0) Table witw_wftrafficrates: Rows added in this batch (next record: 0): 0 (uncompressed bytes in this segment=573) in 0.03 seconds
+0055.621 (0) Table witw_wftrafficrates: finishing file(s) (2, 0.3 KB)
+0055.679 (0) Table witw_wfwaffailures: Total expected rows (via COUNT): 0
+0055.697 (0) Table witw_wfwaffailures: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=534) in 0.05 seconds
+0055.735 (0) Table witw_wfwaffailures: finishing file(s) (2, 0.3 KB)
+0055.789 (0) Table witw_wpo_404_detector: Total expected rows (via COUNT): 0
+0055.808 (0) Table witw_wpo_404_detector: Rows added in this batch (next record: -1): 0 (uncompressed bytes in this segment=869) in 0.05 seconds
+0055.841 (0) Table witw_wpo_404_detector: finishing file(s) (2, 0.4 KB)
+0055.850 (0) Skipping table (lacks our prefix (witw_)): wp_commentmeta
+0055.860 (0) Skipping table (lacks our prefix (witw_)): wp_comments
+0055.869 (0) Skipping table (lacks our prefix (witw_)): wp_links
+0055.876 (0) Skipping table (lacks our prefix (witw_)): wp_options
+0055.885 (0) Skipping table (lacks our prefix (witw_)): wp_postmeta
+0055.892 (0) Skipping table (lacks our prefix (witw_)): wp_posts
+0055.900 (0) Skipping table (lacks our prefix (witw_)): wp_term_relationships
+0055.910 (0) Skipping table (lacks our prefix (witw_)): wp_term_taxonomy
+0055.918 (0) Skipping table (lacks our prefix (witw_)): wp_termmeta
+0055.926 (0) Skipping table (lacks our prefix (witw_)): wp_terms
+0055.935 (0) Skipping table (lacks our prefix (witw_)): wp_usermeta
+0055.943 (0) Skipping table (lacks our prefix (witw_)): wp_users
+0055.971 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_options.table.tmpr1065.gz (1/81/fopen): adding to final database dump
+0055.994 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_options.table.gz (2/81/fopen): adding to final database dump
+0056.005 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_users.table.tmpr2.gz (3/81/fopen): adding to final database dump
+0056.014 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_users.table.gz (4/81/fopen): adding to final database dump
+0056.023 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_usermeta.table.tmpr40.gz (5/81/fopen): adding to final database dump
+0056.032 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_usermeta.table.gz (6/81/fopen): adding to final database dump
+0056.041 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_commentmeta.table.tmpr0.gz (7/81/fopen): adding to final database dump
+0056.049 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_commentmeta.table.gz (8/81/fopen): adding to final database dump
+0056.058 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_comments.table.tmpr6.gz (9/81/fopen): adding to final database dump
+0056.067 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_comments.table.gz (10/81/fopen): adding to final database dump
+0056.076 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_links.table.tmpr0.gz (11/81/fopen): adding to final database dump
+0056.086 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_links.table.gz (12/81/fopen): adding to final database dump
+0056.095 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_postmeta.table.tmpr4889.gz (13/81/fopen): adding to final database dump
+0056.106 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_postmeta.table.gz (14/81/fopen): adding to final database dump
+0056.116 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_posts.table.tmpr235.gz (15/81/fopen): adding to final database dump
+0056.126 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_posts.table.gz (16/81/fopen): adding to final database dump
+0056.134 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_term_relationships.table.tmpr100001.gz (17/81/fopen): adding to final database dump
+0056.144 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_term_relationships.table.gz (18/81/fopen): adding to final database dump
+0056.154 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_term_taxonomy.table.tmpr9.gz (19/81/fopen): adding to final database dump
+0056.162 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_term_taxonomy.table.gz (20/81/fopen): adding to final database dump
+0056.170 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_termmeta.table.tmpr0.gz (21/81/fopen): adding to final database dump
+0056.180 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_termmeta.table.gz (22/81/fopen): adding to final database dump
+0056.187 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_terms.table.tmpr9.gz (23/81/fopen): adding to final database dump
+0056.201 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_terms.table.gz (24/81/fopen): adding to final database dump
+0056.211 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_audit_log.table.tmpr5.gz (25/81/fopen): adding to final database dump
+0056.222 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_audit_log.table.gz (26/81/fopen): adding to final database dump
+0056.231 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_debug_log.table.tmpr0.gz (27/81/fopen): adding to final database dump
+0056.240 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_debug_log.table.gz (28/81/fopen): adding to final database dump
+0056.250 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_events.table.tmpr0.gz (29/81/fopen): adding to final database dump
+0056.260 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_events.table.gz (30/81/fopen): adding to final database dump
+0056.269 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_global_meta.table.tmpr0.gz (31/81/fopen): adding to final database dump
+0056.280 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_global_meta.table.gz (32/81/fopen): adding to final database dump
+0056.289 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_logged_in_users.table.tmpr0.gz (33/81/fopen): adding to final database dump
+0056.300 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_logged_in_users.table.gz (34/81/fopen): adding to final database dump
+0056.309 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_login_lockdown.table.tmpr0.gz (35/81/fopen): adding to final database dump
+0056.319 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_login_lockdown.table.gz (36/81/fopen): adding to final database dump
+0056.329 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_message_store.table.tmpr0.gz (37/81/fopen): adding to final database dump
+0056.338 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_message_store.table.gz (38/81/fopen): adding to final database dump
+0056.348 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_permanent_block.table.tmpr0.gz (39/81/fopen): adding to final database dump
+0056.358 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_aiowps_permanent_block.table.gz (40/81/fopen): adding to final database dump
+0056.367 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_archived_months.table.tmpr0.gz (41/81/fopen): adding to final database dump
+0056.375 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_archived_months.table.gz (42/81/fopen): adding to final database dump
+0056.384 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_browser_versions.table.tmpr0.gz (43/81/fopen): adding to final database dump
+0056.394 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_browser_versions.table.gz (44/81/fopen): adding to final database dump
+0056.402 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_browsers.table.tmpr0.gz (45/81/fopen): adding to final database dump
+0056.411 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_browsers.table.gz (46/81/fopen): adding to final database dump
+0056.420 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_devices.table.tmpr0.gz (47/81/fopen): adding to final database dump
+0056.430 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_devices.table.gz (48/81/fopen): adding to final database dump
+0056.439 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_goal_statistics.table.tmpr0.gz (49/81/fopen): adding to final database dump
+0056.448 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_goal_statistics.table.gz (50/81/fopen): adding to final database dump
+0056.458 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_goals.table.tmpr2.gz (51/81/fopen): adding to final database dump
+0056.468 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_goals.table.gz (52/81/fopen): adding to final database dump
+0056.476 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_imports.table.tmpr0.gz (53/81/fopen): adding to final database dump
+0056.485 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_imports.table.gz (54/81/fopen): adding to final database dump
+0056.494 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_locations.table.tmpr0.gz (55/81/fopen): adding to final database dump
+0056.502 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_locations.table.gz (56/81/fopen): adding to final database dump
+0056.511 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_page_urls.table.tmpr0.gz (57/81/fopen): adding to final database dump
+0056.520 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_page_urls.table.gz (58/81/fopen): adding to final database dump
+0056.529 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_platforms.table.tmpr0.gz (59/81/fopen): adding to final database dump
+0056.537 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_platforms.table.gz (60/81/fopen): adding to final database dump
+0056.546 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_query_stats.table.tmpr2.gz (61/81/fopen): adding to final database dump
+0056.555 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_query_stats.table.gz (62/81/fopen): adding to final database dump
+0056.564 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_referrers.table.tmpr0.gz (63/81/fopen): adding to final database dump
+0056.574 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_referrers.table.gz (64/81/fopen): adding to final database dump
+0056.584 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_report_logs.table.tmpr0.gz (65/81/fopen): adding to final database dump
+0056.594 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_report_logs.table.gz (66/81/fopen): adding to final database dump
+0056.603 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_reports.table.tmpr0.gz (67/81/fopen): adding to final database dump
+0056.613 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_reports.table.gz (68/81/fopen): adding to final database dump
+0056.621 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_searches.table.tmpr0.gz (69/81/fopen): adding to final database dump
+0056.629 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_searches.table.gz (70/81/fopen): adding to final database dump
+0056.638 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_sessions.table.tmpr0.gz (71/81/fopen): adding to final database dump
+0056.646 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_sessions.table.gz (72/81/fopen): adding to final database dump
+0056.654 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_statistics.table.tmpr0.gz (73/81/fopen): adding to final database dump
+0056.662 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_statistics.table.gz (74/81/fopen): adding to final database dump
+0056.672 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_statistics_searches.table.tmpr0.gz (75/81/fopen): adding to final database dump
+0056.682 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_statistics_searches.table.gz (76/81/fopen): adding to final database dump
+0056.691 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_uids.table.tmpr0.gz (77/81/fopen): adding to final database dump
+0056.699 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_uids.table.gz (78/81/fopen): adding to final database dump
+0056.708 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_visitor_bitmaps.table.tmpr0.gz (79/81/fopen): adding to final database dump
+0056.720 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_burst_visitor_bitmaps.table.gz (80/81/fopen): adding to final database dump
+0056.729 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_tm_taskmeta.table.tmpr0.gz (81/81/fopen): adding to final database dump
+0056.738 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_tm_taskmeta.table.gz (82/81/fopen): adding to final database dump
+0056.746 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_tm_tasks.table.tmpr0.gz (83/81/fopen): adding to final database dump
+0056.754 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_tm_tasks.table.gz (84/81/fopen): adding to final database dump
+0056.764 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfauditevents.table.tmpr0.gz (85/81/fopen): adding to final database dump
+0056.775 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfauditevents.table.gz (86/81/fopen): adding to final database dump
+0056.785 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfblockediplog.table.tmpr1.gz (87/81/fopen): adding to final database dump
+0056.793 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfblockediplog.table.gz (88/81/fopen): adding to final database dump
+0056.801 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfblocks7.table.tmpr0.gz (89/81/fopen): adding to final database dump
+0056.811 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfblocks7.table.gz (90/81/fopen): adding to final database dump
+0056.820 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfconfig.table.tmpr1001.gz (91/81/fopen): adding to final database dump
+0056.833 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfconfig.table.gz (92/81/fopen): adding to final database dump
+0056.842 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfcrawlers.table.tmpr1.gz (93/81/fopen): adding to final database dump
+0056.850 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfcrawlers.table.gz (94/81/fopen): adding to final database dump
+0056.859 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wffilechanges.table.tmpr1.gz (95/81/fopen): adding to final database dump
+0056.869 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wffilechanges.table.gz (96/81/fopen): adding to final database dump
+0056.879 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wffilemods.table.tmpr1.gz (97/81/fopen): adding to final database dump
+0056.889 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wffilemods.table.gz (98/81/fopen): adding to final database dump
+0056.899 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfhits.table.tmpr5.gz (99/81/fopen): adding to final database dump
+0056.920 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfhits.table.gz (100/81/fopen): adding to final database dump
+0056.932 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfhoover.table.tmpr0.gz (101/81/fopen): adding to final database dump
+0056.942 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfhoover.table.gz (102/81/fopen): adding to final database dump
+0056.951 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfissues.table.tmpr0.gz (103/81/fopen): adding to final database dump
+0056.960 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfissues.table.gz (104/81/fopen): adding to final database dump
+0056.969 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfknownfilelist.table.tmpr0.gz (105/81/fopen): adding to final database dump
+0056.977 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfknownfilelist.table.gz (106/81/fopen): adding to final database dump
+0056.986 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wflivetraffichuman.table.tmpr1.gz (107/81/fopen): adding to final database dump
+0056.995 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wflivetraffichuman.table.gz (108/81/fopen): adding to final database dump
+0057.004 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wflocs.table.tmpr1001.gz (109/81/fopen): adding to final database dump
+0057.012 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wflocs.table.gz (110/81/fopen): adding to final database dump
+0057.021 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wflogins.table.tmpr5.gz (111/81/fopen): adding to final database dump
+0057.029 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wflogins.table.gz (112/81/fopen): adding to final database dump
+0057.039 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfls_2fa_secrets.table.tmpr3.gz (113/81/fopen): adding to final database dump
+0057.048 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfls_2fa_secrets.table.gz (114/81/fopen): adding to final database dump
+0057.056 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfls_passkeys.table.tmpr0.gz (115/81/fopen): adding to final database dump
+0057.064 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfls_passkeys.table.gz (116/81/fopen): adding to final database dump
+0057.074 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfls_role_counts.table.tmpr1.gz (117/81/fopen): adding to final database dump
+0057.084 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfls_role_counts.table.gz (118/81/fopen): adding to final database dump
+0057.094 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfls_settings.table.tmpr1001.gz (119/81/fopen): adding to final database dump
+0057.106 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfls_settings.table.gz (120/81/fopen): adding to final database dump
+0057.116 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfnotifications.table.tmpr1001.gz (121/81/fopen): adding to final database dump
+0057.126 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfnotifications.table.gz (122/81/fopen): adding to final database dump
+0057.135 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfpendingissues.table.tmpr0.gz (123/81/fopen): adding to final database dump
+0057.144 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfpendingissues.table.gz (124/81/fopen): adding to final database dump
+0057.152 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfreversecache.table.tmpr1001.gz (125/81/fopen): adding to final database dump
+0057.161 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfreversecache.table.gz (126/81/fopen): adding to final database dump
+0057.170 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfsecurityevents.table.tmpr0.gz (127/81/fopen): adding to final database dump
+0057.180 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfsecurityevents.table.gz (128/81/fopen): adding to final database dump
+0057.189 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfsnipcache.table.tmpr0.gz (129/81/fopen): adding to final database dump
+0057.198 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfsnipcache.table.gz (130/81/fopen): adding to final database dump
+0057.207 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfstatus.table.tmpr0.gz (131/81/fopen): adding to final database dump
+0057.218 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfstatus.table.gz (132/81/fopen): adding to final database dump
+0057.227 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wftrafficrates.table.tmpr1.gz (133/81/fopen): adding to final database dump
+0057.237 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wftrafficrates.table.gz (134/81/fopen): adding to final database dump
+0057.246 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfwaffailures.table.tmpr0.gz (135/81/fopen): adding to final database dump
+0057.257 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wfwaffailures.table.gz (136/81/fopen): adding to final database dump
+0057.265 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wpo_404_detector.table.tmpr0.gz (137/81/fopen): adding to final database dump
+0057.276 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db-table-witw_wpo_404_detector.table.gz (138/81/fopen): adding to final database dump
+0057.318 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db.gz: finished writing out complete database file (369.1 KB)
+0057.472 (0) Total database tables backed up: 69 (backup_2026-10-05-1010_Wear_It_9fa95ca76841-db.gz, size: 378080, sha1: 5a1af08171f8a4e73c85fa1203ac2dc0c9bcdedf, sha256: 51d83ff8cca0afd5a1ae3bf60b21a7a4b2a0eb9689a0678a07bd734befe31c7d)
+0057.778 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip: plugins: This file has already been successfully uploaded
+0057.787 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-themes.zip: themes: This file has already been successfully uploaded
+0057.794 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-uploads.zip: uploads: This file has already been successfully uploaded
+0057.802 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-others.zip: others: This file has already been successfully uploaded
+0057.810 (0) backup_2026-10-05-1010_Wear_It_9fa95ca76841-db.gz: db: This file has not yet been successfully uploaded: will queue
+0057.818 (0) Saving backup history. Total backup size: 31.1 MB
+0057.853 (0) Requesting upload of the files that have not yet been successfully uploaded (1)
+0057.879 (0) Cloud backup selection (1/1): googledrive with instance (1/1) (last)
+0057.887 (0) Beginning dispatch of backup to remote (googledrive) (instance identifier s-b6aee9430600d639e6e647ab7d39e40a)
+0058.728 (0) Google Drive: quota usage: used=9640.9 MB, total=5242880 MB, available=5233239.1 MB
+0058.736 (0) Google Drive: backup_2026-10-05-1010_Wear_It_9fa95ca76841-db.gz: Attempting to upload to Google Drive (into folder id: 1cw5uAUj4snT9ofbgk433cFRBwNHb_-CU)
+0061.933 (0) Googledrive chunked upload: 100 % uploaded
+0061.959 (0) Google Drive: OK: Archive backup_2026-10-05-1010_Wear_It_9fa95ca76841-db.gz uploaded in 3.22 seconds
+0061.976 (0) Recording as successfully uploaded: backup_2026-10-05-1010_Wear_It_9fa95ca76841-db.gz
+0061.998 (0) Deleting local file: backup_2026-10-05-1010_Wear_It_9fa95ca76841-db.gz: OK
+0062.023 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=2, retain_db=2
+0062.039 (0) Number of backup sets in history: 2; groups (db): 1
+0062.047 (0) Examining (for databases) backup set with group_id=0, nonce=9fa95ca76841, datestamp=1791195024 (Oct 05 2026 10:10:24)
+0062.054 (0) This backup set is the backup set just made, so will not be deleted.
+0062.055 (0) Examining (for databases) backup set with group_id=0, nonce=23488dd7c56e, datestamp=1791190965 (Oct 05 2026 09:02:45)
+0062.055 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0062.064 (0) Number of backup sets in history: 2; groups (files): 1
+0062.072 (0) Examining (for files) backup set with nonce=9fa95ca76841, datestamp=1791195024 (Oct 05 2026 10:10:24)
+0062.072 (0) This backup set is the backup set just made, so will not be deleted.
+0062.080 (0) This backup set is the backup set just made, so will not be deleted.
+0062.080 (0) This backup set is the backup set just made, so will not be deleted.
+0062.080 (0) This backup set is the backup set just made, so will not be deleted.
+0062.080 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0062.089 (0) Examining (for files) backup set with nonce=23488dd7c56e, datestamp=1791190965 (Oct 05 2026 09:02:45)
+0062.089 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0062.089 (0) Retain: saving new backup history (sets now: 2) and finishing retain operation
+0062.125 (0) Resume backup (9fa95ca76841, 0): finish run
+0062.150 (0) Decremented the semaphore (fd) by 1
+0062.166 (0) Semaphore (fd) unlocked
+0062.176 (0) There were no errors in the uploads, so the 'resume' event (1) is being unscheduled
+0062.205 (0) Deleting zip manifest (backup_2026-10-05-1010_Wear_It_9fa95ca76841-plugins.zip.list.tmp)
+0062.215 (0) Deleting zip manifest (backup_2026-10-05-1010_Wear_It_9fa95ca76841-themes.zip.list.tmp)
+0062.225 (0) Deleting zip manifest (backup_2026-10-05-1010_Wear_It_9fa95ca76841-uploads.zip.list.tmp)
+0062.234 (0) Deleting zip manifest (backup_2026-10-05-1010_Wear_It_9fa95ca76841-others.zip.list.tmp)
+0062.250 (0) No email will/can be sent - the user has not configured an email address.
+0062.258 (0) The backup succeeded and is now complete
