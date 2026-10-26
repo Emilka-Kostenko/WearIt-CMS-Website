@@ -180,7 +180,15 @@
               echo $drops_description ? esc_html( $drops_description ) : 'Heavy fleece · 4 colorways';
               ?>
             </p>
-            <button class="card_add_to_cart">Add to Cart</button>
+            <?php if ( $drops_title ) : // cart key: see wearit_drop_cart_key() in inc/cart.php ?>
+              <button
+                type="button"
+                class="card_add_to_cart"
+                data-cart-key="<?php echo esc_attr( wearit_drop_cart_key( get_row_index(), $drops_title ) ); ?>"
+              >Add to Cart</button>
+            <?php else : ?>
+              <button type="button" class="card_add_to_cart" disabled>Add to Cart</button>
+            <?php endif; ?>
           </div>
         </div>
 
