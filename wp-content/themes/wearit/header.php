@@ -22,7 +22,7 @@
     <!-- Navigation links -->
     <nav class="navbar__nav" id="navbar-nav" aria-label="Main navigation">
       <ul class="navbar__menu">
-        <li><a href="#" class="navbar__link">Shop</a></li>
+        <li><a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="navbar__link">Shop</a></li>
         <li><a href="#" class="navbar__link">Categories</a></li>
         <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'blog' ) ) ); ?>" class="navbar__link">Blog</a></li>
     
@@ -40,14 +40,23 @@
             d="m15 15l6 6m-11-4a7 7 0 1 1 0-14a7 7 0 0 1 0 14" />
         </svg>
       </button>
-      <button class="navbar__icon-btn" aria-label="Shopping bag">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1024 1024">
-          <path d="M0 0h1024v1024H0z" fill="none" />
-          <path fill="currentColor"
-            d="M704 320v96a32 32 0 0 1-32 32h-32V320H384v128h-32a32 32 0 0 1-32-32v-96H192v576h640V320zm-384-64a192 192 0 1 1 384 0h160a32 32 0 0 1 32 32v640a32 32 0 0 1-32 32H160a32 32 0 0 1-32-32V288a32 32 0 0 1 32-32zm64 0h256a128 128 0 1 0-256 0" />
-          <path fill="currentColor" d="M192 704h640v64H192z" />
-        </svg>
-      </button>
+      <!-- Mini-cart — logic in inc/cart.php + assets/js/cart.js -->
+      <?php $cart_count = wearit_get_cart()['count']; ?>
+      <div class="mini-cart" id="mini-cart">
+        <button class="navbar__icon-btn mini-cart__toggle" id="mini-cart-toggle" aria-label="Shopping bag" aria-expanded="false" aria-controls="mini-cart-panel">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1024 1024">
+            <path d="M0 0h1024v1024H0z" fill="none" />
+            <path fill="currentColor"
+              d="M704 320v96a32 32 0 0 1-32 32h-32V320H384v128h-32a32 32 0 0 1-32-32v-96H192v576h640V320zm-384-64a192 192 0 1 1 384 0h160a32 32 0 0 1 32 32v640a32 32 0 0 1-32 32H160a32 32 0 0 1-32-32V288a32 32 0 0 1 32-32zm64 0h256a128 128 0 1 0-256 0" />
+            <path fill="currentColor" d="M192 704h640v64H192z" />
+          </svg>
+          <span class="mini-cart__badge" id="mini-cart-badge"<?php echo $cart_count ? '' : ' hidden'; ?>><?php echo esc_html( $cart_count ); ?></span>
+        </button>
+
+        <div class="mini-cart__panel" id="mini-cart-panel" hidden>
+          <?php get_template_part( 'template-parts/mini-cart' ); ?>
+        </div>
+      </div>
     </div>
 
     <!-- Hamburger (mobile) -->
