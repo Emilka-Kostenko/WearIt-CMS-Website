@@ -3090,6 +3090,7 @@ a.shop-filters__clear:hover {
   }
 }
 
+<<<<<<< Updated upstream
 /* ============================================================
    CART PAGE (cartPage.php, template-parts/cart-page.php)
    Reuses the shop hero and layout (.shop, .shop-hero, .shop-body);
@@ -3412,10 +3413,169 @@ a.shop-filters__clear:hover {
 .cart-summary__actions {
   display: flex;
   flex-direction: column;
+=======
+
+/* ============================================================
+   HERO SLIDER + BLACK WEEK SLIDE (front-page.php, template-parts/hero-black-week.php)
+   Measurements come from the Figma "BLACK WEEK" frame.
+   ============================================================ */
+
+.hero-slider {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.hero-slider__track {
+  display: flex;
+  transition: transform 0.6s ease;
+}
+
+.hero-slider__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+/* Without JavaScript only slide 1 shows and the controls stay hidden. */
+.hero-slider:not(.is-ready) .hero-slider__slide:not(:first-child),
+.hero-slider:not(.is-ready) .hero-slider__arrow,
+.hero-slider:not(.is-ready) .hero-slider__dots {
+  display: none;
+}
+
+/* ── Arrows ── */
+.hero-slider__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-top: calc(var(--navbar-height) / 2 - 22px); /* centre in the visible hero, below the navbar */
+  background-color: rgba(13, 13, 13, 0.6);
+  border: 1px solid #2a2a2a;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.hero-slider__arrow--prev { left: 12px; }
+.hero-slider__arrow--next { right: 12px; }
+
+.hero-slider__arrow:hover {
+  background-color: rgba(13, 13, 13, 0.9);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.hero-slider__arrow:focus-visible,
+.hero-slider__dot:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+.hero-slider__arrow img {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+/* ── Dots ── */
+.hero-slider__dots {
+  position: absolute;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+.hero-slider__dot {
+  width: 20px;
+  height: 24px;                       /* tall hit area, the visible bar is 4px */
+  padding: 10px 0;
+  background-color: rgba(136, 136, 136, 0.6);
+  background-clip: content-box;
+  transition: width var(--transition-base), background-color var(--transition-base);
+}
+
+.hero-slider__dot.is-active {
+  width: 40px;
+  background-color: var(--color-accent);
+}
+
+/* On the lime slide the active dot is dark, as in the design. */
+.hero-slider[data-active="1"] .hero-slider__dot.is-active {
+  background-color: var(--color-bg);
+}
+
+/* ── Black Week slide ── */
+.black-week {
+  display: flex;
+  align-items: stretch;
+  padding-top: var(--navbar-height);
+  min-height: 100svh;
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.black-week__container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 4rem 3rem;
+}
+
+.black-week__content {
+  flex: 678 1 0;
+  min-width: 0;
+}
+
+.black-week__tag {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  padding: 4px 12px;
+  font-family: var(--font-barlow);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  line-height: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background-color: var(--color-bg);
+}
+
+.black-week__heading {
+  font-family: var(--font-condensed);
+  font-size: clamp(5rem, 11vw, 10rem);
+  font-weight: 900;
+  line-height: 0.85;
+  text-transform: uppercase;
+  color: var(--color-bg);
+}
+
+.black-week__text {
+  max-width: 28rem;
+  margin-top: 2rem;
+  font-family: var(--font-barlow);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.625;
+  color: var(--color-bg);
+}
+
+.black-week__ctas {
+  display: flex;
+  flex-wrap: wrap;
+>>>>>>> Stashed changes
   gap: 1rem;
   padding-top: 2.5rem;
 }
 
+<<<<<<< Updated upstream
 .cart-summary__note {
   padding-top: 2rem;
   font-size: 0.875rem;
@@ -3481,5 +3641,129 @@ a.shop-filters__clear:hover {
     align-items: center;
     justify-content: flex-end;
     gap: 1rem;
+=======
+.black-week__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 28px;
+  font-family: var(--font-barlow);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.black-week__cta--primary {
+  color: var(--color-accent);
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-bg);
+}
+
+.black-week__cta--primary:hover {
+  color: var(--color-bg);
+  background-color: transparent;
+}
+
+.black-week__cta--secondary {
+  color: var(--color-bg);
+  background-color: transparent;
+  border: 2px solid var(--color-bg);
+}
+
+.black-week__cta--secondary:hover {
+  color: var(--color-accent);
+  background-color: var(--color-bg);
+}
+
+.black-week__discount {
+  flex: 0 1 474px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.black-week__number {
+  font-family: var(--font-condensed);
+  font-size: clamp(9rem, 22vw, 20rem);
+  font-weight: 900;
+  line-height: 0.8;
+  text-transform: uppercase;
+  color: var(--color-bg);
+}
+
+.black-week__percent {
+  font-size: 0.5em;
+}
+
+.black-week__discount-label {
+  padding-top: 0.5rem;
+  font-family: var(--font-condensed);
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-bg);
+}
+
+/* Visitors who ask for less motion get slides that switch instantly (the script also stops autoplay for them). */
+@media (prefers-reduced-motion: reduce) {
+  .hero-slider__track {
+    transition: none;
+  }
+}
+
+/* ── Hero slider — tablet and mobile (≤ 900px) ── */
+@media (max-width: 900px) {
+  .black-week__container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.5rem;
+    padding: 3rem clamp(1.25rem, 5vw, 2.5rem) 5rem;
+  }
+
+  .black-week__content,
+  .black-week__discount {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .black-week__discount {
+    align-items: flex-start;
+  }
+
+  /* Smaller type so the stacked slide fits one phone screen (arrows stay visible). */
+  .black-week__heading {
+    font-size: clamp(4rem, 18vw, 6rem);
+  }
+
+  .black-week__number {
+    font-size: clamp(5.5rem, 26vw, 9rem);
+  }
+
+  /* Arrows move to the bottom corners so they never cover the text. */
+  .hero-slider__arrow {
+    top: auto;
+    bottom: 0.75rem;
+    margin-top: 0;
+  }
+
+  .hero-slider__dots {
+    bottom: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .black-week__ctas {
+    flex-direction: column;
+  }
+
+  .black-week__cta {
+    width: 100%;
+>>>>>>> Stashed changes
   }
 }
