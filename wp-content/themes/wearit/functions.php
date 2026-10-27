@@ -45,13 +45,11 @@ add_action( 'init', function () {
 require_once get_template_directory() . '/inc/products.php';
 require_once get_template_directory() . '/inc/seed-products.php';
 
-<<<<<<< Updated upstream
 // ── Cart (cookie storage, mini-cart in the header) ────────────
 require_once get_template_directory() . '/inc/cart.php';
-=======
+
 // ── Home hero slider (Black Week slide, arrows, autoplay) ─────
 require_once get_template_directory() . '/inc/hero-slider.php';
->>>>>>> Stashed changes
 
 // ── Handle contact form submission ─────────────────────────────
 

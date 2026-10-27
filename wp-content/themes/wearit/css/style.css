@@ -3090,7 +3090,6 @@ a.shop-filters__clear:hover {
   }
 }
 
-<<<<<<< Updated upstream
 /* ============================================================
    CART PAGE (cartPage.php, template-parts/cart-page.php)
    Reuses the shop hero and layout (.shop, .shop-hero, .shop-body);
@@ -3413,7 +3412,78 @@ a.shop-filters__clear:hover {
 .cart-summary__actions {
   display: flex;
   flex-direction: column;
-=======
+  gap: 1rem;
+  padding-top: 2.5rem;
+}
+
+.cart-summary__note {
+  padding-top: 2rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--shop-muted);
+}
+
+/* ── Cart — tablet (≤ 1024px): narrower summary ── */
+@media (max-width: 1024px) {
+  .cart-summary {
+    flex-basis: 320px;
+    width: 320px;
+    padding: 2rem;
+  }
+}
+
+/* ── Cart — mobile (≤ 768px): summary below the items (the shop layout already stacks) ── */
+@media (max-width: 768px) {
+  .cart-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-hero__count {
+    padding-bottom: 0;
+  }
+
+  .cart-items,
+  .cart-summary {
+    width: 100%;
+  }
+
+  .cart-summary {
+    position: static;
+    flex-basis: auto;
+  }
+
+  .cart-empty {
+    min-height: 0;
+  }
+
+  /* Thumb + info on top, quantity and price underneath */
+  .cart-item {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .cart-item__thumb {
+    flex-basis: 80px;
+    width: 80px;
+    height: 80px;
+  }
+
+  .cart-item__info {
+    flex-basis: calc(100% - 80px - 1rem);
+  }
+
+  .cart-item__side {
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+}
+
 
 /* ============================================================
    HERO SLIDER + BLACK WEEK SLIDE (front-page.php, template-parts/hero-black-week.php)
@@ -3570,78 +3640,10 @@ a.shop-filters__clear:hover {
 .black-week__ctas {
   display: flex;
   flex-wrap: wrap;
->>>>>>> Stashed changes
   gap: 1rem;
   padding-top: 2.5rem;
 }
 
-<<<<<<< Updated upstream
-.cart-summary__note {
-  padding-top: 2rem;
-  font-size: 0.875rem;
-  letter-spacing: 0.05em;
-  text-align: center;
-  text-transform: uppercase;
-  color: var(--shop-muted);
-}
-
-/* ── Cart — tablet (≤ 1024px): narrower summary ── */
-@media (max-width: 1024px) {
-  .cart-summary {
-    flex-basis: 320px;
-    width: 320px;
-    padding: 2rem;
-  }
-}
-
-/* ── Cart — mobile (≤ 768px): summary below the items (the shop layout already stacks) ── */
-@media (max-width: 768px) {
-  .cart-hero {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .cart-hero__count {
-    padding-bottom: 0;
-  }
-
-  .cart-items,
-  .cart-summary {
-    width: 100%;
-  }
-
-  .cart-summary {
-    position: static;
-    flex-basis: auto;
-  }
-
-  .cart-empty {
-    min-height: 0;
-  }
-
-  /* Thumb + info on top, quantity and price underneath */
-  .cart-item {
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .cart-item__thumb {
-    flex-basis: 80px;
-    width: 80px;
-    height: 80px;
-  }
-
-  .cart-item__info {
-    flex-basis: calc(100% - 80px - 1rem);
-  }
-
-  .cart-item__side {
-    flex: 1;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 1rem;
-=======
 .black-week__cta {
   display: inline-flex;
   align-items: center;
@@ -3764,6 +3766,5 @@ a.shop-filters__clear:hover {
 
   .black-week__cta {
     width: 100%;
->>>>>>> Stashed changes
   }
 }
