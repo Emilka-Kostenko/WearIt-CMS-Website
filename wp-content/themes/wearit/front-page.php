@@ -326,7 +326,7 @@
       </p>
 
       <div class="bf-panel__ctas">
-        <a href="/shop" class="bf-panel__cta bf-panel__cta--primary">Shop the Bundle</a>
+        <a href="http://clothingwebshopcms-project.local/products/" class="bf-panel__cta bf-panel__cta--primary">Shop the Bundle</a>
         <a href="#" class="bf-panel__cta bf-panel__cta--secondary">Get VIP Early Access</a>
       </div>
 
