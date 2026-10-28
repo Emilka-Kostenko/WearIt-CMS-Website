@@ -23,6 +23,7 @@
     <nav class="navbar__nav" id="navbar-nav" aria-label="Main navigation">
       <ul class="navbar__menu">
         <li><a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="navbar__link">Shop</a></li>
+        <li><a href="#" class="navbar__link">Categories</a></li>
         <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'blog' ) ) ); ?>" class="navbar__link">Blog</a></li>
     
         <li><a href="<?php echo esc_url( get_post_type_archive_link( 'initiative' ) ); ?>" class="navbar__link">Sustainability</a></li>
