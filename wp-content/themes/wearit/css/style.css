@@ -3486,287 +3486,286 @@ a.shop-filters__clear:hover {
 
 
 /* ============================================================
-   HERO SLIDER + BLACK WEEK SLIDE (front-page.php, template-parts/hero-black-week.php)
-   Measurements come from the Figma "BLACK WEEK" frame.
+   BLACK FRIDAY: floating button + full-screen slide-in panel
    ============================================================ */
 
-.hero-slider {
-  position: relative;
-  overflow: hidden;
-  background-color: var(--color-bg);
-}
-
-.hero-slider__track {
-  display: flex;
-  transition: transform 0.6s ease;
-}
-
-.hero-slider__slide {
-  flex: 0 0 100%;
-  min-width: 0;
-}
-
-/* Without JavaScript only slide 1 shows and the controls stay hidden. */
-.hero-slider:not(.is-ready) .hero-slider__slide:not(:first-child),
-.hero-slider:not(.is-ready) .hero-slider__arrow,
-.hero-slider:not(.is-ready) .hero-slider__dots {
-  display: none;
-}
-
-/* ── Arrows ── */
-.hero-slider__arrow {
-  position: absolute;
-  top: 50%;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  margin-top: calc(var(--navbar-height) / 2 - 22px); /* centre in the visible hero, below the navbar */
-  background-color: rgba(13, 13, 13, 0.6);
-  border: 1px solid #2a2a2a;
-  transition: background-color var(--transition-fast), border-color var(--transition-fast);
-}
-
-.hero-slider__arrow--prev { left: 12px; }
-.hero-slider__arrow--next { right: 12px; }
-
-.hero-slider__arrow:hover {
-  background-color: rgba(13, 13, 13, 0.9);
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-.hero-slider__arrow:focus-visible,
-.hero-slider__dot:focus-visible {
-  outline: 2px solid var(--color-text);
-  outline-offset: 2px;
-}
-
-.hero-slider__arrow img {
-  display: block;
-  width: 18px;
-  height: 18px;
-}
-
-/* ── Dots ── */
-.hero-slider__dots {
-  position: absolute;
-  left: 50%;
+/* ── Floating button (same look as .hero__cta--primary) ── */
+.bf-fab {
+  position: fixed;
+  right: 1.5rem;
   bottom: 1.5rem;
-  z-index: 3;
-  display: flex;
-  gap: 8px;
-  transform: translateX(-50%);
-}
-
-.hero-slider__dot {
-  width: 20px;
-  height: 24px;                       /* tall hit area, the visible bar is 4px */
-  padding: 10px 0;
-  background-color: rgba(136, 136, 136, 0.6);
-  background-clip: content-box;
-  transition: width var(--transition-base), background-color var(--transition-base);
-}
-
-.hero-slider__dot.is-active {
-  width: 40px;
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.75rem;
+  font-family: var(--font-barlow);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
   background-color: var(--color-accent);
+  color: #0d0d0d;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
 }
+.bf-fab:hover { background-color: #b8e800; }
 
-/* On the lime slide the active dot is dark, as in the design. */
-.hero-slider[data-active="1"] .hero-slider__dot.is-active {
-  background-color: var(--color-bg);
+/* ── Overlay ── */
+.bf-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1050;
 }
+.bf-overlay.is-visible { opacity: 1; }
 
-/* ── Black Week slide ── */
-.black-week {
-  display: flex;
-  align-items: stretch;
-  padding-top: var(--navbar-height);
-  min-height: 100svh;
+/* ── Panel (full screen, no scrolling on desktop) ── */
+.bf-panel {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   background-color: var(--color-accent);
-  color: var(--color-bg);
+  color: #0d0d0d;
+  transform: translateX(100%);
+  transition: transform 0.45s ease;
+  z-index: 1100;
 }
+.bf-panel.is-open { transform: translateX(0); }
 
-.black-week__container {
-  display: flex;
+.bf-panel__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 2rem;
   width: 100%;
   max-width: 1280px;
+  height: 100%;
   margin: 0 auto;
-  padding: 4rem 3rem;
+  padding: clamp(3.5rem, 8vh, 5rem) clamp(1.5rem, 4vw, 3rem);
 }
 
-.black-week__content {
-  flex: 678 1 0;
-  min-width: 0;
+/* ── Close button ── */
+.bf-panel__close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--color-accent);
+  background-color: #0d0d0d;
+  transition: opacity var(--transition-fast);
+  z-index: 2;
 }
+.bf-panel__close:hover { opacity: 0.8; }
 
-.black-week__tag {
+/* ── Left side ── */
+.bf-panel__badge {
   display: inline-block;
-  margin-bottom: 1.5rem;
-  padding: 4px 12px;
+  margin-bottom: clamp(1rem, 3vh, 2rem);
+  padding: 0.5rem 0.9rem;
   font-family: var(--font-barlow);
+  font-weight: 500;
   font-size: 0.75rem;
-  font-weight: var(--font-weight-medium);
-  line-height: 1rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-accent);
-  background-color: var(--color-bg);
+  background-color: #0d0d0d;
 }
 
-.black-week__heading {
+.bf-panel__title {
+  margin-bottom: clamp(0.75rem, 2vh, 1.5rem);
   font-family: var(--font-condensed);
-  font-size: clamp(5rem, 11vw, 10rem);
   font-weight: 900;
-  line-height: 0.85;
+  font-size: clamp(3rem, min(11vw, 14vh), 8rem);
+  line-height: 0.92;
   text-transform: uppercase;
-  color: var(--color-bg);
 }
+.bf-panel__title span { display: block; }
 
-.black-week__text {
-  max-width: 28rem;
-  margin-top: 2rem;
+.bf-panel__text {
+  max-width: 32rem;
+  margin-bottom: clamp(1rem, 3vh, 2rem);
   font-family: var(--font-barlow);
   font-size: 1rem;
-  font-weight: var(--font-weight-medium);
-  line-height: 1.625;
-  color: var(--color-bg);
+  line-height: 1.6;
 }
 
-.black-week__ctas {
+.bf-panel__ctas {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  padding-top: 2.5rem;
 }
 
-.black-week__cta {
+.bf-panel__cta {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 12px 28px;
+  padding: clamp(0.8rem, 2vh, 1.1rem) 2.25rem;
   font-family: var(--font-barlow);
+  font-weight: 500;
   font-size: 0.875rem;
-  font-weight: var(--font-weight-medium);
-  line-height: 1.25rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   white-space: nowrap;
+  border: 2px solid #0d0d0d;
   transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
-.black-week__cta--primary {
+.bf-panel__cta--primary {
+  background-color: #0d0d0d;
   color: var(--color-accent);
-  background-color: var(--color-bg);
-  border: 2px solid var(--color-bg);
 }
-
-.black-week__cta--primary:hover {
-  color: var(--color-bg);
+.bf-panel__cta--primary:hover {
   background-color: transparent;
+  color: #0d0d0d;
 }
 
-.black-week__cta--secondary {
-  color: var(--color-bg);
+.bf-panel__cta--secondary {
   background-color: transparent;
-  border: 2px solid var(--color-bg);
+  color: #0d0d0d;
 }
-
-.black-week__cta--secondary:hover {
+.bf-panel__cta--secondary:hover {
+  background-color: #0d0d0d;
   color: var(--color-accent);
-  background-color: var(--color-bg);
 }
 
-.black-week__discount {
-  flex: 0 1 474px;
+/* ── Schedule list under the buttons ── */
+.bf-panel__schedule {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  gap: 0.5rem;
+  max-width: 32rem;
+  margin-top: clamp(1rem, 3vh, 2rem);
+  padding-top: clamp(0.75rem, 2vh, 1.25rem);
+  border-top: 2px solid #0d0d0d;
+  font-family: var(--font-barlow);
+  font-size: 0.8125rem;
+  line-height: 1.4;
 }
-
-.black-week__number {
+.bf-panel__schedule strong {
+  display: block;
   font-family: var(--font-condensed);
-  font-size: clamp(9rem, 22vw, 20rem);
   font-weight: 900;
-  line-height: 0.8;
+  font-size: 0.9375rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-bg);
 }
 
-.black-week__percent {
-  font-size: 0.5em;
+/* ── Right side: tier ladder ── */
+.bf-panel__discount {
+  width: 100%;
+  max-width: 28rem;
+  margin-left: auto;
 }
 
-.black-week__discount-label {
-  padding-top: 0.5rem;
-  font-family: var(--font-condensed);
-  font-size: 1.5rem;
-  font-weight: 900;
+.bf-panel__discount-kicker {
+  margin-bottom: 0.75rem;
+  font-family: var(--font-barlow);
+  font-weight: 500;
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-bg);
 }
 
-/* Visitors who ask for less motion get slides that switch instantly (the script also stops autoplay for them). */
-@media (prefers-reduced-motion: reduce) {
-  .hero-slider__track {
-    transition: none;
-  }
+.bf-panel__tiers {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.5vh, 0.75rem);
 }
 
-/* ── Hero slider — tablet and mobile (≤ 900px) ── */
+.bf-panel__tiers li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(0.75rem, 2vh, 1.25rem) 1.5rem;
+  border: 2px solid #0d0d0d;
+}
+
+.bf-panel__tier-items {
+  flex-shrink: 0;
+  font-family: var(--font-condensed);
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.bf-panel__tier-off {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-family: var(--font-condensed);
+  font-weight: 900;
+  font-size: clamp(2rem, 6.5vh, 3.5rem);
+  line-height: 1;
+  text-align: right;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Top tier stands out, but stays on one line, pinned right */
+.bf-panel__tiers li.is-max {
+  background-color: #0d0d0d;
+  color: var(--color-accent);
+}
+.bf-panel__tiers li.is-max .bf-panel__tier-off {
+  font-size: clamp(2.75rem, 9vh, 5rem);
+}
+
+.bf-panel__perk {
+  margin-top: clamp(0.75rem, 2vh, 1.25rem);
+  font-family: var(--font-barlow);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Lock page scroll while the panel is open */
+body.bf-open { overflow: hidden; }
+
+/* ── Tablet / mobile: stack and allow scrolling (it can't fit one screen) ── */
 @media (max-width: 900px) {
-  .black-week__container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2.5rem;
-    padding: 3rem clamp(1.25rem, 5vw, 2.5rem) 5rem;
+  .bf-panel {
+    overflow-y: auto;
   }
 
-  .black-week__content,
-  .black-week__discount {
-    flex: 0 0 auto;
-    width: 100%;
+  .bf-panel__inner {
+    grid-template-columns: 1fr;
+    align-content: start;
+    height: auto;
+    min-height: 100%;
+    padding-top: 6rem;
   }
 
-  .black-week__discount {
-    align-items: flex-start;
+  .bf-panel__title {
+    font-size: clamp(4rem, 18vw, 7rem);
   }
 
-  /* Smaller type so the stacked slide fits one phone screen (arrows stay visible). */
-  .black-week__heading {
-    font-size: clamp(4rem, 18vw, 6rem);
-  }
-
-  .black-week__number {
-    font-size: clamp(5.5rem, 26vw, 9rem);
-  }
-
-  /* Arrows move to the bottom corners so they never cover the text. */
-  .hero-slider__arrow {
-    top: auto;
-    bottom: 0.75rem;
-    margin-top: 0;
-  }
-
-  .hero-slider__dots {
-    bottom: 1.25rem;
+  .bf-panel__discount {
+    margin-left: 0;
+    max-width: none;
   }
 }
 
 @media (max-width: 480px) {
-  .black-week__ctas {
-    flex-direction: column;
-  }
+  .bf-panel__ctas { flex-direction: column; }
+  .bf-panel__cta { justify-content: center; width: 100%; }
+}
 
-  .black-week__cta {
-    width: 100%;
-  }
+@media (prefers-reduced-motion: reduce) {
+  .bf-panel, .bf-overlay { transition: none; }
 }
 
 /* ============================================================
