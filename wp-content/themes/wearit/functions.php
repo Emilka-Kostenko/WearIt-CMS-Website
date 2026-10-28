@@ -51,6 +51,15 @@ require_once get_template_directory() . '/inc/cart.php';
 // ── Home hero slider (Black Week slide, arrows, autoplay) ─────
 require_once get_template_directory() . '/inc/hero-slider.php';
 
+// ── Orders (order post type, saved on checkout) ───────────────
+require_once get_template_directory() . '/inc/orders.php';
+
+// ── Checkout (form, order summary, placing the order) ─────────
+require_once get_template_directory() . '/inc/checkout.php';
+
+// ── Order emails (confirmation, shop notification, shipped) ───
+require_once get_template_directory() . '/inc/order-emails.php';
+
 // ── Handle contact form submission ─────────────────────────────
 
 add_action( 'admin_post_wearit_contact', 'wearit_handle_contact_form' );
