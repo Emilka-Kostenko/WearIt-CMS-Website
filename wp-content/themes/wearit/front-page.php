@@ -10,7 +10,25 @@
                    hero_cta_secondary_label, hero_cta_secondary_url,
                    hero_image
   ═══════════════════════════════════════════════════════ -->
-  <section class="hero" id="hero">
+  <?php
+  // Slide 2 (Black Week) and the autoplay speed are edited under Pages → Home
+  // → "Hero slider — Black Week slide". See inc/hero-slider.php.
+  $hero_slider = wearit_get_hero_slider();
+  $has_slider  = $hero_slider['enabled'];
+  ?>
+  <section
+    class="hero-slider"
+    id="hero"
+    <?php if ( $has_slider ) : ?>
+      data-hero-slider
+      data-seconds="<?php echo esc_attr( $hero_slider['seconds'] ); ?>"
+      aria-roledescription="carousel"
+      aria-label="Featured"
+    <?php endif; ?>
+  >
+    <div class="hero-slider__track">
+
+    <div class="hero-slider__slide hero"<?php if ( $has_slider ) : ?> role="group" aria-roledescription="slide" aria-label="1 of 2"<?php endif; ?>>
     <div class="hero__container">
 
       <div class="hero__content">
@@ -76,6 +94,27 @@
       </div>
 
     </div>
+    </div><!-- /slide 1 -->
+
+    <?php if ( $has_slider ) : ?>
+      <?php get_template_part( 'template-parts/hero-black-week', null, [ 'slider' => $hero_slider ] ); ?>
+    <?php endif; ?>
+
+    </div><!-- /track -->
+
+    <?php if ( $has_slider ) : ?>
+      <button type="button" class="hero-slider__arrow hero-slider__arrow--prev" aria-label="Previous slide">
+        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/icons/hero-arrow-prev.svg' ); ?>" width="18" height="18" alt="" />
+      </button>
+      <button type="button" class="hero-slider__arrow hero-slider__arrow--next" aria-label="Next slide">
+        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/icons/hero-arrow-next.svg' ); ?>" width="18" height="18" alt="" />
+      </button>
+      <div class="hero-slider__dots">
+        <button type="button" class="hero-slider__dot is-active" aria-label="Go to slide 1" aria-current="true"></button>
+        <button type="button" class="hero-slider__dot" aria-label="Go to slide 2" aria-current="false"></button>
+      </div>
+    <?php endif; ?>
+
   </section>
 
   <!-- ═══════════════════════════════════════════════════════

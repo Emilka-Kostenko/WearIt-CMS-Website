@@ -48,6 +48,9 @@ require_once get_template_directory() . '/inc/seed-products.php';
 // ── Cart (cookie storage, mini-cart in the header) ────────────
 require_once get_template_directory() . '/inc/cart.php';
 
+// ── Home hero slider (Black Week slide, arrows, autoplay) ─────
+require_once get_template_directory() . '/inc/hero-slider.php';
+
 // ── Handle contact form submission ─────────────────────────────
 
 add_action( 'admin_post_wearit_contact', 'wearit_handle_contact_form' );
