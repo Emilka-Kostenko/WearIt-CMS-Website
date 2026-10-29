@@ -301,7 +301,8 @@ function wearit_handle_checkout() {
         wp_safe_redirect( add_query_arg( 'checkout', 'empty', $redirect ) );
         exit;
     }
-    $totals = wearit_cart_totals( $cart );
+    // Shipping + the coupon applied on the checkout page, checked again here (inc/coupons.php).
+    $totals = wearit_checkout_totals( $cart, get_current_user_id() );
 
     // The method's surcharge is added here, on the server, like every other price.
     $fee              = wearit_payment_fee( $customer['payment'] );
@@ -327,6 +328,8 @@ function wearit_handle_checkout() {
         'subtotal' => $cart['subtotal'],
         'shipping' => $totals['shipping'],
         'fee'      => $fee,
+        'discount' => $totals['discount'],
+        'coupon'   => $totals['coupon'],
         'total'    => $totals['total'],
     ] );
 
@@ -337,6 +340,11 @@ function wearit_handle_checkout() {
     }
 
     error_log( 'wearit_checkout: order ' . $order_id . ' created' );
+
+    // The order is saved, so the coupon is used up for this account.
+    if ( $totals['coupon'] ) {
+        wearit_coupon_mark_used( $totals['coupon'], get_current_user_id() );
+    }
 
     // The order is saved, so the cart can go.
     wearit_cart_save_raw( [] );

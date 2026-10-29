@@ -2,8 +2,9 @@
 
 get_header();
 
-$cart   = wearit_get_cart();
-$totals = wearit_cart_totals( $cart );
+$cart          = wearit_get_cart();
+$totals        = wearit_checkout_totals( $cart ); // includes the applied coupon (inc/coupons.php)
+$coupon_notice = wearit_coupon_notice();
 ?>
 
 <main class="shop checkout-page">
@@ -45,6 +46,7 @@ $totals = wearit_cart_totals( $cart );
 
         <!-- ── NOT LOGGED IN — checkout needs an account (inc/account.php) ── -->
         <?php get_template_part( 'template-parts/login-required', null, [
+          'context'  => 'checkout',
           'title'    => 'Log in to check out',
           'text'     => 'You need a WearIt account to place an order. Your cart stays as it is while you log in or sign up.',
           'redirect' => wearit_checkout_url(),
@@ -163,11 +165,60 @@ $totals = wearit_cart_totals( $cart );
               <?php endforeach; ?>
             </ul>
 
+            <!-- ── COUPON — its inputs belong to the small forms after this form (form="…"),
+                 so Enter in the field applies the code instead of placing the order ── -->
+            <div class="checkout-coupon" id="checkout-coupon">
+              <?php if ( $totals['coupon'] ) : ?>
+                <p class="checkout-coupon__applied">
+                  <span><?php echo str_replace(
+                    [ '{code}', '{discount}' ],
+                    [ '<strong>' . esc_html( $totals['coupon'] ) . '</strong>', esc_html( wearit_coupons()[ $totals['coupon'] ]['label'] ) ],
+                    esc_html( wearit_checkout_text( 'checkout_coupon_applied', 'Code {code} applied: {discount}' ) )
+                  ); ?></span>
+                  <button type="submit" form="checkout-coupon-remove" class="checkout-coupon__remove"><?php echo esc_html( wearit_checkout_text( 'checkout_coupon_remove', 'Remove' ) ); ?><span class="screen-reader-text"> <?php echo esc_html( $totals['coupon'] ); ?></span></button>
+                </p>
+              <?php else : ?>
+                <label for="checkout_coupon" class="checkout-coupon__label"><?php echo esc_html( wearit_checkout_text( 'checkout_coupon_label', 'Coupon code' ) ); ?></label>
+                <div class="checkout-coupon__row">
+                  <input
+                    type="text"
+                    id="checkout_coupon"
+                    name="coupon_code"
+                    form="checkout-coupon-form"
+                    class="checkout-field__input checkout-coupon__input"
+                    autocomplete="off"
+                    autocapitalize="characters"
+                    spellcheck="false"
+                    <?php if ( $coupon_notice && $coupon_notice['type'] === 'error' ) : ?>aria-invalid="true" aria-describedby="checkout-coupon-notice"<?php endif; ?>
+                  />
+                  <button type="submit" form="checkout-coupon-form" class="cart-button cart-button--ghost checkout-coupon__apply"><?php echo esc_html( wearit_checkout_text( 'checkout_coupon_button', 'Apply' ) ); ?></button>
+                </div>
+              <?php endif; ?>
+
+              <?php if ( $coupon_notice ) : ?>
+                <p
+                  class="checkout-coupon__notice checkout-coupon__notice--<?php echo esc_attr( $coupon_notice['type'] ); ?>"
+                  id="checkout-coupon-notice"
+                  tabindex="-1"
+                  role="<?php echo $coupon_notice['type'] === 'error' ? 'alert' : 'status'; ?>"
+                >
+                  <?php if ( $coupon_notice['type'] === 'error' ) : ?><strong><?php echo esc_html( wearit_checkout_text( 'checkout_coupon_error_label', 'Error:' ) ); ?></strong> <?php endif; ?>
+                  <?php echo esc_html( $coupon_notice['text'] ); ?>
+                </p>
+              <?php endif; ?>
+            </div>
+
             <dl class="cart-summary__rows">
               <div class="cart-summary__row">
                 <dt>Subtotal</dt>
                 <dd><?php echo esc_html( wearit_cart_format_price( $cart['subtotal'] ) ); ?></dd>
               </div>
+              <?php if ( $totals['discount'] > 0 ) : ?>
+                <div class="cart-summary__row cart-summary__row--discount">
+                  <dt><?php echo esc_html( wearit_checkout_text( 'checkout_discount_label', 'Discount' ) ); ?> (<?php echo esc_html( $totals['coupon'] ); ?>)</dt>
+                  <dd>&minus;<?php echo esc_html( wearit_cart_format_price( $totals['discount'] ) ); ?></dd>
+                </div>
+              <?php endif; ?>
               <div class="cart-summary__row">
                 <dt>Shipping</dt>
                 <dd>
@@ -202,6 +253,24 @@ $totals = wearit_cart_totals( $cart );
           </aside>
 
         </form>
+
+        <!-- Coupon forms: no visible markup of their own, the inputs and buttons
+             in the order summary point at them with form="…" (inc/coupons.php) -->
+        <form id="checkout-coupon-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" hidden>
+          <input type="hidden" name="action" value="wearit_apply_coupon" />
+          <input type="hidden" name="wearit_coupon_nonce" value="<?php echo esc_attr( wp_create_nonce( 'wearit_coupon_nonce' ) ); ?>" /> <!-- no wp_nonce_field(): its fixed id would repeat -->
+        </form>
+        <form id="checkout-coupon-remove" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" hidden>
+          <input type="hidden" name="action" value="wearit_remove_coupon" />
+          <input type="hidden" name="wearit_coupon_nonce" value="<?php echo esc_attr( wp_create_nonce( 'wearit_coupon_nonce' ) ); ?>" />
+        </form>
+
+        <?php if ( $coupon_notice && $coupon_notice['type'] === 'error' ) : ?>
+          <script>
+            // Move focus to the coupon error so keyboard and screen reader users land on it (WCAG 3.3.1).
+            document.getElementById('checkout-coupon-notice').focus();
+          </script>
+        <?php endif; ?>
 
       <?php endif; ?>
 

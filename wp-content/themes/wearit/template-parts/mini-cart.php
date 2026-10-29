@@ -6,9 +6,12 @@
 $cart = wearit_get_cart();
 ?>
 <div class="mini-cart__header">
-  <p class="mini-cart__title">Your Cart</p>
+  <p class="mini-cart__title"><?php echo esc_html( wearit_cart_text( 'minicart_title', 'Your Cart' ) ); ?></p>
   <p class="mini-cart__count">
-    <?php echo esc_html( $cart['count'] ); ?> item<?php echo $cart['count'] === 1 ? '' : 's'; ?>
+    <?php
+    $count_text = $cart['count'] === 1 ? wearit_cart_text( 'minicart_count_one', '{count} item' ) : wearit_cart_text( 'minicart_count_many', '{count} items' );
+    echo esc_html( strtr( $count_text, [ '{count}' => $cart['count'] ] ) );
+    ?>
   </p>
 </div>
 
@@ -28,7 +31,7 @@ $cart = wearit_get_cart();
             <?php echo esc_html( $item['title'] ); ?>
           </a>
           <p class="mini-cart__meta">
-            <?php echo esc_html( ( $item['meta'] ? $item['meta'] . ' · ' : '' ) . 'Qty ' . $item['qty'] ); ?>
+            <?php echo esc_html( ( $item['meta'] ? $item['meta'] . ' · ' : '' ) . wearit_cart_text( 'minicart_qty', 'Qty' ) . ' ' . $item['qty'] ); ?>
           </p>
         </div>
 
@@ -38,8 +41,8 @@ $cart = wearit_get_cart();
             type="button"
             class="mini-cart__remove"
             data-cart-key="<?php echo esc_attr( $item['key'] ); ?>"
-            aria-label="<?php echo esc_attr( 'Remove ' . $item['title'] ); ?>"
-          >Remove</button>
+            aria-label="<?php echo esc_attr( wearit_cart_text( 'minicart_remove', 'Remove' ) . ' ' . $item['title'] ); ?>"
+          ><?php echo esc_html( wearit_cart_text( 'minicart_remove', 'Remove' ) ); ?></button>
         </div>
       </li>
     <?php endforeach; ?>
@@ -47,17 +50,17 @@ $cart = wearit_get_cart();
 
   <div class="mini-cart__footer">
     <p class="mini-cart__subtotal">
-      <span>Subtotal</span>
+      <span><?php echo esc_html( wearit_cart_text( 'minicart_subtotal', 'Subtotal' ) ); ?></span>
       <span class="mini-cart__subtotal-value"><?php echo esc_html( $cart['subtotal_formatted'] ); ?></span>
     </p>
-    <a href="<?php echo esc_url( wearit_cart_url() ); ?>" class="mini-cart__button">Go to Cart</a>
+    <a href="<?php echo esc_url( wearit_cart_url() ); ?>" class="mini-cart__button"><?php echo esc_html( wearit_cart_text( 'minicart_button', 'Go to Cart' ) ); ?></a>
   </div>
 
 <?php else : ?>
 
   <div class="mini-cart__empty">
-    <p>Your cart is empty.</p>
-    <a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="mini-cart__button mini-cart__button--ghost">Shop Products</a>
+    <p><?php echo esc_html( wearit_cart_text( 'minicart_empty', 'Your cart is empty.' ) ); ?></p>
+    <a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="mini-cart__button mini-cart__button--ghost"><?php echo esc_html( wearit_cart_text( 'minicart_empty_button', 'Shop Products' ) ); ?></a>
   </div>
 
 <?php endif; ?>

@@ -186,6 +186,7 @@
         <section class="contact__filler">
             <?php if ( ! is_user_logged_in() ) : // sending mail needs an account (inc/account.php) ?>
                 <?php get_template_part( 'template-parts/login-required', null, [
+                    'context'  => 'contact',
                     'title'    => 'Log in to send a message',
                     'text'     => 'Messages are for WearIt members, so we can reply to the right account. Log in or create a free account first.',
                     'redirect' => get_permalink(),

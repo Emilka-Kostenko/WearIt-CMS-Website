@@ -28,14 +28,14 @@ $cart     = wearit_get_cart();
   <section class="shop-hero">
     <div class="shop-hero__container">
       <?php if ( $view === 'account' ) : ?>
-        <p class="shop-hero__eyebrow">Your account</p>
-        <h1 class="shop-hero__heading">Hi, <span class="shop-hero__heading--accent"><?php echo esc_html( $user->display_name ); ?></span></h1>
+        <p class="shop-hero__eyebrow"><?php echo esc_html( wearit_account_text( 'account_overview_eyebrow', 'Your account' ) ); ?></p>
+        <h1 class="shop-hero__heading"><?php echo esc_html( wearit_account_text( 'account_overview_heading', 'Hi,' ) ); ?> <span class="shop-hero__heading--accent"><?php echo esc_html( $user->display_name ); ?></span></h1>
       <?php elseif ( $view === 'register' ) : ?>
-        <p class="shop-hero__eyebrow">New here</p>
-        <h1 class="shop-hero__heading">Create <span class="shop-hero__heading--accent">Account</span></h1>
+        <p class="shop-hero__eyebrow"><?php echo esc_html( wearit_account_text( 'account_register_eyebrow', 'New here' ) ); ?></p>
+        <h1 class="shop-hero__heading"><?php echo esc_html( wearit_account_text( 'account_register_heading', 'Create' ) ); ?> <span class="shop-hero__heading--accent"><?php echo esc_html( wearit_account_text( 'account_register_heading_accent', 'Account' ) ); ?></span></h1>
       <?php else : ?>
-        <p class="shop-hero__eyebrow"><?php echo $redirect ? 'Log in to continue' : 'Members'; ?></p>
-        <h1 class="shop-hero__heading">Log <span class="shop-hero__heading--accent">In</span></h1>
+        <p class="shop-hero__eyebrow"><?php echo esc_html( $redirect ? wearit_account_text( 'account_login_eyebrow_redirect', 'Log in to continue' ) : wearit_account_text( 'account_login_eyebrow', 'Members' ) ); ?></p>
+        <h1 class="shop-hero__heading"><?php echo esc_html( wearit_account_text( 'account_login_heading', 'Log' ) ); ?> <span class="shop-hero__heading--accent"><?php echo esc_html( wearit_account_text( 'account_login_heading_accent', 'In' ) ); ?></span></h1>
       <?php endif; ?>
     </div>
   </section>
@@ -51,7 +51,7 @@ $cart     = wearit_get_cart();
           tabindex="-1"
           role="<?php echo $notice['type'] === 'error' ? 'alert' : 'status'; ?>"
         >
-          <?php if ( $notice['type'] === 'error' ) : ?><span class="account-notice__label">Error:</span> <?php endif; ?>
+          <?php if ( $notice['type'] === 'error' ) : ?><span class="account-notice__label"><?php echo esc_html( wearit_account_text( 'account_error_label', 'Error:' ) ); ?></span> <?php endif; ?>
           <?php echo esc_html( $notice['text'] ); ?>
         </p>
       <?php endif; ?>
@@ -60,30 +60,30 @@ $cart     = wearit_get_cart();
 
         <!-- ── LOGGED IN: overview ── -->
         <div class="checkout-fields account-panel">
-          <h2 class="checkout-fields__title">Details</h2>
+          <h2 class="checkout-fields__title"><?php echo esc_html( wearit_account_text( 'account_details_title', 'Details' ) ); ?></h2>
 
           <dl class="account-details">
             <div>
-              <dt>Name</dt>
+              <dt><?php echo esc_html( wearit_account_text( 'account_details_name', 'Name' ) ); ?></dt>
               <dd><?php echo esc_html( $user->display_name ); ?></dd>
             </div>
             <div>
-              <dt>Email</dt>
+              <dt><?php echo esc_html( wearit_account_text( 'account_details_email', 'Email' ) ); ?></dt>
               <dd><?php echo esc_html( $user->user_email ); ?></dd>
             </div>
             <div>
-              <dt>Member since</dt>
+              <dt><?php echo esc_html( wearit_account_text( 'account_details_since', 'Member since' ) ); ?></dt>
               <dd><?php echo esc_html( date_i18n( 'j F Y', strtotime( $user->user_registered ) ) ); ?></dd>
             </div>
           </dl>
 
           <div class="account-actions">
             <?php if ( $cart['items'] ) : ?>
-              <a href="<?php echo esc_url( wearit_checkout_url() ); ?>" class="cart-button cart-button--primary">Go to Checkout</a>
+              <a href="<?php echo esc_url( wearit_checkout_url() ); ?>" class="cart-button cart-button--primary"><?php echo esc_html( wearit_account_text( 'account_checkout_button', 'Go to Checkout' ) ); ?></a>
             <?php else : ?>
-              <a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="cart-button cart-button--primary">Shop Products</a>
+              <a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="cart-button cart-button--primary"><?php echo esc_html( wearit_account_text( 'account_shop_button', 'Shop Products' ) ); ?></a>
             <?php endif; ?>
-            <a href="<?php echo esc_url( wp_logout_url( add_query_arg( 'account', 'logged_out', wearit_account_url() ) ) ); ?>" class="cart-button cart-button--ghost">Log Out</a>
+            <a href="<?php echo esc_url( wp_logout_url( add_query_arg( 'account', 'logged_out', wearit_account_url() ) ) ); ?>" class="cart-button cart-button--ghost"><?php echo esc_html( wearit_account_text( 'account_logout_button', 'Log Out' ) ); ?></a>
           </div>
         </div>
 
@@ -95,24 +95,24 @@ $cart     = wearit_get_cart();
           <input type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect ); ?>" />
           <?php wp_nonce_field( 'wearit_register_nonce', 'wearit_register_nonce' ); ?>
 
-          <h2 class="checkout-fields__title" id="register-title">Join WearIt</h2>
-          <p class="account-intro">A free account lets you check out, comment on posts and message us. All fields are required.</p>
+          <h2 class="checkout-fields__title" id="register-title"><?php echo esc_html( wearit_account_text( 'account_register_title', 'Join WearIt' ) ); ?></h2>
+          <p class="account-intro"><?php echo esc_html( wearit_account_text( 'account_register_intro', 'A free account lets you check out, comment on posts and message us. All fields are required.' ) ); ?></p>
 
           <div class="checkout-field">
-            <label for="register_name">Name</label>
+            <label for="register_name"><?php echo esc_html( wearit_account_text( 'account_name_label', 'Name' ) ); ?></label>
             <input type="text" id="register_name" name="register_name" class="checkout-field__input" autocomplete="name" required<?php echo wearit_account_field_attrs( 'register_name', $notice ); ?> />
           </div>
           <div class="checkout-field">
-            <label for="register_email">Email</label>
-            <input type="email" id="register_email" name="register_email" class="checkout-field__input" placeholder="name@email.com" autocomplete="email" required<?php echo wearit_account_field_attrs( 'register_email', $notice ); ?> />
+            <label for="register_email"><?php echo esc_html( wearit_account_text( 'account_email_label', 'Email' ) ); ?></label>
+            <input type="email" id="register_email" name="register_email" class="checkout-field__input" placeholder="<?php echo esc_attr( wearit_account_text( 'account_email_placeholder', 'name@email.com' ) ); ?>" autocomplete="email" required<?php echo wearit_account_field_attrs( 'register_email', $notice ); ?> />
           </div>
           <div class="checkout-field">
-            <label for="register_password">Password</label>
+            <label for="register_password"><?php echo esc_html( wearit_account_text( 'account_password_label', 'Password' ) ); ?></label>
             <input type="password" id="register_password" name="register_password" class="checkout-field__input" minlength="<?php echo esc_attr( WEARIT_PASSWORD_MIN_LENGTH ); ?>" autocomplete="new-password" required<?php echo wearit_account_field_attrs( 'register_password', $notice, [ 'account-password-hint' ] ); ?> />
-            <p class="account-hint" id="account-password-hint">At least <?php echo esc_html( WEARIT_PASSWORD_MIN_LENGTH ); ?> characters.</p>
+            <p class="account-hint" id="account-password-hint"><?php echo esc_html( wearit_account_text( 'account_password_hint', 'At least {min} characters.', [ '{min}' => WEARIT_PASSWORD_MIN_LENGTH ] ) ); ?></p>
           </div>
           <div class="checkout-field">
-            <label for="register_password2">Repeat password</label>
+            <label for="register_password2"><?php echo esc_html( wearit_account_text( 'account_password_repeat_label', 'Repeat password' ) ); ?></label>
             <input type="password" id="register_password2" name="register_password2" class="checkout-field__input" minlength="<?php echo esc_attr( WEARIT_PASSWORD_MIN_LENGTH ); ?>" autocomplete="new-password" required<?php echo wearit_account_field_attrs( 'register_password2', $notice ); ?> />
           </div>
 
@@ -122,11 +122,11 @@ $cart     = wearit_get_cart();
             <input type="text" id="register_website" name="register_website" tabindex="-1" autocomplete="off" />
           </div>
 
-          <button type="submit" class="cart-button cart-button--primary account-submit" data-busy-label="Creating account…">Create Account</button>
+          <button type="submit" class="cart-button cart-button--primary account-submit" data-busy-label="<?php echo esc_attr( wearit_account_text( 'account_register_button_busy', 'Creating account…' ) ); ?>"><?php echo esc_html( wearit_account_text( 'account_register_button', 'Create Account' ) ); ?></button>
 
           <p class="account-switch">
-            Already have an account?
-            <a href="<?php echo esc_url( wearit_account_url( $redirect ) ); ?>" class="account-link">Log in</a>
+            <?php echo esc_html( wearit_account_text( 'account_login_prompt', 'Already have an account?' ) ); ?>
+            <a href="<?php echo esc_url( wearit_account_url( $redirect ) ); ?>" class="account-link"><?php echo esc_html( wearit_account_text( 'account_login_link', 'Log in' ) ); ?></a>
           </p>
         </form>
 
@@ -138,32 +138,32 @@ $cart     = wearit_get_cart();
           <input type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect ); ?>" />
           <?php wp_nonce_field( 'wearit_login_nonce', 'wearit_login_nonce' ); ?>
 
-          <h2 class="checkout-fields__title" id="login-title">Welcome back</h2>
-          <p class="account-intro">Log in with the email and password you signed up with.</p>
+          <h2 class="checkout-fields__title" id="login-title"><?php echo esc_html( wearit_account_text( 'account_login_title', 'Welcome back' ) ); ?></h2>
+          <p class="account-intro"><?php echo esc_html( wearit_account_text( 'account_login_intro', 'Log in with the email and password you signed up with.' ) ); ?></p>
 
           <div class="checkout-field">
-            <label for="login_email">Email</label>
-            <input type="text" id="login_email" name="login_email" class="checkout-field__input" placeholder="name@email.com" autocomplete="username" inputmode="email" required<?php echo wearit_account_field_attrs( 'login_email', $notice ); ?> />
+            <label for="login_email"><?php echo esc_html( wearit_account_text( 'account_email_label', 'Email' ) ); ?></label>
+            <input type="text" id="login_email" name="login_email" class="checkout-field__input" placeholder="<?php echo esc_attr( wearit_account_text( 'account_email_placeholder', 'name@email.com' ) ); ?>" autocomplete="username" inputmode="email" required<?php echo wearit_account_field_attrs( 'login_email', $notice ); ?> />
           </div>
           <div class="checkout-field">
-            <label for="login_password">Password</label>
+            <label for="login_password"><?php echo esc_html( wearit_account_text( 'account_password_label', 'Password' ) ); ?></label>
             <input type="password" id="login_password" name="login_password" class="checkout-field__input" autocomplete="current-password" required<?php echo wearit_account_field_attrs( 'login_password', $notice ); ?> />
           </div>
 
           <div class="account-remember">
             <input type="checkbox" id="login_remember" name="login_remember" value="1" />
-            <label for="login_remember">Keep me logged in</label>
+            <label for="login_remember"><?php echo esc_html( wearit_account_text( 'account_remember_label', 'Keep me logged in' ) ); ?></label>
           </div>
 
-          <button type="submit" class="cart-button cart-button--primary account-submit" data-busy-label="Logging in…">Log In</button>
+          <button type="submit" class="cart-button cart-button--primary account-submit" data-busy-label="<?php echo esc_attr( wearit_account_text( 'account_login_button_busy', 'Logging in…' ) ); ?>"><?php echo esc_html( wearit_account_text( 'account_login_button', 'Log In' ) ); ?></button>
 
           <p class="account-forgot">
-            <a href="<?php echo esc_url( wp_lostpassword_url( wearit_account_url() ) ); ?>" class="account-link">Forgot your password?</a>
+            <a href="<?php echo esc_url( wp_lostpassword_url( wearit_account_url() ) ); ?>" class="account-link"><?php echo esc_html( wearit_account_text( 'account_forgot_link', 'Forgot your password?' ) ); ?></a>
           </p>
 
           <p class="account-switch">
-            New to WearIt?
-            <a href="<?php echo esc_url( wearit_account_url( $redirect, 'register' ) ); ?>" class="account-link">Create an account</a>
+            <?php echo esc_html( wearit_account_text( 'account_register_prompt', 'New to WearIt?' ) ); ?>
+            <a href="<?php echo esc_url( wearit_account_url( $redirect, 'register' ) ); ?>" class="account-link"><?php echo esc_html( wearit_account_text( 'account_register_link', 'Create an account' ) ); ?></a>
           </p>
         </form>
 
@@ -175,6 +175,12 @@ $cart     = wearit_get_cart();
 </main>
 
 <script>
+  // Restored from the back/forward cache (Back button)? Load it fresh, so the forms match
+  // who is logged in now. The server also sends no-store for this page (inc/account.php).
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) location.reload();
+  });
+
   // Send each form only once. Saving an account takes a moment (remote database), and a
   // second click used to send it again — that second request then saw the account the
   // first one had just created and showed "already exists".

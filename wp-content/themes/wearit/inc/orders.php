@@ -62,7 +62,12 @@ add_action( 'init', function () {
 /**
  * $customer — name, email, address, city, postcode, country, notes, payment
  * $items     — array of [ 'id', 'title', 'sku', 'size', 'qty', 'price', 'line_total' ]
+<<<<<<< Updated upstream
  * $totals    — [ 'subtotal', 'shipping', 'fee', 'total' ]   fee is the payment method's surcharge
+=======
+ * $totals    — [ 'subtotal', 'shipping', 'fee', 'discount', 'coupon', 'total' ]
+ *              (discount + coupon come from inc/coupons.php, '' / 0 when none was used)
+>>>>>>> Stashed changes
  *
  * Returns the new order ID, or 0 if it failed.
  */
@@ -90,6 +95,11 @@ function wearit_create_order( array $customer, array $items, array $totals ) {
     update_post_meta( $order_id, '_wearit_subtotal', (float) ( $totals['subtotal'] ?? 0 ) );
     update_post_meta( $order_id, '_wearit_shipping', (float) ( $totals['shipping'] ?? 0 ) );
     update_post_meta( $order_id, '_wearit_fee',      (float) ( $totals['fee'] ?? 0 ) );
+<<<<<<< Updated upstream
+=======
+    update_post_meta( $order_id, '_wearit_discount', (float) ( $totals['discount'] ?? 0 ) );
+    update_post_meta( $order_id, '_wearit_coupon',   (string) ( $totals['coupon'] ?? '' ) );
+>>>>>>> Stashed changes
     update_post_meta( $order_id, '_wearit_total',    (float) ( $totals['total'] ?? 0 ) );
 
     $method = $customer['payment'] ?? 'cod';
@@ -135,7 +145,13 @@ function wearit_get_order( $order_id ) {
         'items'          => get_post_meta( $post->ID, '_wearit_items', true ) ?: [],
         'subtotal'       => (float) get_post_meta( $post->ID, '_wearit_subtotal', true ),
         'shipping'       => (float) get_post_meta( $post->ID, '_wearit_shipping', true ),
+<<<<<<< Updated upstream
         'fee'            => (float) get_post_meta( $post->ID, '_wearit_fee', true ), // 0 on orders saved before the fee was stored
+=======
+        'fee'            => (float) get_post_meta( $post->ID, '_wearit_fee', true ),
+        'discount'       => (float) get_post_meta( $post->ID, '_wearit_discount', true ),
+        'coupon'         => (string) get_post_meta( $post->ID, '_wearit_coupon', true ),
+>>>>>>> Stashed changes
         'total'          => (float) get_post_meta( $post->ID, '_wearit_total', true ),
         'status'         => get_post_meta( $post->ID, '_wearit_status', true ) ?: 'new',
         'payment'        => get_post_meta( $post->ID, '_wearit_payment', true ) ?: 'cod',
@@ -308,6 +324,9 @@ function wearit_order_details_box( $post ) {
       </tbody>
       <tfoot>
         <tr><th colspan="4" style="text-align:right;">Subtotal</th><th>$<?php echo esc_html( number_format( $order['subtotal'], 2 ) ); ?></th></tr>
+        <?php if ( $order['discount'] > 0 ) : ?>
+          <tr><th colspan="4" style="text-align:right;">Discount (<?php echo esc_html( $order['coupon'] ); ?>)</th><th>&minus;$<?php echo esc_html( number_format( $order['discount'], 2 ) ); ?></th></tr>
+        <?php endif; ?>
         <tr><th colspan="4" style="text-align:right;">Shipping</th><th>$<?php echo esc_html( number_format( $order['shipping'], 2 ) ); ?></th></tr>
         <?php if ( $order['fee'] > 0 ) : ?>
           <tr><th colspan="4" style="text-align:right;"><?php echo esc_html( wearit_payment_label( $order['payment'] ) ); ?> fee</th><th>$<?php echo esc_html( number_format( $order['fee'], 2 ) ); ?></th></tr>

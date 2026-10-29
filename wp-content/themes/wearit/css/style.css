@@ -4699,3 +4699,280 @@ body.bf-open { overflow: hidden; }
     font-size: 1.375rem;
   }
 }
+/* ============================================================
+   COUPONS (checkoutPage.php coupon box, template-parts/welcome-coupon.php)
+   Same AA values as the account page: input borders #767676 (4:1),
+   lime focus rings, errors as text with an "Error:" label.
+   ============================================================ */
+
+/* Text for screen readers only, e.g. "Remove code WEARIT10" */
+.screen-reader-text {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Coupon box in the order summary ── */
+.checkout-coupon {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--shop-border);
+  border-bottom: 1px solid var(--shop-border);
+  margin-bottom: 1.5rem;
+  scroll-margin-top: calc(var(--navbar-height) + 1.5rem);
+}
+
+.checkout-coupon__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--shop-muted);
+}
+
+.checkout-coupon__row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.checkout-coupon__input {
+  flex: 1;
+  min-width: 0;
+  text-transform: uppercase;
+  border-color: #767676;
+}
+
+.checkout-coupon__input[aria-invalid="true"] {
+  border-color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+.checkout-coupon__apply {
+  flex: 0 0 auto;
+  padding: 0.875rem 1.25rem;
+  border-color: #767676;
+  cursor: pointer;
+}
+
+.checkout-coupon__applied {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.checkout-coupon__applied strong {
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+}
+
+.checkout-coupon__remove {
+  flex: 0 0 auto;
+  min-height: 1.5rem;
+  font-family: var(--font-barlow);
+  font-size: 1rem;
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.checkout-coupon__remove:hover {
+  color: var(--color-accent);
+}
+
+.checkout-coupon__notice {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.checkout-coupon__notice--error {
+  color: var(--color-bg);
+  background-color: var(--color-accent);
+}
+
+.checkout-coupon__notice--success {
+  color: var(--color-text);
+  border: 1px solid var(--color-accent);
+}
+
+.cart-summary__row--discount dd {
+  color: var(--color-accent);
+}
+
+.checkout-coupon__apply:focus-visible,
+.checkout-coupon__remove:focus-visible,
+.checkout-coupon__notice:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.checkout-coupon__notice--error:focus {
+  outline-color: var(--color-text);
+}
+
+/* ── Welcome popup ── */
+.welcome-coupon {
+  width: min(32rem, calc(100vw - 2rem));
+  max-height: calc(100svh - 2rem);
+  margin: auto;
+  padding: 3rem 2.5rem 2.5rem;
+  font-family: var(--font-barlow);
+  color: var(--color-text);
+  background-color: #161616;
+  border: 1px solid var(--color-accent);
+  overflow-x: hidden;   /* Windows scrollbars: a vertical bar used to trigger a horizontal one */
+  overflow-y: auto;
+}
+
+.welcome-coupon::backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.welcome-coupon__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;               /* 44px target */
+  height: 2.75rem;
+  color: var(--color-text);
+}
+
+.welcome-coupon__eyebrow {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.welcome-coupon__title {
+  margin-top: 0.5rem;
+  font-family: var(--font-condensed);
+  font-size: clamp(2.25rem, 7vw, 3rem);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.welcome-coupon__title--accent {
+  color: var(--color-accent);
+}
+
+.welcome-coupon__text {
+  margin-top: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #b3b3b3;               /* 8.6:1 on #161616 */
+}
+
+.welcome-coupon__code-row {
+  display: flex;
+  align-items: stretch;
+  margin-top: 1.75rem;
+  border: 1px dashed var(--color-accent);
+}
+
+.welcome-coupon__code {
+  flex: 1;
+  padding: 1rem 1.25rem;
+  font-family: var(--font-condensed);
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+}
+
+.welcome-coupon__copy {
+  flex: 0 0 auto;
+  padding: 0 1.25rem;
+  font-family: var(--font-barlow);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-bg);
+  background-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.welcome-coupon__status {
+  min-height: 1.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text);
+}
+
+.welcome-coupon__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.welcome-coupon__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-barlow);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-text);
+  border: 1px solid #767676;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), opacity var(--transition-fast);
+}
+
+.welcome-coupon__button:hover {
+  border-color: var(--color-text);
+}
+
+.welcome-coupon__button--primary {
+  color: var(--color-bg);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.welcome-coupon__button--primary:hover {
+  border-color: var(--color-accent);
+  opacity: 0.85;
+}
+
+.welcome-coupon a:focus-visible,
+.welcome-coupon button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.welcome-coupon__copy:focus-visible {
+  outline-color: var(--color-text);
+}
+
+@media (max-width: 480px) {
+  .welcome-coupon {
+    padding: 3rem 1.25rem 1.5rem;
+  }
+
+  .welcome-coupon__actions {
+    grid-template-columns: 1fr;
+  }
+}

@@ -112,6 +112,12 @@ $order = wearit_thankyou_order();
               <dt>Subtotal</dt>
               <dd><?php echo esc_html( wearit_cart_format_price( $order['subtotal'] ) ); ?></dd>
             </div>
+            <?php if ( $order['discount'] > 0 ) : ?>
+              <div class="cart-summary__row cart-summary__row--discount">
+                <dt><?php echo esc_html( wearit_checkout_text( 'checkout_discount_label', 'Discount' ) ); ?> (<?php echo esc_html( $order['coupon'] ); ?>)</dt>
+                <dd>&minus;<?php echo esc_html( wearit_cart_format_price( $order['discount'] ) ); ?></dd>
+              </div>
+            <?php endif; ?>
             <div class="cart-summary__row">
               <dt>Shipping</dt>
               <dd>

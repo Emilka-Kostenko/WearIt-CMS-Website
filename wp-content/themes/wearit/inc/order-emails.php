@@ -36,6 +36,9 @@ function wearit_email_order_lines( array $order ) {
 
     $lines .= "\n";
     $lines .= 'Subtotal: ' . wearit_cart_format_price( $order['subtotal'] ) . "\n";
+    if ( $order['discount'] > 0 ) {
+        $lines .= wearit_checkout_text( 'checkout_discount_label', 'Discount' ) . ' (' . $order['coupon'] . '): -' . wearit_cart_format_price( $order['discount'] ) . "\n";
+    }
     $lines .= 'Shipping: ' . ( $order['shipping'] > 0 ? wearit_cart_format_price( $order['shipping'] ) : 'Free' ) . "\n";
 
     if ( $order['fee'] > 0 ) {

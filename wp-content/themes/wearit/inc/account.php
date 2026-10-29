@@ -81,19 +81,35 @@ function wearit_account_view() {
 // Each view is its own page for browsers and screen readers: "Create Account – Wear It." etc.
 add_filter( 'document_title_parts', function ( $parts ) {
     if ( wearit_account_page_id() && is_page( wearit_account_page_id() ) ) {
-        $titles = [ 'account' => 'Your Account', 'register' => 'Create Account', 'login' => 'Log In' ];
+        $titles = [
+            'account'  => wearit_account_text( 'account_overview_title', 'Your Account' ),
+            'register' => wearit_account_text( 'account_register_page_title', 'Create Account' ),
+            'login'    => wearit_account_text( 'account_login_page_title', 'Log In' ),
+        ];
         $parts['title'] = $titles[ wearit_account_view() ];
     }
     return $parts;
 } );
+
+function wearit_account_text( $name, $fallback = '', array $replace = [] ) {
+    $page  = wearit_account_page_id();
+    $value = ( $page && function_exists( 'get_field' ) ) ? get_field( $name, $page ) : '';
+    $text  = ( $value !== null && $value !== false && $value !== '' ) ? (string) $value : $fallback;
+    return $replace ? strtr( $text, $replace ) : $text;
+}
 
 /**
  * Where to send the customer after logging in or registering: ?redirect_to= when it
  * points at this site, otherwise the account page itself.
  */
 function wearit_account_redirect_target() {
-    $raw = isset( $_REQUEST['redirect_to'] ) ? wp_unslash( $_REQUEST['redirect_to'] ) : '';
-    return wp_validate_redirect( esc_url_raw( (string) $raw ), wearit_account_url() );
+    $raw    = isset( $_REQUEST['redirect_to'] ) ? wp_unslash( $_REQUEST['redirect_to'] ) : '';
+    $target = wp_validate_redirect( esc_url_raw( (string) $raw ), wearit_account_url() );
+
+    // wp_validate_redirect() only falls back for a *bad* address; an empty one comes back
+    // empty, and wp_safe_redirect( '' ) silently does nothing — that left a blank
+    // admin-post.php after signing up or logging in on the account page itself.
+    return $target !== '' ? $target : wearit_account_url();
 }
 
 /**
@@ -110,15 +126,21 @@ function wearit_account_notice() {
         'login_missing'   => [ 'error', 'Fill in your email and password.', [ 'login_email', 'login_password' ] ],
         'register_fields' => [ 'error', 'Fill in your name, a valid email address (like name@email.com) and a password.', [ 'register_name', 'register_email', 'register_password' ] ],
         'register_exists' => [ 'error', 'There is already an account with that email. Log in below instead.', [] ],
-        'register_short'  => [ 'error', 'Your password needs at least ' . WEARIT_PASSWORD_MIN_LENGTH . ' characters.', [ 'register_password' ] ],
+        'register_short'  => [ 'error', 'Your password needs at least {min} characters.', [ 'register_password' ] ],
         'register_match'  => [ 'error', 'The two passwords don’t match. Type the same password in both fields.', [ 'register_password', 'register_password2' ] ],
         'register_error'  => [ 'error', 'Something went wrong creating your account. Please try again.', [] ],
         'logged_out'      => [ 'success', 'You are logged out.', [] ],
+        'expired'         => [ 'error', 'This form was open too long or was opened from your browser history. Fill it in again and send it.', [] ],
+        'already_in'      => [ 'success', 'You are already logged in as {name}. To create another account, log out first.', [] ],
     ];
     if ( ! isset( $notices[ $code ] ) ) {
         return null;
     }
-    [ $type, $text, $fields ] = $notices[ $code ];
+    [ $type, $fallback, $fields ] = $notices[ $code ];
+    $text = wearit_account_text( 'account_msg_' . $code, $fallback, [
+        '{min}'  => WEARIT_PASSWORD_MIN_LENGTH,
+        '{name}' => wp_get_current_user()->display_name,
+    ] );
     return [ 'type' => $type, 'text' => $text, 'fields' => $fields ];
 }
 
@@ -149,13 +171,39 @@ function wearit_account_bounce( $code, $view = '' ) {
     exit;
 }
 
-// Already logged in and sent here from checkout, a comment form etc.: go straight back.
 add_action( 'template_redirect', function () {
-    if ( is_user_logged_in() && is_page( wearit_account_page_id() ) && wearit_account_page_id() && ! empty( $_GET['redirect_to'] ) ) {
+    if ( ! wearit_account_page_id() || ! is_page( wearit_account_page_id() ) ) {
+        return;
+    }
+
+    // Never reuse an old copy of this page (Back button, browser cache). Its forms carry a
+    // nonce for whoever was logged in when it was made; an old logged-out copy sent while
+    // logged in failed with a bare "Security check failed." page.
+    nocache_headers();
+    header( 'Cache-Control: no-store, no-cache, must-revalidate, max-age=0', true );
+
+    // Already logged in and sent here from checkout, a comment form etc.: go straight back.
+    if ( is_user_logged_in() && ! empty( $_GET['redirect_to'] ) ) {
         wp_safe_redirect( wearit_account_redirect_target() );
         exit;
     }
 } );
+
+/**
+ * First lines of the log-in and register handlers.
+ *   Already logged in → the account page, saying who is logged in (no form to fill in).
+ *   Nonce doesn't match → back to the same form, "this form expired, try again".
+ * Neither ends on WordPress's blank "Security check failed." page any more.
+ */
+function wearit_account_form_guard( $nonce_name, $view ) {
+    if ( is_user_logged_in() ) {
+        wp_safe_redirect( add_query_arg( 'account', 'already_in', wearit_account_url() ) );
+        exit;
+    }
+    if ( ! isset( $_POST[ $nonce_name ] ) || ! wp_verify_nonce( $_POST[ $nonce_name ], $nonce_name ) ) {
+        wearit_account_bounce( 'expired', $view === 'register' ? 'register' : '' );
+    }
+}
 
 // ── Log in ────────────────────────────────────────────────────
 
@@ -163,13 +211,9 @@ add_action( 'admin_post_nopriv_wearit_login', 'wearit_handle_login' );
 add_action( 'admin_post_wearit_login', 'wearit_handle_login' ); // already logged in: just send them on
 
 function wearit_handle_login() {
-    if ( ! isset( $_POST['wearit_login_nonce'] ) || ! wp_verify_nonce( $_POST['wearit_login_nonce'], 'wearit_login_nonce' ) ) {
-        wp_die( 'Security check failed.' );
-    }
-    if ( is_user_logged_in() ) {
-        wp_safe_redirect( wearit_account_redirect_target() );
-        exit;
-    }
+    // Checked before the nonce: the form's nonce was made for a logged-out visitor,
+    // so it never matches once someone is logged in (see wearit_account_form_guard()).
+    wearit_account_form_guard( 'wearit_login_nonce', 'login' );
 
     $email    = sanitize_text_field( wp_unslash( $_POST['login_email'] ?? '' ) );
     $password = (string) wp_unslash( $_POST['login_password'] ?? '' ); // never sanitized: it would change the password
@@ -199,13 +243,7 @@ add_action( 'admin_post_nopriv_wearit_register', 'wearit_handle_register' );
 add_action( 'admin_post_wearit_register', 'wearit_handle_register' );
 
 function wearit_handle_register() {
-    if ( ! isset( $_POST['wearit_register_nonce'] ) || ! wp_verify_nonce( $_POST['wearit_register_nonce'], 'wearit_register_nonce' ) ) {
-        wp_die( 'Security check failed.' );
-    }
-    if ( is_user_logged_in() ) {
-        wp_safe_redirect( wearit_account_redirect_target() );
-        exit;
-    }
+    wearit_account_form_guard( 'wearit_register_nonce', 'register' );
 
     // Hidden field real people never see. Bots fill it in; pretend it worked.
     if ( ! empty( $_POST['register_website'] ) ) {
@@ -264,6 +302,9 @@ function wearit_handle_register() {
         error_log( 'wearit_register: ' . $user_id->get_error_message() );
         wearit_account_bounce( 'register_error', 'register' );
     }
+
+    // Welcome popup with the WEARIT10 code on the next page (inc/coupons.php).
+    wearit_coupon_welcome( $user_id );
 
     // Log the new customer straight in.
     wp_set_current_user( $user_id );

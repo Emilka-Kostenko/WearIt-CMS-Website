@@ -18,7 +18,7 @@ add_action( 'wp_enqueue_scripts', function () {
         'wearit-style',
         get_template_directory_uri() . '/css/style.css',
         [],
-        '1.0.4'
+        '1.0.6'
     );
 } );
 
@@ -65,6 +65,9 @@ require_once get_template_directory() . '/inc/seo.php';
 
 // ── Accounts (log in, register; checkout/comments/contact need one) ──
 require_once get_template_directory() . '/inc/account.php';
+
+// ── Coupons (WEARIT10 on checkout, welcome popup after sign-up) ──
+require_once get_template_directory() . '/inc/coupons.php';
 
 // ── Handle contact form submission ─────────────────────────────
 

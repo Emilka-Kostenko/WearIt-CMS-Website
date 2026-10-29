@@ -92,6 +92,7 @@
       <!-- Real WordPress Comment Form — logged-in only (inc/account.php) -->
       <?php if ( ! is_user_logged_in() ) : ?>
         <?php get_template_part( 'template-parts/login-required', null, [
+          'context'  => 'comments',
           'title'    => 'Log in to join the conversation',
           'text'     => 'Comments are for WearIt members. Log in or create a free account to post.',
           'redirect' => get_permalink() . '#discussion-form',
