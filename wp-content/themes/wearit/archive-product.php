@@ -2,46 +2,56 @@
 /**
  * Shop page — all products, with category and color filters.
  * Served at /products/. Filters are plain links; see wearit_filter_url() in inc/products.php.
+ * All text comes from SCF: Products → Shop page (see inc/shop-page.php).
  */
 get_header();
 
+$shop       = wearit_get_shop_page();
 $filters    = wearit_get_active_filters();
 $categories = get_terms( [
     'taxonomy'   => 'product_category',
     'hide_empty' => false,
     'orderby'    => 'term_id', // creation order: Jackets, Hoodies, … as in the design
 ] );
-$colors     = wearit_product_colors();
+$colors        = wearit_product_colors();
 $colors_in_use = wearit_colors_in_use();
-$found     = (int) $GLOBALS['wp_query']->found_posts;
+$found         = (int) $GLOBALS['wp_query']->found_posts;
+$shop_url      = get_post_type_archive_link( 'product' );
 ?>
 
 <main class="shop">
 
-  <!-- ── HERO ── -->
+  <!-- ── HERO — SCF fields: shop_eyebrow, shop_heading, shop_heading_accent ── -->
   <section class="shop-hero">
     <div class="shop-hero__container">
-      <p class="shop-hero__eyebrow"><?php esc_html_e( 'Available now', 'wearit' ); ?></p>
-      <h1 class="shop-hero__heading"><?php esc_html_e( 'All', 'wearit' ); ?> <span class="shop-hero__heading--accent"><?php esc_html_e( 'Products', 'wearit' ); ?></span></h1>
+      <?php if ( $shop['eyebrow'] ) : ?>
+        <p class="shop-hero__eyebrow"><?php echo esc_html( $shop['eyebrow'] ); ?></p>
+      <?php endif; ?>
+      <h1 class="shop-hero__heading">
+        <?php echo esc_html( $shop['heading'] ); ?>
+        <?php if ( $shop['heading_accent'] ) : ?>
+          <span class="shop-hero__heading--accent"><?php echo esc_html( $shop['heading_accent'] ); ?></span>
+        <?php endif; ?>
+      </h1>
     </div>
   </section>
 
   <section class="shop-body">
     <div class="shop-body__container">
 
-      <!-- ── FILTERS ── -->
+      <!-- ── FILTERS — SCF fields: shop_filters_title, shop_clear_label, shop_categories_title, shop_colors_title ── -->
       <aside class="shop-filters" aria-label="<?php esc_attr_e( 'Product filters', 'wearit' ); ?>">
 
         <div class="shop-filters__header">
-          <h2 class="shop-filters__title"><?php esc_html_e( 'Filters', 'wearit' ); ?></h2>
+          <h2 class="shop-filters__title"><?php echo esc_html( $shop['filters_title'] ); ?></h2>
           <?php if ( wearit_has_active_filters() ) : ?>
-            <a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="shop-filters__clear"><?php esc_html_e( 'Clear filters', 'wearit' ); ?></a>
+            <a href="<?php echo esc_url( $shop_url ); ?>" class="shop-filters__clear"><?php echo esc_html( $shop['clear_label'] ); ?></a>
           <?php else : ?>
-            <span class="shop-filters__clear shop-filters__clear--disabled"><?php esc_html_e( 'Clear filters', 'wearit' ); ?></span>
+            <span class="shop-filters__clear shop-filters__clear--disabled"><?php echo esc_html( $shop['clear_label'] ); ?></span>
           <?php endif; ?>
         </div>
 
-        <h3 class="shop-filters__group-title"><?php esc_html_e( 'Categories', 'wearit' ); ?></h3>
+        <h3 class="shop-filters__group-title"><?php echo esc_html( $shop['categories_title'] ); ?></h3>
         <ul class="shop-filters__list">
           <?php if ( $categories && ! is_wp_error( $categories ) ) : foreach ( $categories as $cat ) :
             $active = in_array( $cat->slug, $filters['product_cat'], true );
@@ -59,7 +69,7 @@ $found     = (int) $GLOBALS['wp_query']->found_posts;
           <?php endforeach; endif; ?>
         </ul>
 
-        <h3 class="shop-filters__group-title shop-filters__group-title--spaced"><?php esc_html_e( 'Color', 'wearit' ); ?></h3>
+        <h3 class="shop-filters__group-title shop-filters__group-title--spaced"><?php echo esc_html( $shop['colors_title'] ); ?></h3>
         <ul class="shop-filters__swatches">
           <?php foreach ( $colors as $slug => $color ) :
             $active = in_array( $slug, $filters['color'], true );
@@ -83,12 +93,10 @@ $found     = (int) $GLOBALS['wp_query']->found_posts;
 
       </aside>
 
-      <!-- ── PRODUCT GRID ── -->
+      <!-- ── PRODUCT GRID — SCF fields: shop_count_one/many, shop_empty_title, shop_empty_button ── -->
       <div class="shop-results">
 
-        <p class="shop-results__count">
-          <?php echo esc_html( sprintf( $found === 1 ? __( 'Showing %d product', 'wearit' ) : __( 'Showing %d products', 'wearit' ), $found ) ); ?>
-        </p>
+        <p class="shop-results__count"><?php echo esc_html( wearit_shop_count_text( $found ) ); ?></p>
 
         <?php if ( have_posts() ) : ?>
           <div class="product-grid">
@@ -98,8 +106,8 @@ $found     = (int) $GLOBALS['wp_query']->found_posts;
           </div>
         <?php else : ?>
           <div class="shop-results__empty">
-            <p class="shop-results__empty-title"><?php esc_html_e( 'No products match these filters', 'wearit' ); ?></p>
-            <a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="shop-results__empty-link"><?php esc_html_e( 'Clear filters', 'wearit' ); ?></a>
+            <p class="shop-results__empty-title"><?php echo esc_html( $shop['empty_title'] ); ?></p>
+            <a href="<?php echo esc_url( $shop_url ); ?>" class="shop-results__empty-link"><?php echo esc_html( $shop['empty_button'] ); ?></a>
           </div>
         <?php endif; ?>
 

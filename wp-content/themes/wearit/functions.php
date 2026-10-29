@@ -44,6 +44,7 @@ add_action( 'init', function () {
 // ── Products (post type, fields, shop filtering, demo data) ───
 require_once get_template_directory() . '/inc/i18n.php';
 require_once get_template_directory() . '/inc/products.php';
+require_once get_template_directory() . '/inc/shop-page.php';
 require_once get_template_directory() . '/inc/seed-products.php';
 
 // ── Cart (cookie storage, mini-cart in the header) ────────────

@@ -2,11 +2,13 @@
 /**
  * One product card. Used inside the loop on archive-product.php.
  * Data comes from wearit_get_product() — see inc/products.php.
+ * Labels (badge, sizes, button) come from SCF: Products → Shop page (inc/shop-page.php).
  */
 $product = wearit_get_product( get_the_ID() );
 if ( ! $product ) {
     return;
 }
+$shop = wearit_get_shop_page();
 ?>
 <article class="product-card" id="product-<?php echo esc_attr( $product['id'] ); ?>">
 
@@ -25,7 +27,7 @@ if ( ! $product ) {
     <?php endif; ?>
 
     <?php if ( $product['is_new'] ) : ?>
-      <span class="product-card__badge"><?php esc_html_e( 'New', 'wearit' ); ?></span>
+      <span class="product-card__badge"><?php echo esc_html( $shop['badge_new'] ); ?></span>
     <?php endif; ?>
   </div>
 
@@ -43,7 +45,7 @@ if ( ! $product ) {
     </div>
 
     <?php if ( $product['size_range'] ) : ?>
-      <p class="product-card__sizes"><?php echo esc_html( sprintf( __( 'Sizes %s', 'wearit' ), $product['size_range'] ) ); ?></p>
+      <p class="product-card__sizes"><?php echo esc_html( trim( $shop['sizes_label'] . ' ' . $product['size_range'] ) ); ?></p>
     <?php endif; ?>
 
     <!--
@@ -59,7 +61,7 @@ if ( ! $product ) {
       data-price="<?php echo esc_attr( $product['price'] ); ?>"
       <?php disabled( ! $product['in_stock'] ); ?>
     >
-      <?php echo $product['in_stock'] ? esc_html__( 'Add to Cart', 'wearit' ) : esc_html__( 'Sold out', 'wearit' ); ?>
+      <?php echo esc_html( $product['in_stock'] ? $shop['add_label'] : $shop['sold_out_label'] ); ?>
     </button>
 
   </div>
