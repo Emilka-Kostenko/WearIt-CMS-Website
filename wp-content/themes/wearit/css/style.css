@@ -4217,9 +4217,7 @@ body.bf-open { overflow: hidden; }
     padding: 2rem;
   }
 }
-/* ============================================================
-   CHECKOUT PAYMENT METHODS (checkoutPage.php)
-   ============================================================ */
+/*CHECKOUT PAYMENT METHODS (checkoutPage.php)*/
 
 .checkout-fields__title--sub {
   margin-top: 2.5rem;
@@ -4287,4 +4285,114 @@ body.bf-open { overflow: hidden; }
   font-size: 0.875rem;
   line-height: 1.6;
   color: var(--shop-muted);
+}
+
+/* ABOUT PAGE */
+
+.about-body__container {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.about-story__title,
+.about-video__title {
+  font-family: var(--font-condensed);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.about-story__text {
+  font-family: var(--font-barlow);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--shop-muted);
+  margin-bottom: 1.5rem;
+}
+
+.about-video {
+  margin-top: 4rem;
+}
+
+/* 16:9 box that holds the thumbnail now and the player later */
+.about-video__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: var(--shop-card-bg);
+  border: 1px solid var(--shop-border);
+  cursor: pointer;
+}
+
+.about-video__thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity var(--transition-fast);
+}
+
+.about-video__frame:hover .about-video__thumb {
+  opacity: 0.7;
+}
+
+.about-video__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.about-video__frame:hover .about-video__play {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.about-video__play-icon {
+  margin-left: 4px; /* the triangle looks off centre without this */
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--color-bg);
+}
+
+.about-video__iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.about-video__note {
+  padding-top: 1rem;
+  font-family: var(--font-barlow);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--shop-muted);
+}
+
+@media (max-width: 768px) {
+  .about-video {
+    margin-top: 2.5rem;
+  }
+
+  .about-video__play {
+    width: 56px;
+    height: 56px;
+  }
+
+  .about-video__play-icon {
+    font-size: 1.375rem;
+  }
 }

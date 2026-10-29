@@ -1,12 +1,5 @@
 <?php
-/**
- * Template Name: Checkout Page
- *
- * Same layout as the cart page (cartPage.php): hero, then form + order summary.
- * Reuses the cart classes (.cart-summary, .cart-button, .cart-empty) so the two
- * pages stay identical — only the form fields have their own styles.
- * Texts are SCF fields on this page (registered in inc/checkout.php, read with wearit_checkout_text()).
- */
+
 get_header();
 
 $cart   = wearit_get_cart();
@@ -105,7 +98,7 @@ $totals = wearit_cart_totals( $cart );
               <textarea id="checkout_notes" name="checkout_notes" class="checkout-field__input checkout-field__input--area" rows="4" placeholder="Anything we should know about the delivery?"></textarea>
             </div>
 
-            <!-- ── PAYMENT — no card fields here on purpose, see wearit_payment_methods() ── -->
+            <!-- ── PAYMENT  ── -->
             <h2 class="checkout-fields__title checkout-fields__title--sub"><?php echo esc_html( wearit_checkout_text( 'checkout_payment_label' ) ); ?></h2>
 
             <div class="checkout-payment">
@@ -134,7 +127,7 @@ $totals = wearit_cart_totals( $cart );
 
           </div>
 
-          <!-- ── ORDER SUMMARY — the cart page's summary panel, plus the item list ── -->
+          <!-- ── ORDER SUMMARY the cart page's summary panel, plus the item list ── -->
           <aside class="cart-summary">
 
             <h2 class="cart-summary__title"><?php echo esc_html( wearit_checkout_text( 'checkout_summary_title' ) ); ?></h2>

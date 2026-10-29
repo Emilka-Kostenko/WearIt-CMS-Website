@@ -135,3 +135,24 @@ function wearit_vip_signup() {
 }
 add_action( 'wp_ajax_wearit_vip_signup', 'wearit_vip_signup' );
 add_action( 'wp_ajax_nopriv_wearit_vip_signup', 'wearit_vip_signup' );
+
+
+/**video url
+ */
+function wearit_youtube_id( $url ) {
+    $url = trim( (string) $url );
+    if ( $url === '' ) {
+        return '';
+    }
+
+    // already just an id? ids are 11 characters
+    if ( preg_match( '/^[A-Za-z0-9_-]{11}$/', $url ) ) {
+        return $url;
+    }
+
+    if ( preg_match( '%(?:youtube\.com/(?:watch\?v=|embed/|live/|shorts/)|youtu\.be/)([A-Za-z0-9_-]{11})%', $url, $m ) ) {
+        return $m[1];
+    }
+
+    return '';
+}

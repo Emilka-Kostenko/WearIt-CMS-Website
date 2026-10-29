@@ -21,7 +21,7 @@
                 ?>
                 </h1>
             </div>
-            <div class="contact__image-wrap"> <!-- im guessing this one aint wrap but i shall figure that out later bleh--->
+            <div class="contact__image-wrap"> <!-- im guessing this one aint wrap but i shall figure that out later--->
                 <?php
                 $contact_image = get_field( 'contact_image' );
                 if ( $contact_image ) :
@@ -31,7 +31,7 @@
                         src="<?php echo esc_url( $contact_image['url'] ); ?>"
                         alt="<?php echo esc_attr( $contact_image['alt'] ); ?>"
                     />
-                <?php else : ?> <!-- hopefully the hero placeholder thingy works bleh-->
+                <?php else : ?> <!-- hopefully the hero placeholder thingy works-->
                     <img
                         class="contact__image"
                         src="<?php echo esc_url( get_template_directory_uri() . '/assets/hero-placeholder.jpg' ); ?>" 
@@ -69,7 +69,7 @@
             </div>
             <div class="contact__info-middle">
                 <div class="contact__info-row">
-                    <div class="contact__info-mail"> <!-- im guessing this one aint wrap but i shall figure that out later bleh--->
+                    <div class="contact__info-mail"> <!-- im guessing this one aint wrap --->
                         <?php
                         $contact_infoimg = get_field( 'contact_infoimg' );
                         if ( $contact_infoimg ) :
