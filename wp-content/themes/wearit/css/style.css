@@ -4286,6 +4286,16 @@ body.bf-open { overflow: hidden; }
   line-height: 1.6;
   color: var(--shop-muted);
 }
+
+/* Stripe's card form (assets/js/checkout-stripe.js); Place Order hides while it shows */
+#checkout-form {
+  margin-top: 1.5rem;
+}
+
+#checkout-form[hidden],
+.cart-button[hidden] {
+  display: none;
+}
 /* ============================================================
    ACCOUNT (accountPage.php, template-parts/login-required.php)
    Panels reuse the checkout form classes (.checkout-fields, .checkout-field…).

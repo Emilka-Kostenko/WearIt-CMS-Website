@@ -134,6 +134,11 @@ $totals = wearit_cart_totals( $cart );
               <?php $first = false; endforeach; ?>
             </div>
 
+            <?php // Stripe's embedded card form, shown by assets/js/checkout-stripe.js when "Card" is picked ?>
+            <?php if ( isset( wearit_enabled_payment_methods()['card'] ) ) : ?>
+              <div id="checkout-form" hidden></div>
+            <?php endif; ?>
+
           </div>
 
           <!-- ── ORDER SUMMARY the cart page's summary panel, plus the item list ── -->

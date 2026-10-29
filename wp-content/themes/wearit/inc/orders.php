@@ -62,7 +62,7 @@ add_action( 'init', function () {
 /**
  * $customer — name, email, address, city, postcode, country, notes, payment
  * $items     — array of [ 'id', 'title', 'sku', 'size', 'qty', 'price', 'line_total' ]
- * $totals    — [ 'subtotal', 'shipping', 'total' ]
+ * $totals    — [ 'subtotal', 'shipping', 'fee', 'total' ]   fee is the payment method's surcharge
  *
  * Returns the new order ID, or 0 if it failed.
  */
@@ -89,6 +89,7 @@ function wearit_create_order( array $customer, array $items, array $totals ) {
 
     update_post_meta( $order_id, '_wearit_subtotal', (float) ( $totals['subtotal'] ?? 0 ) );
     update_post_meta( $order_id, '_wearit_shipping', (float) ( $totals['shipping'] ?? 0 ) );
+    update_post_meta( $order_id, '_wearit_fee',      (float) ( $totals['fee'] ?? 0 ) );
     update_post_meta( $order_id, '_wearit_total',    (float) ( $totals['total'] ?? 0 ) );
 
     $method = $customer['payment'] ?? 'cod';
@@ -134,6 +135,7 @@ function wearit_get_order( $order_id ) {
         'items'          => get_post_meta( $post->ID, '_wearit_items', true ) ?: [],
         'subtotal'       => (float) get_post_meta( $post->ID, '_wearit_subtotal', true ),
         'shipping'       => (float) get_post_meta( $post->ID, '_wearit_shipping', true ),
+        'fee'            => (float) get_post_meta( $post->ID, '_wearit_fee', true ), // 0 on orders saved before the fee was stored
         'total'          => (float) get_post_meta( $post->ID, '_wearit_total', true ),
         'status'         => get_post_meta( $post->ID, '_wearit_status', true ) ?: 'new',
         'payment'        => get_post_meta( $post->ID, '_wearit_payment', true ) ?: 'cod',
@@ -307,6 +309,9 @@ function wearit_order_details_box( $post ) {
       <tfoot>
         <tr><th colspan="4" style="text-align:right;">Subtotal</th><th>$<?php echo esc_html( number_format( $order['subtotal'], 2 ) ); ?></th></tr>
         <tr><th colspan="4" style="text-align:right;">Shipping</th><th>$<?php echo esc_html( number_format( $order['shipping'], 2 ) ); ?></th></tr>
+        <?php if ( $order['fee'] > 0 ) : ?>
+          <tr><th colspan="4" style="text-align:right;"><?php echo esc_html( wearit_payment_label( $order['payment'] ) ); ?> fee</th><th>$<?php echo esc_html( number_format( $order['fee'], 2 ) ); ?></th></tr>
+        <?php endif; ?>
         <tr><th colspan="4" style="text-align:right;">Total</th><th>$<?php echo esc_html( number_format( $order['total'], 2 ) ); ?></th></tr>
       </tfoot>
     </table>

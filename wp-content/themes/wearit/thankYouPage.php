@@ -65,7 +65,7 @@ $order = wearit_thankyou_order();
             </div>
             <div>
               <dt>Payment</dt>
-              <dd>On delivery</dd>
+              <dd><?php echo esc_html( wearit_payment_label( $order['payment'] ) ); ?></dd>
             </div>
           </dl>
 
@@ -122,6 +122,12 @@ $order = wearit_thankyou_order();
                 <?php endif; ?>
               </dd>
             </div>
+            <?php if ( $order['fee'] > 0 ) : ?>
+              <div class="cart-summary__row">
+                <dt><?php echo esc_html( wearit_payment_label( $order['payment'] ) ); ?> fee</dt>
+                <dd><?php echo esc_html( wearit_cart_format_price( $order['fee'] ) ); ?></dd>
+              </div>
+            <?php endif; ?>
           </dl>
 
           <div class="cart-summary__total">

@@ -162,7 +162,7 @@ function wearit_payment_methods() {
             'settles'         => 'immediate',
             'needs_reference' => false,
             'fee'             => 0,
-            'enabled'         => false, // turn on once a provider is wired up
+            'enabled'         => wearit_stripe_is_configured(), // on once both Stripe keys are set
         ],
     ];
 }
@@ -272,6 +272,12 @@ function wearit_handle_checkout() {
         $customer['payment'] = 'cod';
     }
 
+    // Card is paid in the Stripe form on the page, never through this form.
+    if ( $customer['payment'] === 'card' ) {
+        wp_safe_redirect( add_query_arg( 'checkout', 'invalid', $redirect ) );
+        exit;
+    }
+
     // Every field except notes has to be filled in.
     $required = [ 'name', 'address', 'city', 'postcode', 'country' ];
     foreach ( $required as $field ) {
@@ -347,6 +353,340 @@ function wearit_handle_checkout() {
     exit;
 }
 
+// ── Card payments (Stripe Checkout, embedded form) ────────────
+
+const WEARIT_STRIPE_API_VERSION = '2026-03-25.dahlia';
+
+/**
+ * A Stripe key: the constant of that name from wp-config.php, or else the
+ * environment variable. Keys never live in the theme.
+ */
+function wearit_stripe_key( $name ) {
+    if ( defined( $name ) ) {
+        return (string) constant( $name );
+    }
+    return (string) getenv( $name );
+}
+
+function wearit_stripe_is_configured() {
+    return wearit_stripe_key( 'STRIPE_SECRET_KEY' ) !== '' && wearit_stripe_key( 'STRIPE_PUBLISHABLE_KEY' ) !== '';
+}
+
+/**
+ * POST /wp-json/wearit/v1/checkout/session
+ * Creates a Checkout Session and returns { client_secret } for the embedded form.
+ */
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'wearit/v1', '/checkout/session', [
+        'methods'             => 'POST',
+        'callback'            => 'wearit_rest_checkout_session',
+        'permission_callback' => '__return_true',
+    ] );
+} );
+
+function wearit_rest_checkout_session() {
+    if ( ! wearit_stripe_is_configured() ) {
+        return new WP_Error( 'wearit_stripe_missing', 'Card payments are not set up.', [ 'status' => 500 ] );
+    }
+
+    // The cart is read here, on the server, same as wearit_handle_checkout() — the browser sends nothing.
+    $cart = wearit_get_cart();
+    if ( ! $cart['items'] ) {
+        return new WP_Error( 'wearit_cart_empty', 'Your cart is empty.', [ 'status' => 400 ] );
+    }
+    $totals = wearit_cart_totals( $cart );
+
+    // Prices are in dollars on the site; Stripe wants cents.
+    $line_items = [];
+    foreach ( $cart['items'] as $item ) {
+        $line_items[] = [
+            'quantity'   => $item['qty'],
+            'price_data' => [
+                'currency'     => 'usd',
+                'unit_amount'  => (int) round( $item['price'] * 100 ),
+                'product_data' => [
+                    'name'     => $item['title'],
+                    'metadata' => [ 'cart_key' => $item['key'] ], // so a webhook can tell which product it was
+                ],
+            ],
+        ];
+    }
+
+    $mode = 'payment'; // one-time purchases; "subscription" would need recurring prices
+
+    // Booleans are sent as 'true' / 'false' strings — http_build_query would turn them into 1 / 0.
+    $params = [
+        'ui_mode'                     => 'form',
+        'mode'                        => $mode,
+        'line_items'                  => $line_items,
+        'billing_address_collection'  => 'auto',
+        'phone_number_collection'     => [ 'enabled' => 'false' ],
+        'automatic_tax'               => [ 'enabled' => 'false' ],
+        'submit_type'                 => 'auto',
+        'shipping_address_collection' => [ 'allowed_countries' => [ 'DK' ] ],
+        'name_collection'             => [ 'individual' => [ 'enabled' => 'true', 'optional' => 'true' ] ],
+        'integration_identifier'      => 'custom_embedded_web_0002',
+        'return_url'                  => add_query_arg( 'session_id', '{CHECKOUT_SESSION_ID}', wearit_thankyou_url() ),
+    ];
+    if ( $mode === 'subscription' ) {
+        $params['payment_method_collection'] = 'always';
+    }
+
+    // Same shipping as the order summary shows (wearit_cart_totals()), free when it's 0.
+    $params['shipping_options'] = [ [
+        'shipping_rate_data' => [
+            'display_name' => $totals['shipping'] > 0 ? 'Shipping' : 'Free shipping',
+            'type'         => 'fixed_amount',
+            'fixed_amount' => [
+                'amount'   => (int) round( $totals['shipping'] * 100 ),
+                'currency' => 'usd',
+            ],
+        ],
+    ] ];
+
+    $response = wp_remote_post( 'https://api.stripe.com/v1/checkout/sessions', [
+        'headers' => [
+            'Authorization'  => 'Bearer ' . wearit_stripe_key( 'STRIPE_SECRET_KEY' ),
+            'Stripe-Version' => WEARIT_STRIPE_API_VERSION,
+        ],
+        'body'    => http_build_query( $params ),
+        'timeout' => 30,
+    ] );
+
+    $session = is_wp_error( $response ) ? null : json_decode( wp_remote_retrieve_body( $response ), true );
+    if ( empty( $session['client_secret'] ) ) {
+        error_log( 'wearit_stripe: session failed — ' . ( is_wp_error( $response ) ? $response->get_error_message() : wp_remote_retrieve_body( $response ) ) );
+        return new WP_Error( 'wearit_stripe_failed', 'Could not start the card payment.', [ 'status' => 502 ] );
+    }
+
+    return rest_ensure_response( [ 'client_secret' => $session['client_secret'] ] );
+}
+
+/** GET from the Stripe API. The decoded JSON, or null on any error. */
+function wearit_stripe_get( $path, array $query = [] ) {
+    $url      = 'https://api.stripe.com/v1/' . $path . ( $query ? '?' . http_build_query( $query ) : '' );
+    $response = wp_remote_get( $url, [
+        'headers' => [
+            'Authorization'  => 'Bearer ' . wearit_stripe_key( 'STRIPE_SECRET_KEY' ),
+            'Stripe-Version' => WEARIT_STRIPE_API_VERSION,
+        ],
+        'timeout' => 30,
+    ] );
+
+    $data = is_wp_error( $response ) ? null : json_decode( wp_remote_retrieve_body( $response ), true );
+    if ( ! is_array( $data ) || isset( $data['error'] ) ) {
+        error_log( 'wearit_stripe: GET ' . $path . ' failed — ' . ( is_wp_error( $response ) ? $response->get_error_message() : wp_remote_retrieve_body( $response ) ) );
+        return null;
+    }
+    return $data;
+}
+
+/** The order already made for a Checkout Session, or 0. */
+function wearit_stripe_order_for_session( $session_id ) {
+    $ids = get_posts( [
+        'post_type'   => 'wearit_order',
+        'post_status' => 'any',
+        'meta_key'    => '_wearit_stripe_session',
+        'meta_value'  => $session_id,
+        'numberposts' => 1,
+        'fields'      => 'ids',
+    ] );
+    return $ids ? (int) $ids[0] : 0;
+}
+
+/**
+ * Turn a paid Checkout Session into a wearit_order. Returns the order ID, or 0
+ * when the session isn't paid (yet) or something failed.
+ *
+ * Called from both the webhook and the thank-you page, which usually arrive at the
+ * same moment, so it is safe to call twice: an order is made once per session.
+ * Everything is read back from Stripe, never from the request that triggered it.
+ */
+function wearit_stripe_fulfill( $session_id ) {
+    if ( ! preg_match( '/^cs_(test|live)_[A-Za-z0-9]+$/', (string) $session_id ) ) {
+        return 0;
+    }
+
+    $order_id = wearit_stripe_order_for_session( $session_id );
+    if ( $order_id ) {
+        return $order_id;
+    }
+
+    $session = wearit_stripe_get( 'checkout/sessions/' . $session_id );
+    if ( ! $session || ( $session['payment_status'] ?? '' ) === 'unpaid' ) {
+        return 0; // not paid, or a delayed method still pending — async_payment_succeeded comes later
+    }
+
+    // One request at a time per session. add_option fails if the row exists, so it works as a lock.
+    // A lock older than a minute is from a request that died, so it is taken over.
+    $lock = 'wearit_stripe_lock_' . $session_id;
+    if ( ! add_option( $lock, time(), '', false ) ) {
+        if ( time() - (int) get_option( $lock ) < 60 ) {
+            for ( $i = 0; $i < 10; $i++ ) { // the other request is creating it; wait up to 5 s
+                usleep( 500000 );
+                if ( $order_id = wearit_stripe_order_for_session( $session_id ) ) {
+                    return $order_id;
+                }
+            }
+            return 0;
+        }
+        update_option( $lock, time(), false );
+    }
+
+    $lines = wearit_stripe_get( 'checkout/sessions/' . $session_id . '/line_items', [
+        'limit'  => 100,
+        'expand' => [ 'data.price.product' ],
+    ] );
+    if ( ! $lines ) {
+        delete_option( $lock );
+        return 0;
+    }
+
+    // Stripe amounts are cents; orders are stored in dollars like everything else on the site.
+    $items = [];
+    foreach ( $lines['data'] as $line ) {
+        $qty     = (int) $line['quantity'];
+        $items[] = [
+            'id'         => $line['price']['product']['metadata']['cart_key'] ?? '',
+            'title'      => $line['description'] ?? '',
+            'sku'        => '',
+            'size'       => '',
+            'qty'        => $qty,
+            'price'      => $qty ? $line['amount_subtotal'] / 100 / $qty : 0,
+            'line_total' => $line['amount_subtotal'] / 100,
+        ];
+    }
+
+    $details  = $session['customer_details'] ?? [];
+    $shipping = $session['collected_information']['shipping_details'] ?? [];
+    $address  = $shipping['address'] ?? ( $details['address'] ?? [] );
+
+    $customer = [
+        'name'     => sanitize_text_field( $shipping['name'] ?? ( $details['individual_name'] ?? ( $details['name'] ?? '' ) ) ),
+        'email'    => sanitize_email( $details['email'] ?? '' ),
+        'address'  => sanitize_text_field( trim( ( $address['line1'] ?? '' ) . ' ' . ( $address['line2'] ?? '' ) ) ),
+        'city'     => sanitize_text_field( $address['city'] ?? '' ),
+        'postcode' => sanitize_text_field( $address['postal_code'] ?? '' ),
+        'country'  => sanitize_text_field( $address['country'] ?? '' ),
+        'notes'    => '',
+        'payment'  => 'card',
+    ];
+
+    $order_id = wearit_create_order( $customer, $items, [
+        'subtotal' => $session['amount_subtotal'] / 100,
+        'shipping' => ( $session['total_details']['amount_shipping'] ?? 0 ) / 100,
+        'fee'      => 0,
+        'total'    => $session['amount_total'] / 100,
+    ] );
+
+    if ( ! $order_id ) {
+        error_log( 'wearit_stripe: order could not be created for ' . $session_id );
+        delete_option( $lock );
+        return 0;
+    }
+
+    update_post_meta( $order_id, '_wearit_stripe_session', $session_id );
+    update_post_meta( $order_id, '_wearit_stripe_payment_intent', $session['payment_intent'] ?? '' );
+    update_post_meta( $order_id, '_wearit_key', wp_hash( 'wearit_order_' . $order_id ) ); // same key as the form handler sets
+    wearit_set_payment_status( $order_id, 'paid' ); // also moves it to Preparing, see orders.php
+    delete_option( $lock );
+
+    error_log( 'wearit_stripe: order ' . $order_id . ' created for ' . $session_id );
+    return $order_id;
+}
+
+/**
+ * POST /wp-json/wearit/v1/stripe/webhook
+ * Stripe calls this after a payment. Only signed events are accepted.
+ */
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'wearit/v1', '/stripe/webhook', [
+        'methods'             => 'POST',
+        'callback'            => 'wearit_rest_stripe_webhook',
+        'permission_callback' => '__return_true', // the signature check below is the permission
+    ] );
+} );
+
+function wearit_rest_stripe_webhook( WP_REST_Request $request ) {
+    $secret = wearit_stripe_key( 'STRIPE_WEBHOOK_SECRET' );
+    if ( $secret === '' ) {
+        error_log( 'wearit_stripe: webhook received but STRIPE_WEBHOOK_SECRET is not set' );
+        return new WP_Error( 'wearit_stripe_webhook_secret', 'Webhook secret not set.', [ 'status' => 500 ] );
+    }
+
+    $payload = $request->get_body();
+    if ( ! wearit_stripe_signature_ok( $payload, (string) $request->get_header( 'stripe-signature' ), $secret ) ) {
+        error_log( 'wearit_stripe: webhook signature check failed' );
+        return new WP_Error( 'wearit_stripe_signature', 'Invalid signature.', [ 'status' => 400 ] );
+    }
+
+    $event = json_decode( $payload, true );
+    $type  = $event['type'] ?? '';
+
+    // completed: paid right away (cards). async_payment_succeeded: a delayed method cleared later.
+    if ( in_array( $type, [ 'checkout.session.completed', 'checkout.session.async_payment_succeeded' ], true ) ) {
+        $session = $event['data']['object'] ?? [];
+        if ( ( $session['payment_status'] ?? '' ) !== 'unpaid' && ! wearit_stripe_fulfill( $session['id'] ?? '' ) ) {
+            // A 500 makes Stripe retry later.
+            return new WP_Error( 'wearit_stripe_fulfill', 'Order could not be created.', [ 'status' => 500 ] );
+        }
+    }
+
+    return rest_ensure_response( [ 'received' => true ] );
+}
+
+/**
+ * Check the Stripe-Signature header: "t=<timestamp>,v1=<hmac>[,v1=…]".
+ * The HMAC is SHA-256 of "<timestamp>.<raw body>" with the webhook secret.
+ * Events older than 5 minutes are refused, so a captured one can't be replayed.
+ */
+function wearit_stripe_signature_ok( $payload, $header, $secret, $tolerance = 300 ) {
+    $timestamp  = 0;
+    $signatures = [];
+    foreach ( explode( ',', $header ) as $part ) {
+        [ $key, $value ] = array_pad( explode( '=', trim( $part ), 2 ), 2, '' );
+        if ( $key === 't' ) {
+            $timestamp = (int) $value;
+        } elseif ( $key === 'v1' ) {
+            $signatures[] = $value;
+        }
+    }
+    if ( ! $timestamp || ! $signatures || abs( time() - $timestamp ) > $tolerance ) {
+        return false;
+    }
+
+    $expected = hash_hmac( 'sha256', $timestamp . '.' . $payload, $secret );
+    foreach ( $signatures as $signature ) {
+        if ( hash_equals( $expected, $signature ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Stripe.js (loaded from js.stripe.com, never bundled) and the script that mounts
+ * the form — only on the checkout page, and only when card payments are on.
+ */
+add_action( 'wp_enqueue_scripts', function () {
+    if ( ! is_page_template( 'checkoutPage.php' ) || ! wearit_stripe_is_configured() ) {
+        return;
+    }
+
+    wp_enqueue_script( 'stripe-js', 'https://js.stripe.com/dahlia/stripe.js', [], null, false );
+    wp_enqueue_script(
+        'wearit-checkout-stripe',
+        get_template_directory_uri() . '/assets/js/checkout-stripe.js',
+        [ 'stripe-js' ],
+        '1.0.0',
+        [ 'in_footer' => true, 'strategy' => 'defer' ]
+    );
+    wp_localize_script( 'wearit-checkout-stripe', 'wearitStripe', [
+        'publishableKey' => wearit_stripe_key( 'STRIPE_PUBLISHABLE_KEY' ),
+        'sessionUrl'     => rest_url( 'wearit/v1/checkout/session' ),
+    ] );
+} );
+
 // ── Thank-you page ────────────────────────────────────────────
 
 /**
@@ -386,6 +726,29 @@ function wearit_thankyou_url() {
     $id = wearit_thankyou_page_id();
     return $id ? get_permalink( $id ) : home_url( '/thank-you/' );
 }
+
+/**
+ * Back from Stripe with ?session_id=: make (or find) the order, empty the cart,
+ * then continue as the order form does — redirect to ?order=&key=.
+ * Runs before the template, because clearing the cart cookie needs the headers.
+ */
+add_action( 'template_redirect', function () {
+    if ( ! isset( $_GET['session_id'] ) || ! is_page_template( 'thankYouPage.php' ) || ! wearit_stripe_is_configured() ) {
+        return;
+    }
+
+    $order_id = wearit_stripe_fulfill( sanitize_text_field( wp_unslash( $_GET['session_id'] ) ) );
+    if ( ! $order_id ) {
+        return; // not paid (yet): the page shows its "order not found" text
+    }
+
+    wearit_cart_save_raw( [] );
+    wp_safe_redirect( add_query_arg( [
+        'order' => $order_id,
+        'key'   => get_post_meta( $order_id, '_wearit_key', true ),
+    ], wearit_thankyou_url() ) );
+    exit;
+} );
 
 /**
  * The order the thank-you page should show, from ?order= and ?key=.
