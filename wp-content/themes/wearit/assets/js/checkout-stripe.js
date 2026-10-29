@@ -34,7 +34,11 @@
     mounted = true;
     const stripe = Stripe(wearitStripe.publishableKey);
 
-    const clientSecret = fetch(wearitStripe.sessionUrl, { method: 'POST' })
+    const clientSecret = fetch(wearitStripe.sessionUrl, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'X-WP-Nonce': wearitStripe.nonce },
+    })
       .then((response) => response.json())
       .then((json) => json.client_secret);
     const checkout = stripe.initCheckoutFormSdk({ clientSecret, appearance });

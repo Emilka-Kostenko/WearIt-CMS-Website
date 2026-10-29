@@ -396,13 +396,16 @@ function wearit_rest_checkout_session() {
     if ( ! wearit_stripe_is_configured() ) {
         return new WP_Error( 'wearit_stripe_missing', 'Card payments are not set up.', [ 'status' => 500 ] );
     }
+    if ( ! is_user_logged_in() ) {
+        return new WP_Error( 'wearit_login_required', 'Log in to check out.', [ 'status' => 401 ] );
+    }
 
     // The cart is read here, on the server, same as wearit_handle_checkout() — the browser sends nothing.
     $cart = wearit_get_cart();
     if ( ! $cart['items'] ) {
         return new WP_Error( 'wearit_cart_empty', 'Your cart is empty.', [ 'status' => 400 ] );
     }
-    $totals = wearit_cart_totals( $cart );
+    $totals = wearit_checkout_totals( $cart, get_current_user_id() );
 
     // Prices are in dollars on the site; Stripe wants cents.
     $line_items = [];
@@ -435,7 +438,14 @@ function wearit_rest_checkout_session() {
         'name_collection'             => [ 'individual' => [ 'enabled' => 'true', 'optional' => 'true' ] ],
         'integration_identifier'      => 'custom_embedded_web_0002',
         'return_url'                  => add_query_arg( 'session_id', '{CHECKOUT_SESSION_ID}', wearit_thankyou_url() ),
+        'metadata'                    => [ 'user_id' => get_current_user_id(), 'coupon' => $totals['coupon'] ],
     ];
+    if ( $totals['coupon'] ) {
+        if ( ! wearit_stripe_ensure_coupon( $totals['coupon'] ) ) {
+            return new WP_Error( 'wearit_stripe_coupon', 'Could not apply the coupon to the card payment.', [ 'status' => 502 ] );
+        }
+        $params['discounts'] = [ [ 'coupon' => $totals['coupon'] ] ];
+    }
     if ( $mode === 'subscription' ) {
         $params['payment_method_collection'] = 'always';
     }
@@ -487,6 +497,48 @@ function wearit_stripe_get( $path, array $query = [] ) {
         return null;
     }
     return $data;
+}
+
+function wearit_stripe_ensure_coupon( $code ) {
+    $coupon = wearit_coupons()[ $code ] ?? null;
+    if ( ! $coupon ) {
+        return false;
+    }
+
+    $flag = 'wearit_stripe_coupon_' . strtolower( $code ) . '_' . substr( md5( wearit_stripe_key( 'STRIPE_SECRET_KEY' ) ), 0, 8 );
+    if ( get_transient( $flag ) ) {
+        return true;
+    }
+
+    $existing = wearit_stripe_get( 'coupons/' . rawurlencode( $code ) );
+    if ( $existing && ! empty( $existing['valid'] ) ) {
+        set_transient( $flag, 1, DAY_IN_SECONDS );
+        return true;
+    }
+
+    $response = wp_remote_post( 'https://api.stripe.com/v1/coupons', [
+        'headers' => [
+            'Authorization'  => 'Bearer ' . wearit_stripe_key( 'STRIPE_SECRET_KEY' ),
+            'Stripe-Version' => WEARIT_STRIPE_API_VERSION,
+        ],
+        'body'    => http_build_query( [
+            'id'          => $code,
+            'name'        => 'WearIt ' . $coupon['label'],
+            'percent_off' => $coupon['percent'],
+            'duration'    => 'once',
+        ] ),
+        'timeout' => 30,
+    ] );
+
+    $created = is_wp_error( $response ) ? null : json_decode( wp_remote_retrieve_body( $response ), true );
+    if ( empty( $created['id'] ) ) {
+        error_log( 'wearit_stripe: coupon ' . $code . ' could not be created — ' . ( is_wp_error( $response ) ? $response->get_error_message() : wp_remote_retrieve_body( $response ) ) );
+        return false;
+    }
+
+    error_log( 'wearit_stripe: coupon ' . $code . ' created in Stripe' );
+    set_transient( $flag, 1, DAY_IN_SECONDS );
+    return true;
 }
 
 /** The order already made for a Checkout Session, or 0. */
@@ -584,6 +636,8 @@ function wearit_stripe_fulfill( $session_id ) {
         'subtotal' => $session['amount_subtotal'] / 100,
         'shipping' => ( $session['total_details']['amount_shipping'] ?? 0 ) / 100,
         'fee'      => 0,
+        'discount' => ( $session['total_details']['amount_discount'] ?? 0 ) / 100,
+        'coupon'   => $session['metadata']['coupon'] ?? '',
         'total'    => $session['amount_total'] / 100,
     ] );
 
@@ -591,6 +645,12 @@ function wearit_stripe_fulfill( $session_id ) {
         error_log( 'wearit_stripe: order could not be created for ' . $session_id );
         delete_option( $lock );
         return 0;
+    }
+
+    $coupon  = $session['metadata']['coupon'] ?? '';
+    $user_id = (int) ( $session['metadata']['user_id'] ?? 0 );
+    if ( $coupon && $user_id ) {
+        wearit_coupon_mark_used( $coupon, $user_id );
     }
 
     update_post_meta( $order_id, '_wearit_stripe_session', $session_id );
@@ -686,12 +746,13 @@ add_action( 'wp_enqueue_scripts', function () {
         'wearit-checkout-stripe',
         get_template_directory_uri() . '/assets/js/checkout-stripe.js',
         [ 'stripe-js' ],
-        '1.0.0',
+        '1.0.1',
         [ 'in_footer' => true, 'strategy' => 'defer' ]
     );
     wp_localize_script( 'wearit-checkout-stripe', 'wearitStripe', [
         'publishableKey' => wearit_stripe_key( 'STRIPE_PUBLISHABLE_KEY' ),
         'sessionUrl'     => rest_url( 'wearit/v1/checkout/session' ),
+        'nonce'          => wp_create_nonce( 'wp_rest' ),
     ] );
 } );
 
