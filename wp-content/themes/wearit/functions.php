@@ -60,6 +60,9 @@ require_once get_template_directory() . '/inc/checkout.php';
 // ── Order emails (confirmation, shop notification, shipped) ───
 require_once get_template_directory() . '/inc/order-emails.php';
 
+// ── SEO (meta descriptions + "Meta description" admin box) ────
+require_once get_template_directory() . '/inc/seo.php';
+
 // ── Handle contact form submission ─────────────────────────────
 
 add_action( 'admin_post_wearit_contact', 'wearit_handle_contact_form' );
