@@ -6,12 +6,12 @@
   <section class="blog-hero">
     <div class="blog-hero__overlay" aria-hidden="true"></div>
     <div class="blog-hero__content">
-      <p class="blog-hero__eyebrow">WearIt Editorial</p>
+      <p class="blog-hero__eyebrow"><?php esc_html_e( 'WearIt Editorial', 'wearit' ); ?></p>
       <h1 class="blog-hero__heading"><?php single_cat_title(); ?></h1>
       <p class="blog-hero__subtitle">
         <?php
         $desc = category_description();
-        echo $desc ? wp_kses_post( $desc ) : 'Browsing articles in this category.';
+        echo $desc ? wp_kses_post( $desc ) : esc_html__( 'Browsing articles in this category.', 'wearit' );
         ?>
       </p>
     </div>
@@ -29,7 +29,7 @@
           <li>
             <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>"
                class="cat-filter__option">
-              All
+              <?php esc_html_e( 'All', 'wearit' ); ?>
             </a>
           </li>
           <?php
@@ -74,7 +74,7 @@
       <h2 class="blog-archive__title"><?php single_cat_title(); ?></h2>
       <?php if ( $wp_query->found_posts ) : ?>
         <span class="blog-archive__count">
-          <?php echo esc_html( $wp_query->found_posts ); ?> articles
+          <?php echo esc_html( sprintf( _n( '%d article', '%d articles', (int) $wp_query->found_posts, 'wearit' ), $wp_query->found_posts ) ); ?>
         </span>
       <?php endif; ?>
     </div>
@@ -135,7 +135,7 @@
               <p class="post-card__excerpt"><?php the_excerpt(); ?></p>
 
               <a href="<?php the_permalink(); ?>" class="post-card__read-more">
-                Read More &rarr;
+                <?php esc_html_e( 'Read More', 'wearit' ); ?> &rarr;
               </a>
 
             </div>
@@ -144,7 +144,7 @@
         <?php endwhile; ?>
       </div>
 
-      <nav class="blog-pagination" aria-label="Category pages">
+      <nav class="blog-pagination" aria-label="<?php esc_attr_e( 'Category pages', 'wearit' ); ?>">
         <?php
         the_posts_pagination( [
           'prev_text' => '&larr; Newer',
@@ -154,7 +154,7 @@
       </nav>
 
     <?php else : ?>
-      <p class="blog-archive__empty">No posts in this category yet.</p>
+      <p class="blog-archive__empty"><?php esc_html_e( 'No posts in this category yet.', 'wearit' ); ?></p>
     <?php endif; ?>
 
   </div>

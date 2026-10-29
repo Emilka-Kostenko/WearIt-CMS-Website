@@ -38,8 +38,8 @@ $order = wearit_thankyou_order();
         <!-- ── no order in the URL, or the key didn't match ── -->
         <div class="cart-empty">
           <h2 class="cart-empty__title">
-            Order
-            <span class="cart-empty__title--accent">not found.</span>
+            <?php esc_html_e( 'Order', 'wearit' ); ?>
+            <span class="cart-empty__title--accent"><?php esc_html_e( 'not found.', 'wearit' ); ?></span>
           </h2>
           <p class="cart-empty__text"><?php echo esc_html( wearit_checkout_text( 'thankyou_missing' ) ); ?></p>
           <a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="cart-button cart-button--primary cart-empty__button">
@@ -56,20 +56,20 @@ $order = wearit_thankyou_order();
 
           <dl class="thankyou-panel__facts">
             <div>
-              <dt>Order</dt>
+              <dt><?php esc_html_e( 'Order', 'wearit' ); ?></dt>
               <dd><?php echo esc_html( $order['reference'] ); ?></dd>
             </div>
             <div>
-              <dt>Placed</dt>
+              <dt><?php esc_html_e( 'Placed', 'wearit' ); ?></dt>
               <dd><?php echo esc_html( $order['date'] ); ?></dd>
             </div>
             <div>
-              <dt>Payment</dt>
+              <dt><?php esc_html_e( 'Payment', 'wearit' ); ?></dt>
               <dd><?php echo esc_html( wearit_payment_label( $order['payment'] ) ); ?></dd>
             </div>
           </dl>
 
-          <h2 class="thankyou-panel__title">Delivering to</h2>
+          <h2 class="thankyou-panel__title"><?php esc_html_e( 'Delivering to', 'wearit' ); ?></h2>
           <p class="thankyou-panel__address">
             <?php echo esc_html( $order['name'] ); ?><br />
             <?php echo esc_html( $order['address'] ); ?><br />
@@ -78,7 +78,7 @@ $order = wearit_thankyou_order();
           </p>
 
           <p class="thankyou-panel__email">
-            Confirmation sent to <?php echo esc_html( $order['email'] ); ?>
+            <?php echo esc_html( sprintf( __( 'Confirmation sent to %s', 'wearit' ), $order['email'] ) ); ?>
           </p>
 
           <?php if ( $order['notes'] ) : ?>
@@ -99,47 +99,47 @@ $order = wearit_thankyou_order();
                 <div class="checkout-summary__info">
                   <p class="checkout-summary__name"><?php echo esc_html( $item['title'] ?? '' ); ?></p>
                   <p class="checkout-summary__meta">
-                    <?php echo esc_html( $item['qty'] ?? 0 ); ?> &times; <?php echo esc_html( wearit_cart_format_price( $item['price'] ?? 0 ) ); ?>
+                    <?php echo esc_html( $item['qty'] ?? 0 ); ?> &times; <?php echo esc_html( wearit_format_eur( $item['price'] ?? 0 ) ); ?>
                   </p>
                 </div>
-                <p class="checkout-summary__line"><?php echo esc_html( wearit_cart_format_price( $item['line_total'] ?? 0 ) ); ?></p>
+                <p class="checkout-summary__line"><?php echo esc_html( wearit_format_eur( $item['line_total'] ?? 0 ) ); ?></p>
               </li>
             <?php endforeach; ?>
           </ul>
 
           <dl class="cart-summary__rows">
             <div class="cart-summary__row">
-              <dt>Subtotal</dt>
-              <dd><?php echo esc_html( wearit_cart_format_price( $order['subtotal'] ) ); ?></dd>
+              <dt><?php esc_html_e( 'Subtotal', 'wearit' ); ?></dt>
+              <dd><?php echo esc_html( wearit_format_eur( $order['subtotal'] ) ); ?></dd>
             </div>
             <?php if ( $order['discount'] > 0 ) : ?>
               <div class="cart-summary__row cart-summary__row--discount">
                 <dt><?php echo esc_html( wearit_checkout_text( 'checkout_discount_label', 'Discount' ) ); ?> (<?php echo esc_html( $order['coupon'] ); ?>)</dt>
-                <dd>&minus;<?php echo esc_html( wearit_cart_format_price( $order['discount'] ) ); ?></dd>
+                <dd>&minus;<?php echo esc_html( wearit_format_eur( $order['discount'] ) ); ?></dd>
               </div>
             <?php endif; ?>
             <div class="cart-summary__row">
-              <dt>Shipping</dt>
+              <dt><?php esc_html_e( 'Shipping', 'wearit' ); ?></dt>
               <dd>
                 <?php if ( $order['shipping'] > 0 ) : ?>
-                  <?php echo esc_html( wearit_cart_format_price( $order['shipping'] ) ); ?>
+                  <?php echo esc_html( wearit_format_eur( $order['shipping'] ) ); ?>
                 <?php else : ?>
-                  <span class="cart-summary__free">Free</span>
+                  <span class="cart-summary__free"><?php esc_html_e( 'Free', 'wearit' ); ?></span>
                 <?php endif; ?>
               </dd>
             </div>
             <?php if ( $order['fee'] > 0 ) : ?>
               <div class="cart-summary__row">
-                <dt><?php echo esc_html( wearit_payment_label( $order['payment'] ) ); ?> fee</dt>
-                <dd><?php echo esc_html( wearit_cart_format_price( $order['fee'] ) ); ?></dd>
+                <dt><?php echo esc_html( sprintf( __( '%s fee', 'wearit' ), wearit_payment_label( $order['payment'] ) ) ); ?></dt>
+                <dd><?php echo esc_html( wearit_format_eur( $order['fee'] ) ); ?></dd>
               </div>
             <?php endif; ?>
           </dl>
 
           <div class="cart-summary__total">
-            <p class="cart-summary__total-label">Total</p>
+            <p class="cart-summary__total-label"><?php esc_html_e( 'Total', 'wearit' ); ?></p>
             <div class="cart-summary__total-row">
-              <span class="cart-summary__total-value"><?php echo esc_html( wearit_cart_format_price( $order['total'] ) ); ?></span>
+              <span class="cart-summary__total-value"><?php echo esc_html( wearit_format_eur( $order['total'] ) ); ?></span>
               <span class="cart-summary__currency">EUR</span>
             </div>
           </div>
@@ -150,7 +150,7 @@ $order = wearit_thankyou_order();
             </a>
           </div>
 
-          <p class="cart-summary__note">Keep this order number for any questions</p>
+          <p class="cart-summary__note"><?php esc_html_e( 'Keep this order number for any questions', 'wearit' ); ?></p>
 
         </aside>
 

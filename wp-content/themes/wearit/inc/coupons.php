@@ -25,7 +25,7 @@ function wearit_coupons() {
     return [
         'WEARIT10' => [
             'percent' => 10,
-            'label'   => '10% off',
+            'label'   => __( '10% off', 'wearit' ),
         ],
     ];
 }
@@ -159,7 +159,7 @@ function wearit_handle_apply_coupon() {
         exit;
     }
     if ( ! isset( $_POST['wearit_coupon_nonce'] ) || ! wp_verify_nonce( $_POST['wearit_coupon_nonce'], 'wearit_coupon_nonce' ) ) {
-        wp_die( 'Security check failed.' );
+        wp_die( esc_html( __( 'Security check failed.', 'wearit' ) ) );
     }
 
     $user_id = get_current_user_id();
@@ -180,7 +180,7 @@ function wearit_handle_remove_coupon() {
         exit;
     }
     if ( ! isset( $_POST['wearit_coupon_nonce'] ) || ! wp_verify_nonce( $_POST['wearit_coupon_nonce'], 'wearit_coupon_nonce' ) ) {
-        wp_die( 'Security check failed.' );
+        wp_die( esc_html( __( 'Security check failed.', 'wearit' ) ) );
     }
 
     delete_user_meta( get_current_user_id(), '_wearit_applied_coupon' );

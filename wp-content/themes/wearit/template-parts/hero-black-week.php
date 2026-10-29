@@ -10,7 +10,7 @@ $s = $args['slider'];
 // Each word of the heading goes on its own line, like in the design.
 $heading_words = array_filter( preg_split( '/\s+/', trim( $s['heading'] ) ) );
 ?>
-<div class="hero-slider__slide black-week" role="group" aria-roledescription="slide" aria-label="2 of 2">
+<div class="hero-slider__slide black-week" role="group" aria-roledescription="slide" aria-label="<?php esc_attr_e( '2 of 2', 'wearit' ); ?>">
   <div class="black-week__container">
 
     <div class="black-week__content">

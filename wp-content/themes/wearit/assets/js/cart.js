@@ -57,7 +57,7 @@
 
     if (page && data.page_html !== undefined) {
       page.innerHTML = data.page_html;
-      if (pageCount) pageCount.textContent = data.count + (data.count === 1 ? ' item' : ' items');
+      if (pageCount) pageCount.textContent = (data.count === 1 ? wearitCart.i18n.itemOne : wearitCart.i18n.itemMany).replace('%d', data.count);
     }
   }
 
@@ -82,13 +82,13 @@
 
     const label = btn.textContent;
     btn.disabled = true;
-    btn.textContent = 'Adding…';
+    btn.textContent = wearitCart.i18n.adding;
     try {
       render(await post(wearitCart.addUrl, key));
-      btn.textContent = 'Added';
+      btn.textContent = wearitCart.i18n.added;
       open();
     } catch (err) {
-      btn.textContent = 'Try again';
+      btn.textContent = wearitCart.i18n.tryAgain;
       console.error(err);
     }
     setTimeout(() => {

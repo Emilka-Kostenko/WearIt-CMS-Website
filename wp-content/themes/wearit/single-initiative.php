@@ -50,7 +50,7 @@ $sec_image = get_field( 'initiative_secondary_image' );
       <!-- Back link -->
       <div class="initiative-single__back">
         <a href="<?php echo esc_url( get_post_type_archive_link( 'initiative' ) ); ?>" class="initiative-single__back-link">
-          &larr; Back to Sustainability
+          &larr; <?php esc_html_e( 'Back to Sustainability', 'wearit' ); ?>
         </a>
       </div>
 

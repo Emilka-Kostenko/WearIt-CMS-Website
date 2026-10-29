@@ -25,7 +25,7 @@ if ( ! $product ) {
     <?php endif; ?>
 
     <?php if ( $product['is_new'] ) : ?>
-      <span class="product-card__badge">New</span>
+      <span class="product-card__badge"><?php esc_html_e( 'New', 'wearit' ); ?></span>
     <?php endif; ?>
   </div>
 
@@ -43,7 +43,7 @@ if ( ! $product ) {
     </div>
 
     <?php if ( $product['size_range'] ) : ?>
-      <p class="product-card__sizes">Sizes <?php echo esc_html( $product['size_range'] ); ?></p>
+      <p class="product-card__sizes"><?php echo esc_html( sprintf( __( 'Sizes %s', 'wearit' ), $product['size_range'] ) ); ?></p>
     <?php endif; ?>
 
     <!--
@@ -59,7 +59,7 @@ if ( ! $product ) {
       data-price="<?php echo esc_attr( $product['price'] ); ?>"
       <?php disabled( ! $product['in_stock'] ); ?>
     >
-      <?php echo $product['in_stock'] ? 'Add to Cart' : 'Sold out'; ?>
+      <?php echo $product['in_stock'] ? esc_html__( 'Add to Cart', 'wearit' ) : esc_html__( 'Sold out', 'wearit' ); ?>
     </button>
 
   </div>

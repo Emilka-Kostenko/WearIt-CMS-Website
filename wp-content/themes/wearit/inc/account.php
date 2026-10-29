@@ -94,7 +94,7 @@ add_filter( 'document_title_parts', function ( $parts ) {
 function wearit_account_text( $name, $fallback = '', array $replace = [] ) {
     $page  = wearit_account_page_id();
     $value = ( $page && function_exists( 'get_field' ) ) ? get_field( $name, $page ) : '';
-    $text  = ( $value !== null && $value !== false && $value !== '' ) ? (string) $value : $fallback;
+    $text  = ( $value !== null && $value !== false && $value !== '' ) ? (string) $value : __( $fallback, 'wearit' );
     return $replace ? strtr( $text, $replace ) : $text;
 }
 

@@ -32,19 +32,23 @@
     </a>
 
     <!-- Navigation links -->
-    <nav class="navbar__nav" id="navbar-nav" aria-label="Main navigation">
+    <nav class="navbar__nav" id="navbar-nav" aria-label="<?php esc_attr_e( 'Main navigation', 'wearit' ); ?>">
       <ul class="navbar__menu">
-        <li><a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="navbar__link">Shop</a></li>
-        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'blog' ) ) ); ?>" class="navbar__link">Blog</a></li>
-    
-        <li><a href="<?php echo esc_url( get_post_type_archive_link( 'initiative' ) ); ?>" class="navbar__link">Sustainability</a></li>
-        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'about' ) ) ); ?>" class="navbar__link">About</a></li>
+        <li><a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="navbar__link"><?php esc_html_e( 'Shop', 'wearit' ); ?></a></li>
+        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'blog' ) ) ); ?>" class="navbar__link"><?php esc_html_e( 'Blog', 'wearit' ); ?></a></li>
+
+        <li><a href="<?php echo esc_url( get_post_type_archive_link( 'initiative' ) ); ?>" class="navbar__link"><?php esc_html_e( 'Sustainability', 'wearit' ); ?></a></li>
+        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'about' ) ) ); ?>" class="navbar__link"><?php esc_html_e( 'About', 'wearit' ); ?></a></li>
       </ul>
     </nav>
 
     <!-- Right actions -->
     <div class="navbar__actions">
-      <button class="navbar__icon-btn" aria-label="Search">
+      <nav class="lang-switch" aria-label="<?php esc_attr_e( 'Language', 'wearit' ); ?>">
+        <a href="<?php echo esc_url( wearit_lang_url( 'en' ) ); ?>" class="lang-switch__link" lang="en" hreflang="en" aria-label="English (EN)"<?php echo wearit_is_danish() ? '' : ' aria-current="true"'; ?>>EN</a>
+        <a href="<?php echo esc_url( wearit_lang_url( 'da' ) ); ?>" class="lang-switch__link" lang="da" hreflang="da" aria-label="Dansk (DA)"<?php echo wearit_is_danish() ? ' aria-current="true"' : ''; ?>>DA</a>
+      </nav>
+      <button class="navbar__icon-btn" aria-label="<?php esc_attr_e( 'Search', 'wearit' ); ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
           <path d="M0 0h24v24H0z" fill="none" />
           <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -61,7 +65,7 @@
       <!-- Mini-cart — logic in inc/cart.php + assets/js/cart.js -->
       <?php $cart_count = wearit_get_cart()['count']; ?>
       <div class="mini-cart" id="mini-cart">
-        <button class="navbar__icon-btn mini-cart__toggle" id="mini-cart-toggle" aria-label="Shopping bag" aria-expanded="false" aria-controls="mini-cart-panel">
+        <button class="navbar__icon-btn mini-cart__toggle" id="mini-cart-toggle" aria-label="<?php esc_attr_e( 'Shopping bag', 'wearit' ); ?>" aria-expanded="false" aria-controls="mini-cart-panel">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1024 1024">
             <path d="M0 0h1024v1024H0z" fill="none" />
             <path fill="currentColor"
@@ -78,7 +82,7 @@
     </div>
 
     <!-- Hamburger (mobile) -->
-    <button class="navbar__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navbar-nav">
+    <button class="navbar__hamburger" id="hamburger" aria-label="<?php esc_attr_e( 'Open menu', 'wearit' ); ?>" aria-expanded="false" aria-controls="navbar-nav">
       <span></span>
       <span></span>
       <span></span>

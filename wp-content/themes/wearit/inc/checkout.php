@@ -109,12 +109,12 @@ function wearit_checkout_text( $name, $fallback = null ) {
     if ( $fallback === null ) {
         foreach ( wearit_checkout_page_texts() as $group ) {
             if ( isset( $group[ $name ] ) ) {
-                return $group[ $name ][1];
+                return __( $group[ $name ][1], 'wearit' );
             }
         }
         return '';
     }
-    return $fallback;
+    return is_string( $fallback ) ? __( $fallback, 'wearit' ) : $fallback;
 }
 
 // ── Payment methods ───────────────────────────────────────────
@@ -138,27 +138,27 @@ function wearit_checkout_text( $name, $fallback = null ) {
 function wearit_payment_methods() {
     return [
         'cod' => [
-            'label'           => 'Cash on delivery',
-            'description'     => 'Pay the courier when your order arrives.',
-            'instructions'    => 'Have the total ready in cash when the courier arrives. They cannot give change for large notes.',
+            'label'           => __( 'Cash on delivery', 'wearit' ),
+            'description'     => __( 'Pay the courier when your order arrives.', 'wearit' ),
+            'instructions'    => __( 'Have the total ready in cash when the courier arrives. They cannot give change for large notes.', 'wearit' ),
             'settles'         => 'on_delivery',
             'needs_reference' => false,
             'fee'             => 3.00,
             'enabled'         => true,
         ],
         'bank' => [
-            'label'           => 'Bank transfer',
-            'description'     => 'We ship as soon as the transfer lands, usually one working day.',
-            'instructions'    => 'Transfer the total to WearIt Ltd, IBAN GB00 WEAR 0000 0000 0000 00. Use your order number as the payment reference or we cannot match it to your order.',
+            'label'           => __( 'Bank transfer', 'wearit' ),
+            'description'     => __( 'We ship as soon as the transfer lands, usually one working day.', 'wearit' ),
+            'instructions'    => __( 'Transfer the total to WearIt Ltd, IBAN GB00 WEAR 0000 0000 0000 00. Use your order number as the payment reference or we cannot match it to your order.', 'wearit' ),
             'settles'         => 'before_shipping',
             'needs_reference' => true,
             'fee'             => 0,
             'enabled'         => true,
         ],
         'card' => [
-            'label'           => 'Card',
-            'description'     => 'Pay by card through our payment provider.',
-            'instructions'    => 'Your card payment was taken by our provider. Nothing further to do.',
+            'label'           => __( 'Card', 'wearit' ),
+            'description'     => __( 'Pay by card through our payment provider.', 'wearit' ),
+            'instructions'    => __( 'Your card payment was taken by our provider. Nothing further to do.', 'wearit' ),
             'settles'         => 'immediate',
             'needs_reference' => false,
             'fee'             => 0,
@@ -252,7 +252,7 @@ function wearit_handle_checkout() {
     }
 
     if ( ! isset( $_POST['wearit_checkout_nonce'] ) || ! wp_verify_nonce( $_POST['wearit_checkout_nonce'], 'wearit_checkout_nonce' ) ) {
-        wp_die( 'Security check failed.' );
+        wp_die( esc_html( __( 'Security check failed.', 'wearit' ) ) );
     }
 
     // What the customer typed. Everything else — prices, fees, titles — is read from the server below.
@@ -394,10 +394,10 @@ add_action( 'rest_api_init', function () {
 
 function wearit_rest_checkout_session() {
     if ( ! wearit_stripe_is_configured() ) {
-        return new WP_Error( 'wearit_stripe_missing', 'Card payments are not set up.', [ 'status' => 500 ] );
+        return new WP_Error( 'wearit_stripe_missing', __( 'Card payments are not set up.', 'wearit' ), [ 'status' => 500 ] );
     }
     if ( ! is_user_logged_in() ) {
-        return new WP_Error( 'wearit_login_required', 'Log in to check out.', [ 'status' => 401 ] );
+        return new WP_Error( 'wearit_login_required', __( 'Log in to check out.', 'wearit' ), [ 'status' => 401 ] );
     }
 
     // The cart is read here, on the server, same as wearit_handle_checkout() — the browser sends nothing.
@@ -442,7 +442,7 @@ function wearit_rest_checkout_session() {
     ];
     if ( $totals['coupon'] ) {
         if ( ! wearit_stripe_ensure_coupon( $totals['coupon'] ) ) {
-            return new WP_Error( 'wearit_stripe_coupon', 'Could not apply the coupon to the card payment.', [ 'status' => 502 ] );
+            return new WP_Error( 'wearit_stripe_coupon', __( 'Could not apply the coupon to the card payment.', 'wearit' ), [ 'status' => 502 ] );
         }
         $params['discounts'] = [ [ 'coupon' => $totals['coupon'] ] ];
     }
@@ -453,7 +453,7 @@ function wearit_rest_checkout_session() {
     // Same shipping as the order summary shows (wearit_cart_totals()), free when it's 0.
     $params['shipping_options'] = [ [
         'shipping_rate_data' => [
-            'display_name' => $totals['shipping'] > 0 ? 'Shipping' : 'Free shipping',
+            'display_name' => $totals['shipping'] > 0 ? __( 'Shipping', 'wearit' ) : __( 'Free shipping', 'wearit' ),
             'type'         => 'fixed_amount',
             'fixed_amount' => [
                 'amount'   => (int) round( $totals['shipping'] * 100 ),
@@ -474,7 +474,7 @@ function wearit_rest_checkout_session() {
     $session = is_wp_error( $response ) ? null : json_decode( wp_remote_retrieve_body( $response ), true );
     if ( empty( $session['client_secret'] ) ) {
         error_log( 'wearit_stripe: session failed — ' . ( is_wp_error( $response ) ? $response->get_error_message() : wp_remote_retrieve_body( $response ) ) );
-        return new WP_Error( 'wearit_stripe_failed', 'Could not start the card payment.', [ 'status' => 502 ] );
+        return new WP_Error( 'wearit_stripe_failed', __( 'Could not start the card payment.', 'wearit' ), [ 'status' => 502 ] );
     }
 
     return rest_ensure_response( [ 'client_secret' => $session['client_secret'] ] );

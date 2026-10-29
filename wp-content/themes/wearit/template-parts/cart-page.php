@@ -34,13 +34,13 @@ $checkout = get_page_by_path( 'checkout' ); // no checkout page yet; the button 
             <p class="cart-item__unit"><?php echo esc_html( wearit_cart_format_price( $item['price'] ) ); ?> each</p>
           </div>
 
-          <div class="cart-item__qty" role="group" aria-label="<?php echo esc_attr( 'Quantity of ' . $item['title'] ); ?>">
+          <div class="cart-item__qty" role="group" aria-label="<?php echo esc_attr( sprintf( __( 'Quantity of %s', 'wearit' ), $item['title'] ) ); ?>">
             <button
               type="button"
               class="cart-item__step"
               data-cart-key="<?php echo esc_attr( $item['key'] ); ?>"
               data-qty="<?php echo esc_attr( $item['qty'] - 1 ); ?>"
-              aria-label="<?php echo esc_attr( $item['qty'] === 1 ? 'Remove ' . $item['title'] : 'One less' ); ?>"
+              aria-label="<?php echo esc_attr( $item['qty'] === 1 ? sprintf( __( 'Remove %s', 'wearit' ), $item['title'] ) : __( 'One less', 'wearit' ) ); ?>"
             >&minus;</button>
             <span class="cart-item__qty-value"><?php echo esc_html( $item['qty'] ); ?></span>
             <button
@@ -48,7 +48,7 @@ $checkout = get_page_by_path( 'checkout' ); // no checkout page yet; the button 
               class="cart-item__step"
               data-cart-key="<?php echo esc_attr( $item['key'] ); ?>"
               data-qty="<?php echo esc_attr( $item['qty'] + 1 ); ?>"
-              aria-label="One more"
+              aria-label="<?php esc_attr_e( 'One more', 'wearit' ); ?>"
               <?php disabled( $item['qty'] >= WEARIT_CART_MAX_QTY ); ?>
             >+</button>
           </div>
@@ -60,7 +60,7 @@ $checkout = get_page_by_path( 'checkout' ); // no checkout page yet; the button 
               class="cart-item__remove"
               data-cart-key="<?php echo esc_attr( $item['key'] ); ?>"
               data-qty="0"
-              aria-label="<?php echo esc_attr( 'Remove ' . $item['title'] ); ?>"
+              aria-label="<?php echo esc_attr( sprintf( __( 'Remove %s', 'wearit' ), $item['title'] ) ); ?>"
             >Remove</button>
           </div>
 
@@ -87,30 +87,30 @@ $checkout = get_page_by_path( 'checkout' ); // no checkout page yet; the button 
 </div>
 
 <!-- ── ORDER SUMMARY — SCF fields: cart_summary_title, cart_checkout_label, cart_back_label, cart_tax_note, cart_shipping_price, cart_free_shipping_from ── -->
-<aside class="cart-summary" aria-label="Order summary">
+<aside class="cart-summary" aria-label="<?php esc_attr_e( 'Order summary', 'wearit' ); ?>">
 
   <h2 class="cart-summary__title"><?php echo esc_html( wearit_cart_text( 'cart_summary_title' ) ); ?></h2>
 
   <dl class="cart-summary__rows">
     <div class="cart-summary__row">
-      <dt>Subtotal</dt>
+      <dt><?php esc_html_e( 'Subtotal', 'wearit' ); ?></dt>
       <dd><?php echo esc_html( wearit_cart_format_price( $cart['subtotal'] ) ); ?></dd>
     </div>
     <div class="cart-summary__row">
-      <dt>Shipping</dt>
+      <dt><?php esc_html_e( 'Shipping', 'wearit' ); ?></dt>
       <?php if ( $totals['shipping'] > 0 ) : ?>
         <dd><?php echo esc_html( wearit_cart_format_price( $totals['shipping'] ) ); ?></dd>
       <?php else : ?>
-        <dd class="cart-summary__free">Free</dd>
+        <dd class="cart-summary__free"><?php esc_html_e( 'Free', 'wearit' ); ?></dd>
       <?php endif; ?>
     </div>
   </dl>
 
   <div class="cart-summary__total">
-    <p class="cart-summary__total-label">Total</p>
+    <p class="cart-summary__total-label"><?php esc_html_e( 'Total', 'wearit' ); ?></p>
     <p class="cart-summary__total-row">
       <span class="cart-summary__total-value"><?php echo esc_html( wearit_cart_format_price( $totals['total'] ) ); ?></span>
-      <span class="cart-summary__currency">EUR</span>
+      <span class="cart-summary__currency"><?php echo esc_html( wearit_display_currency() ); ?></span>
     </p>
   </div>
 

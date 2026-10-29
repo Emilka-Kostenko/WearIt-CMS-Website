@@ -6,9 +6,9 @@
   <section class="sustain-hero">
     <div class="sustain-hero__overlay" aria-hidden="true"></div>
     <div class="sustain-hero__content">
-      <p class="sustain-hero__eyebrow">WearIt Responsibility</p>
-      <h1 class="sustain-hero__heading">Sustainability</h1>
-      <p class="sustain-hero__subtitle">We build pieces to last. We source materials responsibly. And when a garment reaches the end of its life, we make sure it doesn't end up in landfill.</p>
+      <p class="sustain-hero__eyebrow"><?php esc_html_e( 'WearIt Responsibility', 'wearit' ); ?></p>
+      <h1 class="sustain-hero__heading"><?php esc_html_e( 'Sustainability', 'wearit' ); ?></h1>
+      <p class="sustain-hero__subtitle"><?php esc_html_e( 'We build pieces to last. We source materials responsibly. And when a garment reaches the end of its life, we make sure it doesn\'t end up in landfill.', 'wearit' ); ?></p>
     </div>
   </section>
 
@@ -16,9 +16,9 @@
   <section class="sustain-initiatives">
 
     <div class="sustain-initiatives__header">
-      <p class="sustain-initiatives__eyebrow">What We're Doing</p>
+      <p class="sustain-initiatives__eyebrow"><?php esc_html_e( 'What We\'re Doing', 'wearit' ); ?></p>
       <h2 class="sustain-initiatives__heading">
-        Our <span class="sustain-initiatives__heading--accent">Initiatives</span>
+        <?php esc_html_e( 'Our', 'wearit' ); ?> <span class="sustain-initiatives__heading--accent"><?php esc_html_e( 'Initiatives', 'wearit' ); ?></span>
       </h2>
     </div>
 
@@ -56,7 +56,7 @@
             <p class="initiative-card__excerpt"><?php the_excerpt(); ?></p>
 
             <a href="<?php the_permalink(); ?>" class="initiative-card__read-more">
-              Read More &rarr;
+              <?php esc_html_e( 'Read More', 'wearit' ); ?> &rarr;
             </a>
 
           </div>
@@ -66,7 +66,7 @@
       <?php endwhile; ?>
 
     <?php else : ?>
-      <p class="sustain-initiatives__empty">No initiatives yet. Check back soon.</p>
+      <p class="sustain-initiatives__empty"><?php esc_html_e( 'No initiatives yet. Check back soon.', 'wearit' ); ?></p>
     <?php endif; ?>
 
     </div>

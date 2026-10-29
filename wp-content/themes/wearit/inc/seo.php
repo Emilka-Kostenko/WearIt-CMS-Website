@@ -17,7 +17,7 @@ const WEARIT_META_DESCRIPTION_LENGTH = 155;
  * Fallback for the whole site (and for pages with no text of their own).
  */
 function wearit_default_meta_description() {
-    return 'Heavyweight streetwear built to last. Shop WearIt hoodies, tees, jackets, cargo pants, jeans and sneakers — new drops, fair prices.';
+    return __( 'Heavyweight streetwear built to last. Shop WearIt hoodies, tees, jackets, cargo pants, jeans and sneakers — new drops, fair prices.', 'wearit' );
 }
 
 // ── Admin field ───────────────────────────────────────────────
@@ -81,7 +81,11 @@ function wearit_clean_meta_description( $text ) {
  * The "Meta description" box of one post/page ('' when empty).
  */
 function wearit_manual_meta_description( $post_id ) {
-    return $post_id ? trim( (string) get_post_meta( $post_id, 'meta_description', true ) ) : '';
+    if ( ! $post_id ) {
+        return '';
+    }
+    $danish = wearit_is_danish() ? trim( (string) get_post_meta( $post_id, 'meta_description_da', true ) ) : '';
+    return $danish !== '' ? $danish : trim( (string) get_post_meta( $post_id, 'meta_description', true ) );
 }
 
 /**
@@ -93,15 +97,15 @@ function wearit_post_meta_description( $post ) {
         return $manual;
     }
 
-    $excerpt = has_excerpt( $post ) ? $post->post_excerpt : '';
+    $excerpt = has_excerpt( $post ) ? wearit_translate_stored( $post->post_excerpt ) : '';
 
     // "Heavyweight brushed-fleece hoodie… Black, sizes S–XXL, $20 at WearIt."
     if ( $post->post_type === 'product' && function_exists( 'wearit_get_product' ) ) {
         $product = wearit_get_product( $post->ID );
         $details = array_filter( [
             $product['color_label'],
-            $product['size_range'] ? 'sizes ' . $product['size_range'] : '',
-            $product['price_formatted'] . ' at WearIt.',
+            $product['size_range'] ? sprintf( __( 'sizes %s', 'wearit' ), $product['size_range'] ) : '',
+            sprintf( __( '%s at WearIt.', 'wearit' ), $product['price_formatted'] ),
         ] );
         $intro = $excerpt !== '' ? rtrim( wp_strip_all_tags( $excerpt ), '. ' ) . '. ' : $product['title'] . ' — ';
         return $intro . implode( ', ', $details );
@@ -110,7 +114,7 @@ function wearit_post_meta_description( $post ) {
     if ( $excerpt !== '' ) {
         return $excerpt;
     }
-    return $post->post_content;
+    return wearit_translate_html( $post->post_content );
 }
 
 /**
@@ -126,7 +130,7 @@ function wearit_meta_description() {
     // Blog page (page_for_posts)
     if ( is_home() ) {
         $manual = wearit_manual_meta_description( (int) get_option( 'page_for_posts' ) );
-        return $manual !== '' ? $manual : 'The WearIt blog: streetwear style guides, outfit ideas on a student budget, trends and news about our latest drops.';
+        return $manual !== '' ? $manual : __( 'The WearIt blog: streetwear style guides, outfit ideas on a student budget, trends and news about our latest drops.', 'wearit' );
     }
 
     // Shop page, also with filters in the URL
@@ -141,14 +145,14 @@ function wearit_meta_description() {
             }
         }
         if ( $names ) {
-            return 'Shop WearIt ' . implode( ', ', $names ) . ': heavyweight streetwear built to last, in every size we make. New drops, fair prices.';
+            return sprintf( __( 'Shop WearIt %s: heavyweight streetwear built to last, in every size we make. New drops, fair prices.', 'wearit' ), implode( ', ', $names ) );
         }
-        return 'Shop all WearIt streetwear: heavyweight hoodies, tees, jackets, cargo pants, jeans and sneakers. Filter by category and color.';
+        return __( 'Shop all WearIt streetwear: heavyweight hoodies, tees, jackets, cargo pants, jeans and sneakers. Filter by category and color.', 'wearit' );
     }
 
     // Sustainability (initiative archive)
     if ( is_post_type_archive( 'initiative' ) ) {
-        return 'How WearIt gives back: the Impact Collection, Wear It Forward donations and the steps we take to make streetwear that lasts.';
+        return __( 'How WearIt gives back: the Impact Collection, Wear It Forward donations and the steps we take to make streetwear that lasts.', 'wearit' );
     }
 
     // Blog categories and product categories
@@ -158,10 +162,10 @@ function wearit_meta_description() {
             return $term->description;
         }
         if ( $term && is_tax( 'product_category' ) ) {
-            return 'Shop WearIt ' . $term->name . ': heavyweight streetwear built to last. New drops, fair prices.';
+            return sprintf( __( 'Shop WearIt %s: heavyweight streetwear built to last. New drops, fair prices.', 'wearit' ), $term->name );
         }
         if ( $term ) {
-            return 'WearIt blog posts about ' . $term->name . ': streetwear style guides, outfit ideas and trends.';
+            return sprintf( __( 'WearIt blog posts about %s: streetwear style guides, outfit ideas and trends.', 'wearit' ), $term->name );
         }
     }
 

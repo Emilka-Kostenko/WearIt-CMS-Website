@@ -20,7 +20,7 @@ $coupon_notice = wearit_coupon_notice();
         </h1>
       </div>
       <p class="cart-hero__count">
-        <?php echo esc_html( $cart['count'] ); ?> item<?php echo $cart['count'] === 1 ? '' : 's'; ?>
+        <?php echo esc_html( sprintf( $cart['count'] === 1 ? __( '%d item', 'wearit' ) : __( '%d items', 'wearit' ), $cart['count'] ) ); ?>
       </p>
     </div>
   </section>
@@ -66,27 +66,27 @@ $coupon_notice = wearit_coupon_notice();
 
             <?php // came back here with ?checkout=… so something went wrong ?>
             <?php if ( isset( $_GET['checkout'] ) && $_GET['checkout'] === 'invalid' ) : ?>
-              <p class="checkout-fields__error">Some details were missing or not valid. Please check the fields below.</p>
+              <p class="checkout-fields__error"><?php esc_html_e( 'Some details were missing or not valid. Please check the fields below.', 'wearit' ); ?></p>
             <?php elseif ( isset( $_GET['checkout'] ) && $_GET['checkout'] === 'empty' ) : ?>
-              <p class="checkout-fields__error">Your cart was empty when the order was sent.</p>
+              <p class="checkout-fields__error"><?php esc_html_e( 'Your cart was empty when the order was sent.', 'wearit' ); ?></p>
             <?php elseif ( isset( $_GET['checkout'] ) && $_GET['checkout'] === 'error' ) : ?>
-              <p class="checkout-fields__error">Something went wrong saving your order. Please try again.</p>
+              <p class="checkout-fields__error"><?php esc_html_e( 'Something went wrong saving your order. Please try again.', 'wearit' ); ?></p>
             <?php endif; ?>
 
             <div class="checkout-fields__row"> <!-- name and email side by side -->
               <div class="checkout-field">
                 <label for="checkout_name"><?php echo esc_html( wearit_checkout_text( 'checkout_name_label' ) ); ?></label>
-                <input type="text" id="checkout_name" name="checkout_name" class="checkout-field__input" placeholder="Your name" value="<?php echo esc_attr( wp_get_current_user()->display_name ); ?>" required />
+                <input type="text" id="checkout_name" name="checkout_name" class="checkout-field__input" placeholder="<?php esc_attr_e( 'Your name', 'wearit' ); ?>" value="<?php echo esc_attr( wp_get_current_user()->display_name ); ?>" required />
               </div>
               <div class="checkout-field">
                 <label for="checkout_email"><?php echo esc_html( wearit_checkout_text( 'checkout_email_label' ) ); ?></label>
-                <input type="email" id="checkout_email" name="checkout_email" class="checkout-field__input" placeholder="you@email.com" value="<?php echo esc_attr( wp_get_current_user()->user_email ); ?>" required />
+                <input type="email" id="checkout_email" name="checkout_email" class="checkout-field__input" placeholder="<?php esc_attr_e( 'you@email.com', 'wearit' ); ?>" value="<?php echo esc_attr( wp_get_current_user()->user_email ); ?>" required />
               </div>
             </div>
 
             <div class="checkout-field">
               <label for="checkout_address"><?php echo esc_html( wearit_checkout_text( 'checkout_address_label' ) ); ?></label>
-              <input type="text" id="checkout_address" name="checkout_address" class="checkout-field__input" placeholder="Street and number" required />
+              <input type="text" id="checkout_address" name="checkout_address" class="checkout-field__input" placeholder="<?php esc_attr_e( 'Street and number', 'wearit' ); ?>" required />
             </div>
 
             <div class="checkout-fields__row checkout-fields__row--three">
@@ -96,17 +96,17 @@ $coupon_notice = wearit_coupon_notice();
               </div>
               <div class="checkout-field">
                 <label for="checkout_city"><?php echo esc_html( wearit_checkout_text( 'checkout_city_label' ) ); ?></label>
-                <input type="text" id="checkout_city" name="checkout_city" class="checkout-field__input" placeholder="City" required />
+                <input type="text" id="checkout_city" name="checkout_city" class="checkout-field__input" placeholder="<?php esc_attr_e( 'City', 'wearit' ); ?>" required />
               </div>
               <div class="checkout-field">
                 <label for="checkout_country"><?php echo esc_html( wearit_checkout_text( 'checkout_country_label' ) ); ?></label>
-                <input type="text" id="checkout_country" name="checkout_country" class="checkout-field__input" placeholder="Country" required />
+                <input type="text" id="checkout_country" name="checkout_country" class="checkout-field__input" placeholder="<?php esc_attr_e( 'Country', 'wearit' ); ?>" required />
               </div>
             </div>
 
             <div class="checkout-field">
               <label for="checkout_notes"><?php echo esc_html( wearit_checkout_text( 'checkout_notes_label' ) ); ?></label>
-              <textarea id="checkout_notes" name="checkout_notes" class="checkout-field__input checkout-field__input--area" rows="4" placeholder="Anything we should know about the delivery?"></textarea>
+              <textarea id="checkout_notes" name="checkout_notes" class="checkout-field__input checkout-field__input--area" rows="4" placeholder="<?php esc_attr_e( 'Anything we should know about the delivery?', 'wearit' ); ?>"></textarea>
             </div>
 
             <!-- ── PAYMENT  ── -->
@@ -210,7 +210,7 @@ $coupon_notice = wearit_coupon_notice();
 
             <dl class="cart-summary__rows">
               <div class="cart-summary__row">
-                <dt>Subtotal</dt>
+                <dt><?php esc_html_e( 'Subtotal', 'wearit' ); ?></dt>
                 <dd><?php echo esc_html( wearit_cart_format_price( $cart['subtotal'] ) ); ?></dd>
               </div>
               <?php if ( $totals['discount'] > 0 ) : ?>
@@ -220,23 +220,26 @@ $coupon_notice = wearit_coupon_notice();
                 </div>
               <?php endif; ?>
               <div class="cart-summary__row">
-                <dt>Shipping</dt>
+                <dt><?php esc_html_e( 'Shipping', 'wearit' ); ?></dt>
                 <dd>
                   <?php if ( $totals['shipping'] > 0 ) : ?>
                     <?php echo esc_html( wearit_cart_format_price( $totals['shipping'] ) ); ?>
                   <?php else : ?>
-                    <span class="cart-summary__free">Free</span>
+                    <span class="cart-summary__free"><?php esc_html_e( 'Free', 'wearit' ); ?></span>
                   <?php endif; ?>
                 </dd>
               </div>
             </dl>
 
             <div class="cart-summary__total">
-              <p class="cart-summary__total-label">Total</p>
+              <p class="cart-summary__total-label"><?php esc_html_e( 'Total', 'wearit' ); ?></p>
               <div class="cart-summary__total-row">
                 <span class="cart-summary__total-value"><?php echo esc_html( wearit_cart_format_price( $totals['total'] ) ); ?></span>
-                <span class="cart-summary__currency">EUR</span>
+                <span class="cart-summary__currency"><?php echo esc_html( wearit_display_currency() ); ?></span>
               </div>
+              <?php if ( wearit_display_currency() !== 'EUR' ) : ?>
+                <p class="cart-summary__charge-note"><?php echo esc_html( sprintf( __( 'You pay in euros: %s. Kroner are shown as a guide.', 'wearit' ), wearit_format_eur( $totals['total'] ) ) ); ?></p>
+              <?php endif; ?>
             </div>
 
             <div class="cart-summary__actions">

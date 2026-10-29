@@ -13,12 +13,12 @@
  */
 function wearit_product_colors() {
     return [
-        'black' => [ 'label' => 'Black', 'hex' => '#1a1a1a' ],
-        'bone'  => [ 'label' => 'Bone',  'hex' => '#e8e4d9' ],
-        'acid'  => [ 'label' => 'Acid',  'hex' => '#c8ff00' ],
-        'olive' => [ 'label' => 'Olive', 'hex' => '#4a5a3a' ],
-        'slate' => [ 'label' => 'Slate', 'hex' => '#5b6b7a' ],
-        'rust'  => [ 'label' => 'Rust',  'hex' => '#a8532f' ],
+        'black' => [ 'label' => __( 'Black', 'wearit' ), 'hex' => '#1a1a1a' ],
+        'bone'  => [ 'label' => __( 'Bone', 'wearit' ),  'hex' => '#e8e4d9' ],
+        'acid'  => [ 'label' => __( 'Acid', 'wearit' ),  'hex' => '#c8ff00' ],
+        'olive' => [ 'label' => __( 'Olive', 'wearit' ), 'hex' => '#4a5a3a' ],
+        'slate' => [ 'label' => __( 'Slate', 'wearit' ), 'hex' => '#5b6b7a' ],
+        'rust'  => [ 'label' => __( 'Rust', 'wearit' ),  'hex' => '#a8532f' ],
     ];
 }
 
@@ -229,6 +229,9 @@ function wearit_format_size_range( array $sizes ) {
 function wearit_format_price( $price ) {
     $price = (float) $price;
     $whole = ( floor( $price ) == $price );
+    if ( function_exists( 'wearit_display_currency' ) && wearit_display_currency() === 'DKK' ) {
+        return wearit_format_dkk( $price );
+    }
     return '€' . number_format( $price, $whole ? 0 : 2 );
 }
 
