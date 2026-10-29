@@ -9,7 +9,8 @@
   const pageForm  = document.querySelector('.checkout-form');
   if (!container || !pageForm || !window.Stripe || !window.wearitStripe) return;
 
-  const placeOrder = pageForm.querySelector('button[type="submit"]');
+  // Not the coupon buttons: they sit in this form too but submit other forms via form="…"
+  const placeOrder = pageForm.querySelector('button[type="submit"]:not([form])');
   let mounted = false;
 
   const appearance = {

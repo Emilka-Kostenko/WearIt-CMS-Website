@@ -14,6 +14,10 @@ wp-content/themes/twenty*/**
 wp-content/themes/index.php
 wp-content/plugins/index.php
 
+# Wordfence firewall data: rewritten by the plugin on every site, differs per machine,
+# and git's line-ending conversion corrupts it (fixed lengths). Never commit it.
+wp-content/wflogs/
+
 
 # macOS metadata
 .DS_Store

@@ -746,7 +746,7 @@ add_action( 'wp_enqueue_scripts', function () {
         'wearit-checkout-stripe',
         get_template_directory_uri() . '/assets/js/checkout-stripe.js',
         [ 'stripe-js' ],
-        '1.0.1',
+        '1.0.2',
         [ 'in_footer' => true, 'strategy' => 'defer' ]
     );
     wp_localize_script( 'wearit-checkout-stripe', 'wearitStripe', [
