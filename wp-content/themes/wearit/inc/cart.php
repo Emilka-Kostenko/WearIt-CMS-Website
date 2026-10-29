@@ -86,7 +86,7 @@ function wearit_cart_resolve( $key ) {
         if ( ! $row || $title === '' || wearit_drop_cart_key( $index, $title ) !== $key ) {
             return null;
         }
-        // "$49.99" → 49.99
+        // "€49.99" → 49.99
         $price = (float) preg_replace( '/[^0-9.]/', '', str_replace( ',', '.', (string) ( $row['drops_price'] ?? '' ) ) );
         if ( $price <= 0 ) {
             return null;
@@ -283,10 +283,10 @@ function wearit_cart_text( $name, $fallback = null ) {
 }
 
 /**
- * Cart page prices always show cents, as in the design: 89 → "$89.00".
+ * Cart page prices always show cents, as in the design: 89 → "€89.00".
  */
 function wearit_cart_format_price( $price ) {
-    return '$' . number_format( (float) $price, 2 );
+    return '€' . number_format( (float) $price, 2 );
 }
 
 /**
@@ -341,10 +341,10 @@ add_action( 'acf/init', function () {
         'label'        => 'Shipping price',
         'name'         => 'cart_shipping_price',
         'type'         => 'number',
-        'instructions' => 'Flat shipping price in US dollars. Leave empty or 0 for free shipping on every order.',
+        'instructions' => 'Flat shipping price in euros. Leave empty or 0 for free shipping on every order.',
         'min'          => 0,
         'step'         => 0.01,
-        'prepend'      => '$',
+        'prepend'      => '€',
     ];
     $fields[] = [
         'key'          => 'field_wearit_cart_free_shipping_from',
@@ -354,7 +354,7 @@ add_action( 'acf/init', function () {
         'instructions' => 'Shipping is free when the subtotal reaches this amount. Leave empty to never make it free.',
         'min'          => 0,
         'step'         => 0.01,
-        'prepend'      => '$',
+        'prepend'      => '€',
     ];
 
     acf_add_local_field_group( [

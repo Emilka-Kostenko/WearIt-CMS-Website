@@ -110,7 +110,7 @@ $checkout = get_page_by_path( 'checkout' ); // no checkout page yet; the button 
     <p class="cart-summary__total-label">Total</p>
     <p class="cart-summary__total-row">
       <span class="cart-summary__total-value"><?php echo esc_html( wearit_cart_format_price( $totals['total'] ) ); ?></span>
-      <span class="cart-summary__currency">USD</span>
+      <span class="cart-summary__currency">EUR</span>
     </p>
   </div>
 

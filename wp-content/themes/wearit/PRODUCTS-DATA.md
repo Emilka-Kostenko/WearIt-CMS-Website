@@ -19,7 +19,7 @@ Returns:
 | `permalink`       | string   | URL of the product post                   |
 | `sku`             | string   | `WI-HOOD-001`                             |
 | `price`           | float    | `89.0` — **always read the price on the server, never trust the browser** |
-| `price_formatted` | string   | `$89`                                     |
+| `price_formatted` | string   | `€89`                                      |
 | `color`           | string   | `black` (slug)                            |
 | `color_label`     | string   | `Black`                                   |
 | `color_hex`       | string   | `#1a1a1a`                                 |

@@ -167,7 +167,7 @@
                     <p class="card_price">
                       <?php
                       $drops_price = get_sub_field( 'drops_price' );
-                      echo $drops_price ? esc_html( $drops_price ) : '$49.99';
+                      echo $drops_price ? esc_html( $drops_price ) : '€49.99';
                       ?>
                     </p>
                   </div>

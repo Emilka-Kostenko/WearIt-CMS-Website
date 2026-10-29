@@ -245,7 +245,7 @@ add_action( 'manage_wearit_order_posts_custom_column', function ( $col, $post_id
         echo esc_html( $order['name'] ) . '<br /><small>' . esc_html( $order['email'] ) . '</small>';
     }
     if ( $col === 'total' ) {
-        echo '$' . esc_html( number_format( $order['total'], 2 ) );
+        echo esc_html( wearit_cart_format_price( $order['total'] ) );
     }
     if ( $col === 'payment' ) {
         $paid  = $order['payment_status'] === 'paid';
@@ -306,21 +306,21 @@ function wearit_order_details_box( $post ) {
             <td><?php echo esc_html( $item['title'] ?? '' ); ?> <small><?php echo esc_html( $item['sku'] ?? '' ); ?></small></td>
             <td><?php echo esc_html( $item['size'] ?: '—' ); ?></td>
             <td><?php echo esc_html( $item['qty'] ?? 0 ); ?></td>
-            <td>$<?php echo esc_html( number_format( (float) ( $item['price'] ?? 0 ), 2 ) ); ?></td>
-            <td>$<?php echo esc_html( number_format( (float) ( $item['line_total'] ?? 0 ), 2 ) ); ?></td>
+            <td><?php echo esc_html( wearit_cart_format_price( (float) ( $item['price'] ?? 0 ) ) ); ?></td>
+            <td><?php echo esc_html( wearit_cart_format_price( (float) ( $item['line_total'] ?? 0 ) ) ); ?></td>
           </tr>
         <?php endforeach; ?>
       </tbody>
       <tfoot>
-        <tr><th colspan="4" style="text-align:right;">Subtotal</th><th>$<?php echo esc_html( number_format( $order['subtotal'], 2 ) ); ?></th></tr>
+        <tr><th colspan="4" style="text-align:right;">Subtotal</th><th><?php echo esc_html( wearit_cart_format_price( $order['subtotal'] ) ); ?></th></tr>
         <?php if ( $order['discount'] > 0 ) : ?>
-          <tr><th colspan="4" style="text-align:right;">Discount (<?php echo esc_html( $order['coupon'] ); ?>)</th><th>&minus;$<?php echo esc_html( number_format( $order['discount'], 2 ) ); ?></th></tr>
+          <tr><th colspan="4" style="text-align:right;">Discount (<?php echo esc_html( $order['coupon'] ); ?>)</th><th>&minus;<?php echo esc_html( wearit_cart_format_price( $order['discount'] ) ); ?></th></tr>
         <?php endif; ?>
-        <tr><th colspan="4" style="text-align:right;">Shipping</th><th>$<?php echo esc_html( number_format( $order['shipping'], 2 ) ); ?></th></tr>
+        <tr><th colspan="4" style="text-align:right;">Shipping</th><th><?php echo esc_html( wearit_cart_format_price( $order['shipping'] ) ); ?></th></tr>
         <?php if ( $order['fee'] > 0 ) : ?>
-          <tr><th colspan="4" style="text-align:right;"><?php echo esc_html( wearit_payment_label( $order['payment'] ) ); ?> fee</th><th>$<?php echo esc_html( number_format( $order['fee'], 2 ) ); ?></th></tr>
+          <tr><th colspan="4" style="text-align:right;"><?php echo esc_html( wearit_payment_label( $order['payment'] ) ); ?> fee</th><th><?php echo esc_html( wearit_cart_format_price( $order['fee'] ) ); ?></th></tr>
         <?php endif; ?>
-        <tr><th colspan="4" style="text-align:right;">Total</th><th>$<?php echo esc_html( number_format( $order['total'], 2 ) ); ?></th></tr>
+        <tr><th colspan="4" style="text-align:right;">Total</th><th><?php echo esc_html( wearit_cart_format_price( $order['total'] ) ); ?></th></tr>
       </tfoot>
     </table>
 

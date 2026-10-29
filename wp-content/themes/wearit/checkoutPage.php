@@ -235,7 +235,7 @@ $coupon_notice = wearit_coupon_notice();
               <p class="cart-summary__total-label">Total</p>
               <div class="cart-summary__total-row">
                 <span class="cart-summary__total-value"><?php echo esc_html( wearit_cart_format_price( $totals['total'] ) ); ?></span>
-                <span class="cart-summary__currency">USD</span>
+                <span class="cart-summary__currency">EUR</span>
               </div>
             </div>
 

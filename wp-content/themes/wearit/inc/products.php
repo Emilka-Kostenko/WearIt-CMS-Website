@@ -104,11 +104,11 @@ add_action( 'acf/init', function () {
                 'label'        => 'Price',
                 'name'         => 'price',
                 'type'         => 'number',
-                'instructions' => 'In US dollars, e.g. 89 or 89.90',
+                'instructions' => 'In euros, e.g. 89 or 89.90',
                 'required'     => 1,
                 'min'          => 0,
                 'step'         => 0.01,
-                'prepend'      => '$',
+                'prepend'      => '€',
             ],
             [
                 'key'           => 'field_wearit_color',
@@ -224,12 +224,12 @@ function wearit_format_size_range( array $sizes ) {
 }
 
 /**
- * Price as shown to the customer: "$89" or "$89.90".
+ * Price as shown to the customer: "€89" or "€89.90".
  */
 function wearit_format_price( $price ) {
     $price = (float) $price;
     $whole = ( floor( $price ) == $price );
-    return '$' . number_format( $price, $whole ? 0 : 2 );
+    return '€' . number_format( $price, $whole ? 0 : 2 );
 }
 
 /**

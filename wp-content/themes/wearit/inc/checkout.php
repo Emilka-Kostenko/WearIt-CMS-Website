@@ -132,7 +132,7 @@ function wearit_checkout_text( $name, $fallback = null ) {
  *   settles              'on_delivery' | 'before_shipping' | 'immediate'
  *                        when the money is expected, which decides what happens next
  *   needs_reference      true when the customer must quote the order number when paying
- *   fee                  flat surcharge in dollars, 0 for none
+ *   fee                  flat surcharge in euros, 0 for none
  *   enabled              false hides it from the checkout page
  */
 function wearit_payment_methods() {
@@ -407,13 +407,13 @@ function wearit_rest_checkout_session() {
     }
     $totals = wearit_checkout_totals( $cart, get_current_user_id() );
 
-    // Prices are in dollars on the site; Stripe wants cents.
+    // Prices are in euros on the site; Stripe wants cents.
     $line_items = [];
     foreach ( $cart['items'] as $item ) {
         $line_items[] = [
             'quantity'   => $item['qty'],
             'price_data' => [
-                'currency'     => 'usd',
+                'currency'     => 'eur',
                 'unit_amount'  => (int) round( $item['price'] * 100 ),
                 'product_data' => [
                     'name'     => $item['title'],
@@ -457,7 +457,7 @@ function wearit_rest_checkout_session() {
             'type'         => 'fixed_amount',
             'fixed_amount' => [
                 'amount'   => (int) round( $totals['shipping'] * 100 ),
-                'currency' => 'usd',
+                'currency' => 'eur',
             ],
         ],
     ] ];
@@ -602,7 +602,7 @@ function wearit_stripe_fulfill( $session_id ) {
         return 0;
     }
 
-    // Stripe amounts are cents; orders are stored in dollars like everything else on the site.
+    // Stripe amounts are cents; orders are stored in euros like everything else on the site.
     $items = [];
     foreach ( $lines['data'] as $line ) {
         $qty     = (int) $line['quantity'];
