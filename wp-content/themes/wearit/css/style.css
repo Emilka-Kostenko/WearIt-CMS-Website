@@ -225,13 +225,15 @@ button {
     --navbar-height: 60px;
   }
 
-  /* Show hamburger, hide desktop icon buttons (keep them inside mobile menu) */
+  /* Show hamburger; search + cart icons stay in the bar, just left of it */
   .navbar__hamburger {
     display: flex;
   }
 
   .navbar__actions {
-    display: none;
+    gap: 0.25rem;
+    margin-left: auto;
+    margin-right: 0.5rem;
   }
 
   /* Mobile nav: full-width dropdown */
@@ -341,6 +343,21 @@ button {
 
 .mini-cart__panel[hidden] {
   display: none;
+}
+
+/* Phones/tablets: ¼ of the width is too narrow to read, so the panel spans
+   the width under the navbar (like the mobile menu) and caps its height instead. */
+@media (max-width: 768px) {
+  .mini-cart__panel {
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    right: 0;
+    width: auto;
+    min-width: 0;
+    max-height: 60svh;
+    border-width: 0 0 1px;
+  }
 }
 
 .mini-cart__header {

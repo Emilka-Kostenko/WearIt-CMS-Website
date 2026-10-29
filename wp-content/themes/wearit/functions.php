@@ -18,7 +18,7 @@ add_action( 'wp_enqueue_scripts', function () {
         'wearit-style',
         get_template_directory_uri() . '/css/style.css',
         [],
-        '1.0.0'
+        '1.0.1'
     );
 } );
 

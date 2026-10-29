@@ -478,7 +478,7 @@ add_action( 'wp_enqueue_scripts', function () {
         'wearit-cart',
         get_template_directory_uri() . '/assets/js/cart.js',
         [],
-        '1.2.0',
+        '1.2.1',
         [ 'in_footer' => true, 'strategy' => 'defer' ]
     );
     wp_localize_script( 'wearit-cart', 'wearitCart', [

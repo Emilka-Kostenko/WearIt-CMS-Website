@@ -16,6 +16,15 @@
   const pageCount = document.getElementById('cart-page-count');
 
   function open() {
+    // On mobile the menu and the cart drop down in the same spot: close the menu first
+    const nav = document.getElementById('navbar-nav');
+    const hamburger = document.getElementById('hamburger');
+    if (nav && hamburger && nav.classList.contains('is-open')) {
+      nav.classList.remove('is-open');
+      hamburger.classList.remove('is-active');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+
     panel.hidden = false;
     toggle.setAttribute('aria-expanded', 'true');
   }
