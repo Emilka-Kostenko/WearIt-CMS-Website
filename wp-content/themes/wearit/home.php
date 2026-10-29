@@ -20,21 +20,21 @@
       <p class="blog-hero__eyebrow">
         <?php
         $eyebrow = get_field( 'blog_hero_eyebrow', get_option( 'page_for_posts' ) );
-        echo $eyebrow ? esc_html( $eyebrow ) : 'WearIt Editorial';
+        echo $eyebrow ? esc_html( $eyebrow ) : esc_html__( 'WearIt Editorial', 'wearit' );
         ?>
       </p>
 
       <h1 class="blog-hero__heading">
         <?php
         $heading = get_field( 'blog_hero_heading', get_option( 'page_for_posts' ) );
-        echo $heading ? esc_html( $heading ) : 'The Blog';
+        echo $heading ? esc_html( $heading ) : esc_html__( 'The Blog', 'wearit' );
         ?>
       </h1>
 
       <p class="blog-hero__subtitle">
         <?php
         $subtitle = get_field( 'blog_hero_subtitle', get_option( 'page_for_posts' ) );
-        echo $subtitle ? esc_html( $subtitle ) : 'Stories about fabric, form, and everything in between.';
+        echo $subtitle ? esc_html( $subtitle ) : esc_html__( 'Stories about fabric, form, and everything in between.', 'wearit' );
         ?>
       </p>
 
@@ -48,7 +48,7 @@
         <button class="cat-filter__toggle" id="cat-toggle" aria-expanded="false" aria-controls="cat-menu">
           <?php
           $current_cat = get_queried_object();
-          echo isset( $current_cat->name ) ? esc_html( strtoupper( $current_cat->name ) ) : 'CATEGORIES';
+          echo isset( $current_cat->name ) ? esc_html( mb_strtoupper( $current_cat->name ) ) : esc_html( mb_strtoupper( __( 'Categories', 'wearit' ) ) );
           ?>
           <span class="cat-filter__arrow" aria-hidden="true">&#8963;</span>
         </button>
@@ -56,7 +56,7 @@
           <li>
             <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>"
                class="cat-filter__option <?php echo ! is_category() ? 'is-active' : ''; ?>">
-              All
+              <?php esc_html_e( 'All', 'wearit' ); ?>
             </a>
           </li>
           <?php
@@ -99,10 +99,10 @@
 
     <!-- ── LATEST heading + post count ── -->
     <div class="blog-archive__header">
-      <h1 class="blog-archive__title">Latest</h1>
+      <h1 class="blog-archive__title"><?php esc_html_e( 'Latest', 'wearit' ); ?></h1>
       <?php if ( $wp_query->found_posts ) : ?>
         <span class="blog-archive__count">
-          <?php echo esc_html( $wp_query->found_posts ); ?> articles
+          <?php echo esc_html( sprintf( _n( '%d article', '%d articles', (int) $wp_query->found_posts, 'wearit' ), $wp_query->found_posts ) ); ?>
         </span>
       <?php endif; ?>
     </div>
@@ -170,7 +170,7 @@
 
               <!-- Read more -->
               <a href="<?php the_permalink(); ?>" class="post-card__read-more">
-                Read More &rarr;
+                <?php esc_html_e( 'Read More', 'wearit' ); ?> &rarr;
               </a>
 
             </div>
@@ -180,7 +180,7 @@
       </div>
 
       <!-- Pagination -->
-      <nav class="blog-pagination" aria-label="Blog pages">
+      <nav class="blog-pagination" aria-label="<?php esc_attr_e( 'Blog pages', 'wearit' ); ?>">
         <?php
         the_posts_pagination( [
           'prev_text' => '&larr; Newer',
@@ -190,7 +190,7 @@
       </nav>
 
     <?php else : ?>
-      <p class="blog-archive__empty">No posts yet. Check back soon.</p>
+      <p class="blog-archive__empty"><?php esc_html_e( 'No posts yet. Check back soon.', 'wearit' ); ?></p>
     <?php endif; ?>
 
   </div>

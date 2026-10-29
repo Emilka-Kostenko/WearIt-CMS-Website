@@ -139,15 +139,15 @@ function wearit_get_hero_slider() {
     return [
         'enabled'         => (bool) $enabled,
         'seconds'         => max( 0, (float) $get( 'hero_seconds', 3 ) ),
-        'tag'             => (string) $get( 'bw_tag', 'Members Only · 24–30 Nov' ),
-        'heading'         => (string) $get( 'bw_heading', 'Black Week' ),
-        'text'            => (string) $get( 'bw_text', 'Our biggest sale of the year. One week, every piece, no exclusions. Log in as a member and the discount applies at checkout. Small runs go fast, and nothing gets restocked.' ),
-        'primary_label'   => (string) $get( 'bw_primary_label', 'Shop Black Week' ),
+        'tag'             => (string) $get( 'bw_tag', __( 'Members Only · 24–30 Nov', 'wearit' ) ),
+        'heading'         => (string) $get( 'bw_heading', __( 'Black Week', 'wearit' ) ),
+        'text'            => (string) $get( 'bw_text', __( 'Our biggest sale of the year. One week, every piece, no exclusions. Log in as a member and the discount applies at checkout. Small runs go fast, and nothing gets restocked.', 'wearit' ) ),
+        'primary_label'   => (string) $get( 'bw_primary_label', __( 'Shop Black Week', 'wearit' ) ),
         'primary_url'     => (string) $get( 'bw_primary_url', get_post_type_archive_link( 'product' ) ?: '#' ),
-        'secondary_label' => (string) $get( 'bw_secondary_label', 'Become a Member' ),
+        'secondary_label' => (string) $get( 'bw_secondary_label', __( 'Become a Member', 'wearit' ) ),
         'secondary_url'   => (string) $get( 'bw_secondary_url', '#' ),
         'discount'        => (string) $get( 'bw_discount', '30' ),
-        'discount_label'  => (string) $get( 'bw_discount_label', 'Off everything' ),
+        'discount_label'  => (string) $get( 'bw_discount_label', __( 'Off everything', 'wearit' ) ),
     ];
 }
 

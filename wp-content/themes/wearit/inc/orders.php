@@ -97,6 +97,7 @@ function wearit_create_order( array $customer, array $items, array $totals ) {
 
     $method = $customer['payment'] ?? 'cod';
     update_post_meta( $order_id, '_wearit_payment', $method );
+    update_post_meta( $order_id, '_wearit_lang', wearit_lang() );
 
     // Every order starts unpaid. The method decides what happens next, not this file —
     // see wearit_payment_methods() in inc/checkout.php.

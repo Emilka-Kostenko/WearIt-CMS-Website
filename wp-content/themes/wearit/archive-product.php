@@ -21,8 +21,8 @@ $found     = (int) $GLOBALS['wp_query']->found_posts;
   <!-- ── HERO ── -->
   <section class="shop-hero">
     <div class="shop-hero__container">
-      <p class="shop-hero__eyebrow">Available now</p>
-      <h1 class="shop-hero__heading">All <span class="shop-hero__heading--accent">Products</span></h1>
+      <p class="shop-hero__eyebrow"><?php esc_html_e( 'Available now', 'wearit' ); ?></p>
+      <h1 class="shop-hero__heading"><?php esc_html_e( 'All', 'wearit' ); ?> <span class="shop-hero__heading--accent"><?php esc_html_e( 'Products', 'wearit' ); ?></span></h1>
     </div>
   </section>
 
@@ -30,18 +30,18 @@ $found     = (int) $GLOBALS['wp_query']->found_posts;
     <div class="shop-body__container">
 
       <!-- ── FILTERS ── -->
-      <aside class="shop-filters" aria-label="Product filters">
+      <aside class="shop-filters" aria-label="<?php esc_attr_e( 'Product filters', 'wearit' ); ?>">
 
         <div class="shop-filters__header">
-          <h2 class="shop-filters__title">Filters</h2>
+          <h2 class="shop-filters__title"><?php esc_html_e( 'Filters', 'wearit' ); ?></h2>
           <?php if ( wearit_has_active_filters() ) : ?>
-            <a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="shop-filters__clear">Clear filters</a>
+            <a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="shop-filters__clear"><?php esc_html_e( 'Clear filters', 'wearit' ); ?></a>
           <?php else : ?>
-            <span class="shop-filters__clear shop-filters__clear--disabled">Clear filters</span>
+            <span class="shop-filters__clear shop-filters__clear--disabled"><?php esc_html_e( 'Clear filters', 'wearit' ); ?></span>
           <?php endif; ?>
         </div>
 
-        <h3 class="shop-filters__group-title">Categories</h3>
+        <h3 class="shop-filters__group-title"><?php esc_html_e( 'Categories', 'wearit' ); ?></h3>
         <ul class="shop-filters__list">
           <?php if ( $categories && ! is_wp_error( $categories ) ) : foreach ( $categories as $cat ) :
             $active = in_array( $cat->slug, $filters['product_cat'], true );
@@ -59,7 +59,7 @@ $found     = (int) $GLOBALS['wp_query']->found_posts;
           <?php endforeach; endif; ?>
         </ul>
 
-        <h3 class="shop-filters__group-title shop-filters__group-title--spaced">Color</h3>
+        <h3 class="shop-filters__group-title shop-filters__group-title--spaced"><?php esc_html_e( 'Color', 'wearit' ); ?></h3>
         <ul class="shop-filters__swatches">
           <?php foreach ( $colors as $slug => $color ) :
             $active = in_array( $slug, $filters['color'], true );
@@ -87,7 +87,7 @@ $found     = (int) $GLOBALS['wp_query']->found_posts;
       <div class="shop-results">
 
         <p class="shop-results__count">
-          Showing <?php echo esc_html( $found ); ?> product<?php echo $found === 1 ? '' : 's'; ?>
+          <?php echo esc_html( sprintf( $found === 1 ? __( 'Showing %d product', 'wearit' ) : __( 'Showing %d products', 'wearit' ), $found ) ); ?>
         </p>
 
         <?php if ( have_posts() ) : ?>
@@ -98,8 +98,8 @@ $found     = (int) $GLOBALS['wp_query']->found_posts;
           </div>
         <?php else : ?>
           <div class="shop-results__empty">
-            <p class="shop-results__empty-title">No products match these filters</p>
-            <a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="shop-results__empty-link">Clear filters</a>
+            <p class="shop-results__empty-title"><?php esc_html_e( 'No products match these filters', 'wearit' ); ?></p>
+            <a href="<?php echo esc_url( get_post_type_archive_link( 'product' ) ); ?>" class="shop-results__empty-link"><?php esc_html_e( 'Clear filters', 'wearit' ); ?></a>
           </div>
         <?php endif; ?>
 

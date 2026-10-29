@@ -24,7 +24,7 @@ $cart = wearit_get_cart();
         </h1>
       </div>
       <p class="cart-hero__count" id="cart-page-count">
-        <?php echo esc_html( $cart['count'] ); ?> item<?php echo $cart['count'] === 1 ? '' : 's'; ?>
+        <?php echo esc_html( sprintf( $cart['count'] === 1 ? __( '%d item', 'wearit' ) : __( '%d items', 'wearit' ), $cart['count'] ) ); ?>
       </p>
     </div>
   </section>

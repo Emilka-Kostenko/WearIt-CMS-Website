@@ -18,7 +18,7 @@ add_action( 'wp_enqueue_scripts', function () {
         'wearit-style',
         get_template_directory_uri() . '/css/style.css',
         [],
-        '1.0.6'
+        '1.0.7'
     );
 } );
 
@@ -42,6 +42,7 @@ add_action( 'init', function () {
 } );
 
 // ── Products (post type, fields, shop filtering, demo data) ───
+require_once get_template_directory() . '/inc/i18n.php';
 require_once get_template_directory() . '/inc/products.php';
 require_once get_template_directory() . '/inc/seed-products.php';
 
@@ -86,7 +87,7 @@ function wearit_handle_contact_form() {
     }
 
     if ( ! isset( $_POST['wearit_contact_nonce'] ) || ! wp_verify_nonce( $_POST['wearit_contact_nonce'], 'wearit_contact_nonce' ) ) {
-        wp_die( 'Security check failed.' );
+        wp_die( esc_html( __( 'Security check failed.', 'wearit' ) ) );
     }
 
     $name    = sanitize_text_field( wp_unslash( $_POST['contact_name'] ?? '' ) );
@@ -125,12 +126,12 @@ function wearit_vip_signup() {
 
   // Honeypot: bots fill this in, people never see it.
   if ( ! empty( $_POST['website'] ) ) {
-    wp_send_json_success( [ 'message' => "You're on the list." ] );
+    wp_send_json_success( [ 'message' => __( 'You\'re on the list.', 'wearit' ) ] );
   }
 
   $email = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
   if ( ! is_email( $email ) ) {
-    wp_send_json_error( [ 'message' => 'Please enter a valid email address.' ] );
+    wp_send_json_error( [ 'message' => __( 'Please enter a valid email address.', 'wearit' ) ] );
   }
 
   $signups = get_option( 'wearit_vip_signups', [] );
@@ -148,7 +149,7 @@ function wearit_vip_signup() {
   }
 
   // Same answer whether new or already signed up, so emails can't be probed.
-  wp_send_json_success( [ 'message' => "You're on the list. Watch your inbox before Thursday 20:00." ] );
+  wp_send_json_success( [ 'message' => __( 'You\'re on the list. Watch your inbox before Thursday 20:00.', 'wearit' ) ] );
 }
 add_action( 'wp_ajax_wearit_vip_signup', 'wearit_vip_signup' );
 add_action( 'wp_ajax_nopriv_wearit_vip_signup', 'wearit_vip_signup' );

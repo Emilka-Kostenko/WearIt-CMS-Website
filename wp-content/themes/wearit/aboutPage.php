@@ -22,18 +22,18 @@ $video_id  = wearit_youtube_id( $video_url );
       <p class="shop-hero__eyebrow">
         <?php
         $eyebrow = get_field( 'about_eyebrow' );
-        echo $eyebrow ? esc_html( $eyebrow ) : 'Who we are';
+        echo $eyebrow ? esc_html( $eyebrow ) : esc_html__( 'Who we are', 'wearit' );
         ?>
       </p>
       <h1 class="shop-hero__heading">
         <?php
         $heading = get_field( 'about_heading' );
-        echo $heading ? esc_html( $heading ) : 'About';
+        echo $heading ? esc_html( $heading ) : esc_html_x( 'About', 'about page heading', 'wearit' );
         ?>
         <span class="shop-hero__heading--accent">
           <?php
           $accent = get_field( 'about_heading_accent' );
-          echo $accent ? esc_html( $accent ) : 'Us';
+          echo $accent ? esc_html( $accent ) : esc_html__( 'Us', 'wearit' );
           ?>
         </span>
       </h1>
@@ -48,19 +48,19 @@ $video_id  = wearit_youtube_id( $video_url );
         <h2 class="about-story__title">
           <?php
           $story_title = get_field( 'about_story_title' );
-          echo $story_title ? esc_html( $story_title ) : 'Built for the streets';
+          echo $story_title ? esc_html( $story_title ) : esc_html__( 'Built for the streets', 'wearit' );
           ?>
         </h2>
         <p class="about-story__text">
           <?php
           $story_text = get_field( 'about_story_text' );
-          echo $story_text ? esc_html( $story_text ) : 'We started WearIt because everything on the rails felt the same. Thin fabric, safe shapes, a logo doing the heavy lifting. We wanted the opposite — heavy cotton, sharp cuts, pieces that look better after a year than they did in the shop.';
+          echo $story_text ? esc_html( $story_text ) : esc_html__( 'We started WearIt because everything on the rails felt the same. Thin fabric, safe shapes, a logo doing the heavy lifting. We wanted the opposite — heavy cotton, sharp cuts, pieces that look better after a year than they did in the shop.', 'wearit' );
           ?>
         </p>
         <p class="about-story__text">
           <?php
           $story_text2 = get_field( 'about_story_text2' );
-          echo $story_text2 ? esc_html( $story_text2 ) : 'No investors, no shortcuts. Every drop is small, made properly, and gone when it is gone.';
+          echo $story_text2 ? esc_html( $story_text2 ) : esc_html__( 'No investors, no shortcuts. Every drop is small, made properly, and gone when it is gone.', 'wearit' );
           ?>
         </p>
       </div>
@@ -71,7 +71,7 @@ $video_id  = wearit_youtube_id( $video_url );
           <h2 class="about-video__title">
             <?php
             $video_title = get_field( 'about_video_title' );
-            echo $video_title ? esc_html( $video_title ) : 'See the last drop';
+            echo $video_title ? esc_html( $video_title ) : esc_html__( 'See the last drop', 'wearit' );
             ?>
           </h2>
 
@@ -88,7 +88,7 @@ $video_id  = wearit_youtube_id( $video_url );
               width="480"
               height="360"
             />
-            <button type="button" class="about-video__play" aria-label="Play the video">
+            <button type="button" class="about-video__play" aria-label="<?php esc_attr_e( 'Play the video', 'wearit' ); ?>">
               <span class="about-video__play-icon" aria-hidden="true">&#9654;</span>
             </button>
           </div>

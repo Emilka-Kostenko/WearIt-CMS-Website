@@ -11,13 +11,13 @@
                 <p class="contact__eyebrow">
                     <?php
                     $eyebrow = get_field( 'contact_eyebrow' );
-                    echo $eyebrow ? esc_html( $eyebrow ) : 'WearIt';
+                    echo $eyebrow ? esc_html( $eyebrow ) : esc_html__( 'WearIt', 'wearit' );
                     ?>
                 </p>
                 <h1 class="contact__heading">
                 <?php
                 $heading = get_field( 'contact_heading' );
-                echo $heading ? esc_html( $heading ) : 'Get in Touch';
+                echo $heading ? esc_html( $heading ) : esc_html__( 'Get in Touch', 'wearit' );
                 ?>
                 </h1>
             </div>
@@ -35,7 +35,7 @@
                     <img
                         class="contact__image"
                         src="<?php echo esc_url( get_template_directory_uri() . '/assets/hero-placeholder.jpg' ); ?>" 
-                        alt="Model in dark streetwear editorial"
+                        alt="<?php esc_attr_e( 'Model in dark streetwear editorial', 'wearit' ); ?>"
                     />
                 <?php endif; ?>
                 <div class="contact__image-fade" aria-hidden="true"></div>
@@ -50,20 +50,20 @@
                     <span class="contact__info-heading-line1">
                         <?php
                         $line1 = get_field( 'contact__info-heading-line1' );
-                        echo $line1 ? esc_html( $line1 ) : 'We read';
+                        echo $line1 ? esc_html( $line1 ) : esc_html__( 'We read', 'wearit' );
                         ?>
                     </span>
                     <span class="contact__info-heading-line2">
                         <?php
                         $line2 = get_field( 'contact__info-heading-line2' );
-                        echo $line2 ? esc_html( $line2 ) : 'Everything';
+                        echo $line2 ? esc_html( $line2 ) : esc_html__( 'Everything', 'wearit' );
                         ?>
                     </span>
                 </h2>
                 <p class="contact__info-description">
                     <?php
                     $description = get_field( 'contact__info-description' );
-                    echo $description ? esc_html( $description ) : 'Questions about sizing, a drop you missed, a wholesale inquiry, or just something you want to say — send it through. We respond to every message within 48 hours, usually faster.';
+                    echo $description ? esc_html( $description ) : esc_html__( 'Questions about sizing, a drop you missed, a wholesale inquiry, or just something you want to say — send it through. We respond to every message within 48 hours, usually faster.', 'wearit' );
                     ?>
                 </p>
             </div>
@@ -83,7 +83,7 @@
                             <img
                                 class="contact__info-mail-image"
                                 src="<?php echo esc_url( get_template_directory_uri() . '/assets/hero-placeholder.jpg' ); ?>" 
-                                alt="Model in dark streetwear editorial"
+                                alt="<?php esc_attr_e( 'Model in dark streetwear editorial', 'wearit' ); ?>"
                             />
                         <?php endif; ?>
                         <div class="contact__image-fade" aria-hidden="true"></div>
@@ -92,13 +92,13 @@
                         <p class="contact__info-mail-text1">
                             <?php
                             $mail_text1 = get_field( 'contact__info-mail-text1' );
-                            echo $mail_text1 ? esc_html( $mail_text1 ) : 'email';
+                            echo $mail_text1 ? esc_html( $mail_text1 ) : esc_html__( 'email', 'wearit' );
                             ?>
                         </p>
                         <p class="contact__info-mail-text2">
                             <?php
                             $mail_text2 = get_field( 'contact__info-mail-text2' );
-                            echo $mail_text2 ? esc_html( $mail_text2 ) : 'hello@wearit.com';
+                            echo $mail_text2 ? esc_html( $mail_text2 ) : esc_html__( 'hello@wearit.com', 'wearit' );
                             ?>
                         </p>
                     </div>
@@ -118,7 +118,7 @@
                             <img
                                 class="contact__info-intsragram-image"
                                 src="<?php echo esc_url( get_template_directory_uri() . '/assets/hero-placeholder.jpg' ); ?>" 
-                                alt="Model in dark streetwear editorial"
+                                alt="<?php esc_attr_e( 'Model in dark streetwear editorial', 'wearit' ); ?>"
                             />
                         <?php endif; ?>
                         <div class="contact__image-fade" aria-hidden="true"></div>
@@ -127,13 +127,13 @@
                         <p class="contact__info-instagram-text1">
                             <?php
                             $instragram_text1 = get_field( 'contact__info-instagram-text1' );
-                            echo $instragram_text1 ? esc_html( $instragram_text1 ) : 'instagram';
+                            echo $instragram_text1 ? esc_html( $instragram_text1 ) : esc_html__( 'instagram', 'wearit' );
                             ?>
                         </p>
                         <p class="contact__info-instagram-text2">
                             <?php
                             $instragram_text2 = get_field( 'contact__info-instagram-text2' );
-                            echo $instragram_text2 ? esc_html( $instragram_text2 ) : '@wearit.official';
+                            echo $instragram_text2 ? esc_html( $instragram_text2 ) : esc_html__( '@wearit.official', 'wearit' );
                             ?>
                         </p>
                     </div>
@@ -153,7 +153,7 @@
                             <img
                                 class="contact__info-location-image"
                                 src="<?php echo esc_url( get_template_directory_uri() . '/assets/hero-placeholder.jpg' ); ?>" 
-                                alt="Model in dark streetwear editorial"
+                                alt="<?php esc_attr_e( 'Model in dark streetwear editorial', 'wearit' ); ?>"
                             />
                         <?php endif; ?>
                         <div class="contact__image-fade" aria-hidden="true"></div>
@@ -162,13 +162,13 @@
                         <p class="contact__info-location-text1">
                             <?php
                             $location_text1 = get_field( 'contact__info-location-text1' );
-                            echo $location_text1 ? esc_html( $location_text1 ) : 'address';
+                            echo $location_text1 ? esc_html( $location_text1 ) : esc_html__( 'address', 'wearit' );
                             ?>
                         </p>
                         <p class="contact__info-location-text2">
                             <?php
                             $location_text2 = get_field( 'contact__info-location-text2' );
-                            echo $location_text2 ? esc_html( $location_text2 ) : 'East London, UK';
+                            echo $location_text2 ? esc_html( $location_text2 ) : esc_html__( 'East London, UK', 'wearit' );
                             ?>
                         </p>
                     </div>
@@ -178,7 +178,7 @@
                 <p class="contact__info-bottom-text">
                     <?php
                     $bottom_text = get_field( 'contact__info-bottom-text' );
-                    echo $bottom_text ? esc_html( $bottom_text ) : 'For returns and order issues, include your order number in the subject line. For press and wholesale, mark your subject accordingly — those go to a separate inbox.';
+                    echo $bottom_text ? esc_html( $bottom_text ) : esc_html__( 'For returns and order issues, include your order number in the subject line. For press and wholesale, mark your subject accordingly — those go to a separate inbox.', 'wearit' );
                     ?>
                 </p>
             </div>
@@ -201,24 +201,24 @@
                         <label for="name_input" class="contact__name-label">
                             <?php
                             $name_label = get_field( 'contact__name-label' );
-                            echo $name_label ? esc_html( $name_label ) : 'Name';
+                            echo $name_label ? esc_html( $name_label ) : esc_html__( 'Name', 'wearit' );
                             ?>
                         </label>
                         <input type="text" id="name_input" name="contact_name" class="contact__name-input contact__input" placeholder="<?php
                         $name_input_placeholder = get_field( 'contact__name-input' );
-                        echo $name_input_placeholder ? esc_attr( $name_input_placeholder ) : 'Your name';
+                        echo $name_input_placeholder ? esc_attr( $name_input_placeholder ) : esc_attr__( 'Your name', 'wearit' );
                         ?>" value="<?php echo esc_attr( wp_get_current_user()->display_name ); ?>" required />
                     </div>
                     <div class="contact__email">
                         <label for="email_input" class="contact__email-label">
                             <?php
                             $email_label = get_field( 'contact__email-label' );
-                            echo $email_label ? esc_html( $email_label ) : 'Email';
+                            echo $email_label ? esc_html( $email_label ) : esc_html__( 'Email', 'wearit' );
                             ?>
                         </label>
                         <input type="email" id="email_input" name="contact_email" class="contact__email-input contact__input" placeholder="<?php
                         $email_input_placeholder = get_field( 'contact__email-input' );
-                        echo $email_input_placeholder ? esc_attr( $email_input_placeholder ) : 'you@email.com';
+                        echo $email_input_placeholder ? esc_attr( $email_input_placeholder ) : esc_attr__( 'you@email.com', 'wearit' );
                         ?>" value="<?php echo esc_attr( wp_get_current_user()->user_email ); ?>" required /> <!-- took out that example.com pattern, it was blocking every real email bleh -->
                     </div>
                 </div>
@@ -227,12 +227,12 @@
                     <label for="subject_input" class="contact__subject-label">
                         <?php
                         $subject_label = get_field( 'contact__subject-label' );
-                        echo $subject_label ? esc_html( $subject_label ) : 'Subject';
+                        echo $subject_label ? esc_html( $subject_label ) : esc_html__( 'Subject', 'wearit' );
                         ?>
                     </label>
                     <input type="text" id="subject_input" name="contact_subject" class="contact__subject-input contact__input" placeholder="<?php
                     $subject_input_placeholder = get_field( 'contact__subject-input' );
-                    echo $subject_input_placeholder ? esc_attr( $subject_input_placeholder ) : 'What is this about?';
+                    echo $subject_input_placeholder ? esc_attr( $subject_input_placeholder ) : esc_attr__( 'What is this about?', 'wearit' );
                     ?>" required />
                 </div>
 
@@ -240,12 +240,12 @@
                     <label for="message_input" class="contact__message-label">
                         <?php
                         $message_label = get_field( 'contact__message-label' );
-                        echo $message_label ? esc_html( $message_label ) : 'Message';
+                        echo $message_label ? esc_html( $message_label ) : esc_html__( 'Message', 'wearit' );
                         ?>
                     </label>
                     <textarea id="message_input" name="contact_message" class="contact__message-input contact__input" rows="6" placeholder="<?php
                     $message_input_placeholder = get_field( 'contact__message-input' );
-                    echo $message_input_placeholder ? esc_attr( $message_input_placeholder ) : 'Write your message here...';
+                    echo $message_input_placeholder ? esc_attr( $message_input_placeholder ) : esc_attr__( 'Write your message here...', 'wearit' );
                     ?>" required></textarea>
                 </div>
 
@@ -253,13 +253,13 @@
                     <p class="contact__filler-note">
                         <?php
                         $filler_note = get_field( 'contact__filler-note' );
-                        echo $filler_note ? esc_html( $filler_note ) : 'We respond within 48 hours.';
+                        echo $filler_note ? esc_html( $filler_note ) : esc_html__( 'We respond within 48 hours.', 'wearit' );
                         ?>
                     </p>
                     <button type="submit" class="contact__submit">
                         <?php
                         $submit_text = get_field( 'contact__submit-text' );
-                        echo $submit_text ? esc_html( $submit_text ) : 'Send Message';
+                        echo $submit_text ? esc_html( $submit_text ) : esc_html__( 'Send Message', 'wearit' );
                         ?>
                         <span class="contact__submit-arrow" aria-hidden="true">&rarr;</span>
                     </button>

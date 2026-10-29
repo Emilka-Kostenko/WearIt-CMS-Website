@@ -1,9 +1,8 @@
-# Products — data guide for cart / checkout
+
 
 Products are a WordPress custom post type (`product`), not WooCommerce.
 All the code lives in `inc/products.php`. The shop page is `archive-product.php` (URL: `/products/`).
 
-## The one function you need
 
 ```php
 $product = wearit_get_product( $product_id );   // null if the ID is not a product

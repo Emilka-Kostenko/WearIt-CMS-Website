@@ -118,7 +118,7 @@ $cart     = wearit_get_cart();
 
           <!-- spam trap: off-screen and skipped by keyboard + screen readers; bots fill it in (see wearit_handle_register) -->
           <div class="account-trap" aria-hidden="true">
-            <label for="register_website">Leave this empty</label>
+            <label for="register_website"><?php esc_html_e( 'Leave this empty', 'wearit' ); ?></label>
             <input type="text" id="register_website" name="register_website" tabindex="-1" autocomplete="off" />
           </div>
 

@@ -3,11 +3,11 @@
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
   <!-- Breadcrumbs -->
-  <nav class="post-breadcrumbs" aria-label="Breadcrumb">
+  <nav class="post-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'wearit' ); ?>">
     <div class="site-container">
-      <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a>
+      <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'wearit' ); ?></a>
       <span class="separator">/</span>
-      <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>">Blog</a>
+      <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>"><?php esc_html_e( 'Blog', 'wearit' ); ?></a>
       <span class="separator">/</span>
       <span class="current"><?php the_title(); ?></span>
     </div>
@@ -38,7 +38,7 @@
       </div>
 
       <button id="toggle-read-more" class="btn-read-more" aria-expanded="false">
-        Read More &darr;
+        <?php esc_html_e( 'Read More', 'wearit' ); ?> &darr;
       </button>
     </div>
   </article>
@@ -46,12 +46,12 @@
   <!-- Discussion Section -->
   <section class="discussion-section">
     <div class="site-container post-container-narrow">
-      <h2 class="section-title">Discussion</h2>
+      <h2 class="section-title"><?php esc_html_e( 'Discussion', 'wearit' ); ?></h2>
 
       <!-- Success alert bar on submission -->
       <?php if ( isset( $_GET['comment_status'] ) && $_GET['comment_status'] === 'submitted' ) : ?>
         <div class="comment-alert-bar">
-          Comment posted successfully!
+          <?php esc_html_e( 'Comment posted successfully!', 'wearit' ); ?>
         </div>
       <?php endif; ?>
 
@@ -78,14 +78,14 @@
                   <div class="comment-body">
                     <div class="comment-meta">
                       <strong class="comment-author"><?php echo esc_html( $author_name ); ?></strong>
-                      <span class="comment-date"><?php echo esc_html( human_time_diff( strtotime( $comment->comment_date ), current_time( 'timestamp' ) ) . ' ago' ); ?></span>
+                      <span class="comment-date"><?php echo esc_html( sprintf( __( '%s ago', 'wearit' ), human_time_diff( strtotime( $comment->comment_date ), current_time( 'timestamp' ) ) ) ); ?></span>
                     </div>
                     <p class="comment-text"><?php echo nl2br( esc_html( $comment->comment_content ) ); ?></p>
                   </div>
                 </div>
             <?php endforeach;
         else : ?>
-            <p class="no-comments">No comments yet. Be the first to join the conversation.</p>
+            <p class="no-comments"><?php esc_html_e( 'No comments yet. Be the first to join the conversation.', 'wearit' ); ?></p>
         <?php endif; ?>
       </div>
 
@@ -99,28 +99,28 @@
         ] ); ?>
       <?php else : ?>
       <form action="<?php echo esc_url( site_url( '/wp-comments-post.php' ) ); ?>" method="post" id="discussion-form" class="discussion-form">
-        <h3>Join the Conversation</h3>
+        <h3><?php esc_html_e( 'Join the Conversation', 'wearit' ); ?></h3>
 
         <p class="logged-in-meta">
-          Logged in as <strong><?php echo esc_html( wp_get_current_user()->display_name ); ?></strong>.
+          <?php esc_html_e( 'Logged in as', 'wearit' ); ?> <strong><?php echo esc_html( wp_get_current_user()->display_name ); ?></strong>.
         </p>
 
         <div class="form-group">
-          <label for="comment">Comment</label>
-          <textarea name="comment" id="comment" rows="4" required placeholder="Add your take..."></textarea>
+          <label for="comment"><?php esc_html_e( 'Comment', 'wearit' ); ?></label>
+          <textarea name="comment" id="comment" rows="4" required placeholder="<?php esc_attr_e( 'Add your take...', 'wearit' ); ?>"></textarea>
         </div>
 
         <input type="hidden" name="comment_post_ID" value="<?php echo esc_attr( get_the_ID() ); ?>" id="comment_post_ID">
         <input type="hidden" name="comment_parent" id="comment_parent" value="0">
 
-        <button type="submit" class="btn-submit-comment">Post Comment</button>
+        <button type="submit" class="btn-submit-comment"><?php esc_html_e( 'Post Comment', 'wearit' ); ?></button>
       </form>
       <?php endif; ?>
 
       <!-- Bottom Nav Link -->
       <div class="bottom-nav">
         <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>" class="back-link">
-          &larr; Back to All Articles
+          &larr; <?php esc_html_e( 'Back to All Articles', 'wearit' ); ?>
         </a>
       </div>
     </div>
@@ -136,7 +136,7 @@
       readMoreBtn.addEventListener('click', function () {
         const isExpanded = postContent.classList.toggle('expanded');
         readMoreBtn.setAttribute('aria-expanded', isExpanded);
-        readMoreBtn.innerHTML = isExpanded ? 'Show Less &uarr;' : 'Read More &darr;';
+        readMoreBtn.innerHTML = isExpanded ? <?php echo wp_json_encode( __( 'Show Less', 'wearit' ) ); ?> + ' &uarr;' : <?php echo wp_json_encode( __( 'Read More', 'wearit' ) ); ?> + ' &darr;';
       });
     }
   });

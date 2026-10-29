@@ -11,7 +11,7 @@
         <p class="footer__tagline">
           <?php
           $tagline = get_field( 'footer_tagline' );
-          echo $tagline ? esc_html( $tagline ) : 'Built for the streets. Made to last.';
+          echo $tagline ? esc_html( $tagline ) : esc_html__( 'Built for the streets. Made to last.', 'wearit' );
           ?>
         </p>
       </div>
@@ -20,24 +20,24 @@
       <div class="footer__nav">
 
         <div class="footer__col">
-          <p class="footer__col-title">Customer Service</p>
+          <p class="footer__col-title"><?php esc_html_e( 'Customer Service', 'wearit' ); ?></p>
           <ul class="footer__col-links">
-            <li><a href="#" class="footer__link">Delivery</a></li>
-            <li><a href="#" class="footer__link">Returns</a></li>
-            <li><a href="#" class="footer__link">FAQ</a></li>
+            <li><a href="#" class="footer__link"><?php esc_html_e( 'Delivery', 'wearit' ); ?></a></li>
+            <li><a href="#" class="footer__link"><?php esc_html_e( 'Returns', 'wearit' ); ?></a></li>
+            <li><a href="#" class="footer__link"><?php esc_html_e( 'FAQ', 'wearit' ); ?></a></li>
           </ul>
         </div>
 
         <div class="footer__col">
-          <p class="footer__col-title">Information</p>
+          <p class="footer__col-title"><?php esc_html_e( 'Information', 'wearit' ); ?></p>
           <ul class="footer__col-links">
-                        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'about' ) ) ); ?>" class="footer__link">About</a></li>
-            <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'contact' ) ) ); ?>" class="footer__link">Contact</a></li>
+                        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'about' ) ) ); ?>" class="footer__link"><?php esc_html_e( 'About', 'wearit' ); ?></a></li>
+            <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'contact' ) ) ); ?>" class="footer__link"><?php esc_html_e( 'Contact', 'wearit' ); ?></a></li>
           </ul>
         </div>
 
         <div class="footer__col">
-          <p class="footer__col-title">Social Media</p>
+          <p class="footer__col-title"><?php esc_html_e( 'Social Media', 'wearit' ); ?></p>
           <ul class="footer__col-links">
             <li><a href="#" class="footer__link">Instagram</a></li>
             <li><a href="#" class="footer__link">Facebook</a></li>
@@ -52,7 +52,7 @@
       <p class="footer__copy">
         <?php
         $copy = get_field( 'footer_copyright' );
-        echo $copy ? esc_html( $copy ) : '&copy; ' . date( 'Y' ) . ' WearIt. All rights reserved.';
+        echo $copy ? esc_html( $copy ) : '&copy; ' . date( 'Y' ) . ' ' . esc_html__( 'WearIt. All rights reserved.', 'wearit' );
         ?>
       </p>
     

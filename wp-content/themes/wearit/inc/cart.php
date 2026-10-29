@@ -274,18 +274,21 @@ function wearit_cart_text( $name, $fallback = null ) {
     if ( $fallback === null ) {
         foreach ( wearit_cart_page_texts() as $group ) {
             if ( isset( $group[ $name ] ) ) {
-                return $group[ $name ][1];
+                return __( $group[ $name ][1], 'wearit' );
             }
         }
         return '';
     }
-    return $fallback;
+    return is_string( $fallback ) ? __( $fallback, 'wearit' ) : $fallback;
 }
 
 /**
  * Cart page prices always show cents, as in the design: 89 → "€89.00".
  */
 function wearit_cart_format_price( $price ) {
+    if ( function_exists( 'wearit_display_currency' ) && wearit_display_currency() === 'DKK' ) {
+        return wearit_format_dkk( $price );
+    }
     return '€' . number_format( (float) $price, 2 );
 }
 
@@ -418,7 +421,7 @@ function wearit_rest_cart_add( WP_REST_Request $request ) {
     $key = (string) $request['key'];
 
     if ( ! wearit_cart_resolve( $key ) ) {
-        return new WP_Error( 'wearit_cart_unavailable', 'This item is not available.', [ 'status' => 404 ] );
+        return new WP_Error( 'wearit_cart_unavailable', __( 'This item is not available.', 'wearit' ), [ 'status' => 404 ] );
     }
 
     $cart         = wearit_cart_get_raw();
@@ -478,12 +481,19 @@ add_action( 'wp_enqueue_scripts', function () {
         'wearit-cart',
         get_template_directory_uri() . '/assets/js/cart.js',
         [],
-        '1.2.1',
+        '1.3.0',
         [ 'in_footer' => true, 'strategy' => 'defer' ]
     );
     wp_localize_script( 'wearit-cart', 'wearitCart', [
         'addUrl'    => rest_url( 'wearit/v1/cart/add' ),
         'removeUrl' => rest_url( 'wearit/v1/cart/remove' ),
         'updateUrl' => rest_url( 'wearit/v1/cart/update' ),
+        'i18n'      => [
+            'adding'   => __( 'Adding…', 'wearit' ),
+            'added'    => __( 'Added', 'wearit' ),
+            'tryAgain' => __( 'Try again', 'wearit' ),
+            'itemOne'  => __( '%d item', 'wearit' ),
+            'itemMany' => __( '%d items', 'wearit' ),
+        ],
     ] );
 } );

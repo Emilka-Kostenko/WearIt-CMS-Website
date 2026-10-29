@@ -30,22 +30,22 @@ function wearit_email_order_lines( array $order ) {
             "%s x%d — %s\n",
             $item['title'] ?? '',
             $item['qty'] ?? 0,
-            wearit_cart_format_price( $item['line_total'] ?? 0 )
+            wearit_format_eur( $item['line_total'] ?? 0 )
         );
     }
 
     $lines .= "\n";
-    $lines .= 'Subtotal: ' . wearit_cart_format_price( $order['subtotal'] ) . "\n";
+    $lines .= sprintf( __( 'Subtotal: %s', 'wearit' ), wearit_format_eur( $order['subtotal'] ) ) . "\n";
     if ( $order['discount'] > 0 ) {
-        $lines .= wearit_checkout_text( 'checkout_discount_label', 'Discount' ) . ' (' . $order['coupon'] . '): -' . wearit_cart_format_price( $order['discount'] ) . "\n";
+        $lines .= wearit_checkout_text( 'checkout_discount_label', 'Discount' ) . ' (' . $order['coupon'] . '): -' . wearit_format_eur( $order['discount'] ) . "\n";
     }
-    $lines .= 'Shipping: ' . ( $order['shipping'] > 0 ? wearit_cart_format_price( $order['shipping'] ) : 'Free' ) . "\n";
+    $lines .= sprintf( __( 'Shipping: %s', 'wearit' ), $order['shipping'] > 0 ? wearit_format_eur( $order['shipping'] ) : __( 'Free', 'wearit' ) ) . "\n";
 
     if ( $order['fee'] > 0 ) {
-        $lines .= wearit_payment_label( $order['payment'] ) . ' fee: ' . wearit_cart_format_price( $order['fee'] ) . "\n";
+        $lines .= sprintf( __( '%1$s fee: %2$s', 'wearit' ), wearit_payment_label( $order['payment'] ), wearit_format_eur( $order['fee'] ) ) . "\n";
     }
 
-    $lines .= 'Total: ' . wearit_cart_format_price( $order['total'] ) . "\n";
+    $lines .= sprintf( __( 'Total: %s', 'wearit' ), wearit_format_eur( $order['total'] ) ) . "\n";
 
     return $lines;
 }
@@ -61,6 +61,10 @@ function wearit_email_address( array $order ) {
 // ── The customer's confirmation ───────────────────────────────
 
 function wearit_send_customer_email( $order_id ) {
+    return wearit_with_lang( wearit_order_lang( $order_id ), fn() => wearit_send_customer_email_now( $order_id ) );
+}
+
+function wearit_send_customer_email_now( $order_id ) {
 
     $order = wearit_get_order( $order_id );
     if ( ! $order || ! is_email( $order['email'] ) ) {
@@ -69,30 +73,30 @@ function wearit_send_customer_email( $order_id ) {
     }
 
     $shop    = get_bloginfo( 'name' );
-    $subject = $shop . ' — order ' . $order['reference'];
+    $subject = sprintf( __( '%1$s — order %2$s', 'wearit' ), $shop, $order['reference'] );
 
-    $body  = 'Thanks for your order, ' . $order['name'] . ".\n\n";
-    $body .= 'Order ' . $order['reference'] . ', placed ' . $order['date'] . ".\n\n";
+    $body  = sprintf( __( 'Thanks for your order, %s.', 'wearit' ), $order['name'] ) . "\n\n";
+    $body .= sprintf( __( 'Order %1$s, placed %2$s.', 'wearit' ), $order['reference'], $order['date'] ) . "\n\n";
 
-    $body .= "WHAT YOU ORDERED\n";
+    $body .= __( 'WHAT YOU ORDERED', 'wearit' ) . "\n";
     $body .= wearit_email_order_lines( $order ) . "\n";
 
-    $body .= "DELIVERING TO\n";
+    $body .= __( 'DELIVERING TO', 'wearit' ) . "\n";
     $body .= wearit_email_address( $order ) . "\n";
 
-    $body .= "PAYMENT — " . strtoupper( wearit_payment_label( $order['payment'] ) ) . "\n";
+    $body .= __( 'PAYMENT —', 'wearit' ) . ' ' . strtoupper( wearit_payment_label( $order['payment'] ) ) . "\n";
     $body .= wearit_payment_instructions( $order['payment'] ) . "\n";
 
     // Bank transfers need the reference quoted or we can't match the money to the order.
     if ( ! empty( wearit_payment_method( $order['payment'] )['needs_reference'] ) ) {
-        $body .= 'Payment reference: ' . $order['reference'] . "\n";
+        $body .= sprintf( __( 'Payment reference: %s', 'wearit' ), $order['reference'] ) . "\n";
     }
 
     if ( $order['notes'] ) {
-        $body .= "\nYOUR NOTES\n" . $order['notes'] . "\n";
+        $body .= "\n" . __( 'YOUR NOTES', 'wearit' ) . "\n" . $order['notes'] . "\n";
     }
 
-    $body .= "\nWe will email you again when it ships.\n";
+    $body .= "\n" . __( 'We will email you again when it ships.', 'wearit' ) . "\n";
     $body .= $shop . ' — ' . home_url( '/' ) . "\n";
 
     $sent = wp_mail( $order['email'], $subject, $body, wearit_email_headers( get_option( 'admin_email' ) ) );
@@ -104,13 +108,17 @@ function wearit_send_customer_email( $order_id ) {
 // ── The shop's notification ───────────────────────────────────
 
 function wearit_send_admin_email( $order_id ) {
+    return wearit_with_lang( 'en', fn() => wearit_send_admin_email_now( $order_id ) );
+}
+
+function wearit_send_admin_email_now( $order_id ) {
 
     $order = wearit_get_order( $order_id );
     if ( ! $order ) {
         return false;
     }
 
-    $subject = '[New order] ' . $order['reference'] . ' — ' . wearit_cart_format_price( $order['total'] );
+    $subject = '[New order] ' . $order['reference'] . ' — ' . wearit_format_eur( $order['total'] );
 
     $body  = 'New order ' . $order['reference'] . ', ' . $order['date'] . ".\n\n";
     $body .= 'Payment: ' . wearit_payment_label( $order['payment'] ) . "\n\n";
@@ -143,6 +151,10 @@ add_action( 'wearit_order_created', 'wearit_send_admin_email', 10, 1 );
 // ── Tell the customer when it ships ───────────────────────────
 
 add_action( 'wearit_order_status_changed', function ( $order_id, $status, $before ) {
+    wearit_with_lang( wearit_order_lang( $order_id ), fn() => wearit_send_shipped_email( $order_id, $status ) );
+}, 10, 3 );
+
+function wearit_send_shipped_email( $order_id, $status ) {
 
     if ( $status !== 'shipped' ) {
         return;
@@ -154,14 +166,14 @@ add_action( 'wearit_order_status_changed', function ( $order_id, $status, $befor
     }
 
     $shop    = get_bloginfo( 'name' );
-    $subject = $shop . ' — order ' . $order['reference'] . ' has shipped';
+    $subject = sprintf( __( '%1$s — order %2$s has shipped', 'wearit' ), $shop, $order['reference'] );
 
-    $body  = 'Good news, ' . $order['name'] . ".\n\n";
-    $body .= 'Order ' . $order['reference'] . " is on its way.\n\n";
-    $body .= "DELIVERING TO\n" . wearit_email_address( $order ) . "\n";
+    $body  = sprintf( __( 'Good news, %s.', 'wearit' ), $order['name'] ) . "\n\n";
+    $body .= sprintf( __( 'Order %s is on its way.', 'wearit' ), $order['reference'] ) . "\n\n";
+    $body .= __( 'DELIVERING TO', 'wearit' ) . "\n" . wearit_email_address( $order ) . "\n";
 
     if ( $order['payment'] === 'cod' ) {
-        $body .= 'Remember: ' . wearit_payment_instructions( 'cod' ) . "\n\n";
+        $body .= sprintf( __( 'Remember: %s', 'wearit' ), wearit_payment_instructions( 'cod' ) ) . "\n\n";
     }
 
     $body .= $shop . ' — ' . home_url( '/' ) . "\n";
@@ -170,5 +182,4 @@ add_action( 'wearit_order_status_changed', function ( $order_id, $status, $befor
     error_log( 'wearit_email: shipped mail for ' . $order['reference'] . ' returned ' . var_export( $sent, true ) );
 
     wearit_order_log( $order_id, 'Shipping confirmation emailed' );
-
-}, 10, 3 );
+}
