@@ -11,6 +11,18 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<!-- Skip link for keyboard users (WCAG 2.4.1). Target: #main, set below on the page's <main>. -->
+<a class="skip-link" href="#main">Skip to content</a>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Not every template's <main> has an id (single.php has no <main> at all), so find the content here.
+    const target = document.getElementById('main') || document.querySelector('main') || document.getElementById('navbar').nextElementSibling;
+    if (!target) return;
+    target.id = target.id || 'main';
+    target.setAttribute('tabindex', '-1'); // so focus actually moves there, not just the scroll
+  });
+</script>
+
 <header class="navbar" id="navbar">
   <div class="navbar__container">
 
@@ -39,6 +51,13 @@
             d="m15 15l6 6m-11-4a7 7 0 1 1 0-14a7 7 0 0 1 0 14" />
         </svg>
       </button>
+      <!-- Account — log in / register / overview (inc/account.php, accountPage.php) -->
+      <a href="<?php echo esc_url( wearit_account_url() ); ?>" class="navbar__icon-btn<?php echo is_user_logged_in() ? ' is-logged-in' : ''; ?>" aria-label="<?php echo is_user_logged_in() ? 'Your account' : 'Log in or create an account'; ?>">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8m-7 8a7 7 0 0 1 14 0" />
+        </svg>
+      </a>
       <!-- Mini-cart — logic in inc/cart.php + assets/js/cart.js -->
       <?php $cart_count = wearit_get_cart()['count']; ?>
       <div class="mini-cart" id="mini-cart">

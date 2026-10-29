@@ -41,6 +41,15 @@ $totals = wearit_cart_totals( $cart );
           </a>
         </div>
 
+      <?php elseif ( ! is_user_logged_in() ) : ?>
+
+        <!-- ── NOT LOGGED IN — checkout needs an account (inc/account.php) ── -->
+        <?php get_template_part( 'template-parts/login-required', null, [
+          'title'    => 'Log in to check out',
+          'text'     => 'You need a WearIt account to place an order. Your cart stays as it is while you log in or sign up.',
+          'redirect' => wearit_checkout_url(),
+        ] ); ?>
+
       <?php else : ?>
 
         <!-- the form wraps both columns so the button in the summary can submit it -->
@@ -65,11 +74,11 @@ $totals = wearit_cart_totals( $cart );
             <div class="checkout-fields__row"> <!-- name and email side by side -->
               <div class="checkout-field">
                 <label for="checkout_name"><?php echo esc_html( wearit_checkout_text( 'checkout_name_label' ) ); ?></label>
-                <input type="text" id="checkout_name" name="checkout_name" class="checkout-field__input" placeholder="Your name" required />
+                <input type="text" id="checkout_name" name="checkout_name" class="checkout-field__input" placeholder="Your name" value="<?php echo esc_attr( wp_get_current_user()->display_name ); ?>" required />
               </div>
               <div class="checkout-field">
                 <label for="checkout_email"><?php echo esc_html( wearit_checkout_text( 'checkout_email_label' ) ); ?></label>
-                <input type="email" id="checkout_email" name="checkout_email" class="checkout-field__input" placeholder="you@email.com" required />
+                <input type="email" id="checkout_email" name="checkout_email" class="checkout-field__input" placeholder="you@email.com" value="<?php echo esc_attr( wp_get_current_user()->user_email ); ?>" required />
               </div>
             </div>
 

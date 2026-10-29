@@ -89,24 +89,20 @@
         <?php endif; ?>
       </div>
 
-      <!-- Real WordPress Comment Form -->
+      <!-- Real WordPress Comment Form — logged-in only (inc/account.php) -->
+      <?php if ( ! is_user_logged_in() ) : ?>
+        <?php get_template_part( 'template-parts/login-required', null, [
+          'title'    => 'Log in to join the conversation',
+          'text'     => 'Comments are for WearIt members. Log in or create a free account to post.',
+          'redirect' => get_permalink() . '#discussion-form',
+        ] ); ?>
+      <?php else : ?>
       <form action="<?php echo esc_url( site_url( '/wp-comments-post.php' ) ); ?>" method="post" id="discussion-form" class="discussion-form">
         <h3>Join the Conversation</h3>
 
-        <?php if ( ! is_user_logged_in() ) : ?>
-          <div class="form-group">
-            <label for="author">Name</label>
-            <input type="text" name="author" id="author" required placeholder="Your name">
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" required placeholder="Your email (kept private)">
-          </div>
-        <?php else : ?>
-          <p class="logged-in-meta">
-            Logged in as <strong><?php echo esc_html( wp_get_current_user()->display_name ); ?></strong>.
-          </p>
-        <?php endif; ?>
+        <p class="logged-in-meta">
+          Logged in as <strong><?php echo esc_html( wp_get_current_user()->display_name ); ?></strong>.
+        </p>
 
         <div class="form-group">
           <label for="comment">Comment</label>
@@ -118,6 +114,7 @@
 
         <button type="submit" class="btn-submit-comment">Post Comment</button>
       </form>
+      <?php endif; ?>
 
       <!-- Bottom Nav Link -->
       <div class="bottom-nav">

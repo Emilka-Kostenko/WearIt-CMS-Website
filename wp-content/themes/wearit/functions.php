@@ -18,7 +18,7 @@ add_action( 'wp_enqueue_scripts', function () {
         'wearit-style',
         get_template_directory_uri() . '/css/style.css',
         [],
-        '1.0.1'
+        '1.0.4'
     );
 } );
 
@@ -63,13 +63,24 @@ require_once get_template_directory() . '/inc/order-emails.php';
 // ── SEO (meta descriptions + "Meta description" admin box) ────
 require_once get_template_directory() . '/inc/seo.php';
 
+// ── Accounts (log in, register; checkout/comments/contact need one) ──
+require_once get_template_directory() . '/inc/account.php';
+
 // ── Handle contact form submission ─────────────────────────────
 
 add_action( 'admin_post_wearit_contact', 'wearit_handle_contact_form' );
-add_action( 'admin_post_nopriv_wearit_contact', 'wearit_handle_contact_form' );
+add_action( 'admin_post_nopriv_wearit_contact', 'wearit_handle_contact_form' ); // hooked so logged-out posts get sent to log in
 
 function wearit_handle_contact_form() {
     error_log( 'wearit_contact: handler fired' );
+
+    // Only logged-in members can send mail (inc/account.php).
+    if ( ! is_user_logged_in() ) {
+        error_log( 'wearit_contact: not logged in' );
+        $back = wp_get_referer() ? wp_get_referer() : home_url( '/' );
+        wp_safe_redirect( wearit_account_url( $back ) );
+        exit;
+    }
 
     if ( ! isset( $_POST['wearit_contact_nonce'] ) || ! wp_verify_nonce( $_POST['wearit_contact_nonce'], 'wearit_contact_nonce' ) ) {
         wp_die( 'Security check failed.' );

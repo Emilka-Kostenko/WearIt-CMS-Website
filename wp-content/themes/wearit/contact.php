@@ -184,6 +184,13 @@
             </div>
         </section>
         <section class="contact__filler">
+            <?php if ( ! is_user_logged_in() ) : // sending mail needs an account (inc/account.php) ?>
+                <?php get_template_part( 'template-parts/login-required', null, [
+                    'title'    => 'Log in to send a message',
+                    'text'     => 'Messages are for WearIt members, so we can reply to the right account. Log in or create a free account first.',
+                    'redirect' => get_permalink(),
+                ] ); ?>
+            <?php else : ?>
             <form class="contact__filler-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post"> <!-- no handler hooked up yet, so this just posts into the void for now bleh -->
                 <input type="hidden" name="action" value="wearit_contact" />
                 <?php wp_nonce_field( 'wearit_contact_nonce', 'wearit_contact_nonce' ); ?>
@@ -199,7 +206,7 @@
                         <input type="text" id="name_input" name="contact_name" class="contact__name-input contact__input" placeholder="<?php
                         $name_input_placeholder = get_field( 'contact__name-input' );
                         echo $name_input_placeholder ? esc_attr( $name_input_placeholder ) : 'Your name';
-                        ?>" required />
+                        ?>" value="<?php echo esc_attr( wp_get_current_user()->display_name ); ?>" required />
                     </div>
                     <div class="contact__email">
                         <label for="email_input" class="contact__email-label">
@@ -211,7 +218,7 @@
                         <input type="email" id="email_input" name="contact_email" class="contact__email-input contact__input" placeholder="<?php
                         $email_input_placeholder = get_field( 'contact__email-input' );
                         echo $email_input_placeholder ? esc_attr( $email_input_placeholder ) : 'you@email.com';
-                        ?>" required /> <!-- took out that example.com pattern, it was blocking every real email bleh -->
+                        ?>" value="<?php echo esc_attr( wp_get_current_user()->user_email ); ?>" required /> <!-- took out that example.com pattern, it was blocking every real email bleh -->
                     </div>
                 </div>
 
@@ -257,6 +264,7 @@
                     </button>
                 </div>
             </form>
+            <?php endif; ?>
         </section>
     </section>
 

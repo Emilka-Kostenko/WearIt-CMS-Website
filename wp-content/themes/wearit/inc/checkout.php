@@ -237,16 +237,23 @@ add_action( 'acf/init', function () {
 // ── Placing the order ─────────────────────────────────────────
 
 add_action( 'admin_post_wearit_checkout', 'wearit_handle_checkout' );
-add_action( 'admin_post_nopriv_wearit_checkout', 'wearit_handle_checkout' ); // customers aren't logged in
+add_action( 'admin_post_nopriv_wearit_checkout', 'wearit_handle_checkout' ); // hooked so logged-out posts get sent to log in, not a blank page
 
 function wearit_handle_checkout() {
     error_log( 'wearit_checkout: handler fired' );
 
+    $redirect = wearit_checkout_url();
+
+    // Only customers with an account can order (inc/account.php).
+    if ( ! is_user_logged_in() ) {
+        error_log( 'wearit_checkout: not logged in' );
+        wp_safe_redirect( wearit_account_url( $redirect ) );
+        exit;
+    }
+
     if ( ! isset( $_POST['wearit_checkout_nonce'] ) || ! wp_verify_nonce( $_POST['wearit_checkout_nonce'], 'wearit_checkout_nonce' ) ) {
         wp_die( 'Security check failed.' );
     }
-
-    $redirect = wearit_checkout_url();
 
     // What the customer typed. Everything else — prices, fees, titles — is read from the server below.
     $customer = [
