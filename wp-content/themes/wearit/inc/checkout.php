@@ -434,9 +434,8 @@ function wearit_rest_checkout_session() {
         'phone_number_collection'     => [ 'enabled' => 'false' ],
         'automatic_tax'               => [ 'enabled' => 'false' ],
         'submit_type'                 => 'auto',
-        'shipping_address_collection' => [ 'allowed_countries' => [ 'DK' ] ],
-        'name_collection'             => [ 'individual' => [ 'enabled' => 'true', 'optional' => 'true' ] ],
-        'integration_identifier'      => 'custom_embedded_web_0002',
+        'shipping_address_collection' => [ 'allowed_countries' => [ 'DK' ] ], // kept on purpose: card orders need a delivery address
+        'integration_identifier'      => 'custom_embedded_web_0001',
         'return_url'                  => add_query_arg( 'session_id', '{CHECKOUT_SESSION_ID}', wearit_thankyou_url() ),
         'metadata'                    => [ 'user_id' => get_current_user_id(), 'coupon' => $totals['coupon'] ],
     ];
@@ -746,7 +745,7 @@ add_action( 'wp_enqueue_scripts', function () {
         'wearit-checkout-stripe',
         get_template_directory_uri() . '/assets/js/checkout-stripe.js',
         [ 'stripe-js' ],
-        '1.0.2',
+        '1.0.3',
         [ 'in_footer' => true, 'strategy' => 'defer' ]
     );
     wp_localize_script( 'wearit-checkout-stripe', 'wearitStripe', [

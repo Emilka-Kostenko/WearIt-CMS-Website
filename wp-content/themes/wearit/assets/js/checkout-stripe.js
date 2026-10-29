@@ -13,18 +13,26 @@
   const placeOrder = pageForm.querySelector('button[type="submit"]:not([form])');
   let mounted = false;
 
+  // Matches the shop (css/style.css): black fields, white text, lime accent, square corners.
+  // The form is Stripe's iframe, so page CSS can't reach it — and it doesn't take `rules`,
+  // only these variables. Colours must be hex: Stripe rejects var(--…) and rgba() here.
   const appearance = {
     theme: 'night',
-    labels: 'auto',
+    labels: 'above',               // like the delivery fields above it
     inputs: 'spaced',
     variables: {
-      borderRadius: '4px',
-      colorBackground: '#ffffff',
-      colorDanger: '#df1b41',
-      colorPrimary: '#0570de',
-      colorSuccess: '#00c853',
-      colorText: '#30313d',
-      fontFamily: 'Montserrat',
+      borderRadius: '0px',
+      colorBackground: '#0d0d0d',  // --color-bg, same as .checkout-field__input
+      colorText: '#ffffff',        // --color-text
+      colorTextSecondary: '#a0a0a0', // --color-text-muted
+      colorTextPlaceholder: '#888888', // --shop-muted
+      colorPrimary: '#caff33',     // --color-accent: pay button, focus, selected
+      colorPrimaryText: '#0d0d0d', // dark text on lime, like .cart-button--primary
+      colorSuccess: '#caff33',
+      colorDanger: '#ff6b6b',      // a red that stays readable on black
+      // Barlow is the site font but only loads on the page, not inside Stripe's iframe,
+      // so Stripe falls back to the site's own fallback stack (--font-primary).
+      fontFamily: 'Barlow, "Helvetica Neue", Arial, sans-serif',
       fontSizeBase: '16px',
       spacingUnit: '4px',
     },
