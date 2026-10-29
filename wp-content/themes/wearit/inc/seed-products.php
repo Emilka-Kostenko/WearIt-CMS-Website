@@ -6,8 +6,8 @@
  * is skipped, so it never overwrites edits made in the admin.
  *
  * Run it from the admin:  Products → Seed demo products → click the button.
- * Images: every product uses the file assets/products/{slug}.jpg (or .webp/.png)
- * automatically (see wearit_get_product_image()); a featured image set in the admin wins.
+ * Images: every product uses the file assets/products/{slug}.webp (or .jpg/.png)
+ * automatically (see wearit_get_product_image()); a "Product image" or featured image set in the admin wins.
  */
 
 function wearit_seed_categories() {

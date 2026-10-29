@@ -53,10 +53,11 @@ A size-picker modal is planned for later; it can read `sizes` from the same func
 
 ## Editing products
 
-WP admin → **Products**. Fields: Price, Color, Sizes, "New" badge, In stock, SKU, plus category and featured image.
+WP admin → **Products**. Fields: Price, Color, Sizes, "New" badge, In stock, SKU, Product image, plus category and featured image.
 The "Order" box (Page Attributes) sets the order on the shop page (lowest first).
-Images: the featured image is used if set; otherwise the file `assets/products/{slug}.jpg` (or `.jpeg`, `.png`, `.webp`) in this theme.
-Only theme files are in git. Featured images uploaded in the admin live in `wp-content/uploads`, which is **not** in git.
+Images, first one found wins: the SCF **Product image**, the featured image, then the file `assets/products/{slug}.webp` (or `.jpg`, `.jpeg`, `.png`) in this theme.
+JPG/PNG uploads get their resized copies (e.g. `product-card`) saved as WebP automatically.
+Only theme files are in git. Images uploaded in the admin live in `wp-content/uploads`, which is **not** in git.
 
 ## Demo data
 

@@ -154,6 +154,17 @@ add_action( 'acf/init', function () {
                 'type'         => 'text',
                 'instructions' => 'Unique product code, e.g. WI-HOOD-001',
             ],
+            [
+                'key'           => 'field_wearit_product_image',
+                'label'         => 'Product image',
+                'name'          => 'product_image',
+                'type'          => 'image',
+                'instructions'  => 'Shown on the shop card, in the cart and at checkout. Square works best. JPG and PNG uploads are saved as WebP automatically. Leave empty to use the featured image, or the file assets/products/{slug}.webp in the theme.',
+                'return_format' => 'id',
+                'preview_size'  => 'medium',
+                'library'       => 'all',
+                'mime_types'    => 'jpg, jpeg, png, webp',
+            ],
         ],
         'location' => [
             [ [ 'param' => 'post_type', 'operator' => '==', 'value' => 'product' ] ],
@@ -168,6 +179,16 @@ add_action( 'acf/init', function () {
 
 add_action( 'after_setup_theme', function () {
     add_image_size( 'product-card', 670, 670, true );
+} );
+
+// JPG and PNG uploads: the resized copies WordPress makes (product-card, medium, …) are saved as WebP.
+add_filter( 'image_editor_output_format', function ( $formats ) {
+    if ( ! wp_image_editor_supports( [ 'mime_type' => 'image/webp' ] ) ) {
+        return $formats;
+    }
+    $formats['image/jpeg'] = 'image/webp';
+    $formats['image/png']  = 'image/webp';
+    return $formats;
 } );
 
 // ── Font weight the product cards need (loaded only on the shop and cart pages) ──
@@ -236,15 +257,16 @@ function wearit_format_price( $price ) {
 }
 
 /**
- * Image for a product: the featured image if one is set, otherwise the
- * file assets/products/{slug}.jpg (or .jpeg/.png/.webp) inside the theme (travels with git),
+ * Image for a product: the SCF "Product image" if one is set, then the featured image,
+ * then the file assets/products/{slug}.webp (or .jpg/.jpeg/.png) inside the theme (travels with git),
  * otherwise null (the template shows a placeholder block).
  *
  * @return array|null [ 'url' => string, 'width' => int, 'height' => int ]
  */
 function wearit_get_product_image( $post_id, $size = 'product-card' ) {
-    if ( has_post_thumbnail( $post_id ) ) {
-        $src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $size );
+    $attachments = [ (int) wearit_product_field( 'product_image', $post_id ), (int) get_post_thumbnail_id( $post_id ) ];
+    foreach ( array_filter( $attachments ) as $attachment_id ) {
+        $src = wp_get_attachment_image_src( $attachment_id, $size );
         if ( $src ) {
             return [ 'url' => $src[0], 'width' => (int) $src[1], 'height' => (int) $src[2] ];
         }
@@ -252,7 +274,7 @@ function wearit_get_product_image( $post_id, $size = 'product-card' ) {
 
     $slug = get_post_field( 'post_name', $post_id );
     if ( $slug ) {
-        foreach ( [ 'jpg', 'jpeg', 'png', 'webp' ] as $ext ) {
+        foreach ( [ 'webp', 'jpg', 'jpeg', 'png' ] as $ext ) {
             $file = get_template_directory() . '/assets/products/' . $slug . '.' . $ext;
             if ( file_exists( $file ) ) {
                 $dims = getimagesize( $file );
