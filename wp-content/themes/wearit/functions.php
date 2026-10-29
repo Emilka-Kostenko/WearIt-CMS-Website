@@ -98,3 +98,40 @@ function wearit_handle_contact_form() {
     wp_safe_redirect( add_query_arg( 'contact', $sent ? 'success' : 'error', $redirect ) );
     exit;
 }
+
+/**
+ * VIP early-access signup (front page modal).
+ * Stores emails in the wp_options table and emails the site admin.
+ */
+function wearit_vip_signup() {
+  check_ajax_referer( 'wearit_vip_signup', 'nonce' );
+
+  // Honeypot: bots fill this in, people never see it.
+  if ( ! empty( $_POST['website'] ) ) {
+    wp_send_json_success( [ 'message' => "You're on the list." ] );
+  }
+
+  $email = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+  if ( ! is_email( $email ) ) {
+    wp_send_json_error( [ 'message' => 'Please enter a valid email address.' ] );
+  }
+
+  $signups = get_option( 'wearit_vip_signups', [] );
+  $emails  = wp_list_pluck( $signups, 'email' );
+
+  if ( ! in_array( $email, $emails, true ) ) {
+    $signups[] = [ 'email' => $email, 'time' => current_time( 'mysql' ) ];
+    update_option( 'wearit_vip_signups', $signups, false );
+
+    wp_mail(
+      get_option( 'admin_email' ),
+      'New VIP signup: ' . $email,
+      "New VIP early-access signup:\n\n" . $email . "\n\nTotal so far: " . count( $signups )
+    );
+  }
+
+  // Same answer whether new or already signed up, so emails can't be probed.
+  wp_send_json_success( [ 'message' => "You're on the list. Watch your inbox before Thursday 20:00." ] );
+}
+add_action( 'wp_ajax_wearit_vip_signup', 'wearit_vip_signup' );
+add_action( 'wp_ajax_nopriv_wearit_vip_signup', 'wearit_vip_signup' );

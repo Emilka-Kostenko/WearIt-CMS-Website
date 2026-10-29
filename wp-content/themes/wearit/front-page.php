@@ -327,7 +327,7 @@
 
       <div class="bf-panel__ctas">
         <a href="http://clothingwebshopcms-project.local/products/" class="bf-panel__cta bf-panel__cta--primary">Shop the Bundle</a>
-        <a href="#" class="bf-panel__cta bf-panel__cta--secondary">Get VIP Early Access</a>
+        <button type="button" class="bf-panel__cta bf-panel__cta--secondary" data-vip-open>Get VIP Early Access</button>
       </div>
 
       <ul class="bf-panel__schedule">
@@ -352,6 +352,34 @@
   </div>
 </aside>
 
+<div class="vip-backdrop" hidden></div>
+
+<div class="vip-modal" id="vip-modal" role="dialog" aria-modal="true" aria-labelledby="vip-title" aria-hidden="true" hidden>
+  <button type="button" class="vip-modal__close" aria-label="Close">&times;</button>
+
+  <p class="vip-modal__eyebrow">VIP vault · Thu 26 Nov, 20:00 CET</p>
+  <h2 class="vip-modal__title" id="vip-title">Get in early</h2>
+  <p class="vip-modal__text">
+    Drop your email and we'll send you the vault password before the public launch.
+    Limited spots, first come first served.
+  </p>
+
+  <form class="vip-modal__form" novalidate>
+    <input type="hidden" name="action" value="wearit_vip_signup">
+    <input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce( 'wearit_vip_signup' ) ); ?>">
+    <!-- honeypot: real users never see or fill this -->
+    <input type="text" name="website" class="vip-modal__hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <label for="vip-email">Email</label>
+    <input type="email" id="vip-email" name="email" class="vip-modal__input" placeholder="you@university.dk" required autocomplete="email">
+
+    <button type="submit" class="vip-modal__submit">Sign me up</button>
+    <p class="vip-modal__note">By signing up you agree to get emails about the drop. Unsubscribe any time.</p>
+  </form>
+
+  <p class="vip-modal__message" role="status" aria-live="polite"></p>
+</div>
+
 <script>
 (function () {
   var fab = document.querySelector('.bf-fab');
@@ -361,6 +389,7 @@
 
   var closeBtn = panel.querySelector('.bf-panel__close');
 
+  /* ── Black Friday panel ── */
   function openPanel() {
     overlay.hidden = false;
     requestAnimationFrame(function () {
@@ -386,8 +415,85 @@
   fab.addEventListener('click', openPanel);
   closeBtn.addEventListener('click', closePanel);
   overlay.addEventListener('click', closePanel);
+
+  /* ── VIP modal ── */
+  var vipOpen = document.querySelector('[data-vip-open]');
+  var vipModal = document.getElementById('vip-modal');
+  var vipBackdrop = document.querySelector('.vip-backdrop');
+  var vipForm = vipModal ? vipModal.querySelector('.vip-modal__form') : null;
+  var vipMsg = vipModal ? vipModal.querySelector('.vip-modal__message') : null;
+  var vipEmail = document.getElementById('vip-email');
+  var vipClose = vipModal ? vipModal.querySelector('.vip-modal__close') : null;
+  var vipAjaxUrl = '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>';
+
+  function openVip() {
+    vipModal.hidden = false;
+    vipBackdrop.hidden = false;
+    requestAnimationFrame(function () {
+      vipModal.classList.add('is-open');
+      vipBackdrop.classList.add('is-visible');
+    });
+    vipModal.setAttribute('aria-hidden', 'false');
+    vipEmail.focus();
+  }
+
+  function closeVip() {
+    vipModal.classList.remove('is-open');
+    vipBackdrop.classList.remove('is-visible');
+    vipModal.setAttribute('aria-hidden', 'true');
+    setTimeout(function () {
+      vipModal.hidden = true;
+      vipBackdrop.hidden = true;
+    }, 250);
+    if (vipOpen) vipOpen.focus();
+  }
+
+  if (vipOpen && vipModal && vipForm) {
+    vipOpen.addEventListener('click', openVip);
+    vipClose.addEventListener('click', closeVip);
+    vipBackdrop.addEventListener('click', closeVip);
+
+    vipForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      vipMsg.className = 'vip-modal__message';
+      vipMsg.textContent = '';
+
+      if (!vipEmail.value || !vipEmail.checkValidity()) {
+        vipMsg.classList.add('is-error');
+        vipMsg.textContent = 'Please enter a valid email address.';
+        vipEmail.focus();
+        return;
+      }
+
+      var submitBtn = vipForm.querySelector('.vip-modal__submit');
+      submitBtn.disabled = true;
+
+      fetch(vipAjaxUrl, { method: 'POST', body: new FormData(vipForm) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res && res.success) {
+            vipForm.hidden = true;
+            vipMsg.classList.add('is-success');
+            vipMsg.textContent = res.data.message;
+          } else {
+            vipMsg.classList.add('is-error');
+            vipMsg.textContent = (res && res.data && res.data.message) || 'Something went wrong. Try again.';
+            submitBtn.disabled = false;
+          }
+        })
+        .catch(function () {
+          vipMsg.classList.add('is-error');
+          vipMsg.textContent = 'Network error. Try again.';
+          submitBtn.disabled = false;
+        });
+    });
+  }
+
+  /* ── Escape: close the modal first, then the panel ── */
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && panel.classList.contains('is-open')) closePanel();
+    if (e.key !== 'Escape') return;
+    if (vipModal && !vipModal.hidden) { closeVip(); return; }
+    if (panel.classList.contains('is-open')) closePanel();
   });
 })();
 </script>
